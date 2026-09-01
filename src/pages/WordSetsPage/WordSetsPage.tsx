@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { useWordSets } from '../../hooks/useWordSets'
-import { insertWordSet, setWordsStatus, getWordIdsForSet } from '../../services/db'
+import { insertWordSet } from '../../services/db'
 import { useWords } from '../../hooks/useWords'
 import { getWordsBySetIds } from '../../services/wordsService'
 import { PageHeader } from '../../components/ui/PageHeader'
@@ -21,13 +21,11 @@ export function WordSetsPage() {
   const { session } = useAuth()
   const userId = session!.userId
   const { sets } = useWordSets(userId)
-  const { words, reload: reloadWords } = useWords(userId)
+  const { words } = useWords(userId)
   const [creating, setCreating] = useState(false)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const [selectionMode, setSelectionMode] = useState(false)
-  const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [activeTab, setActiveTab] = useState<Tab>('recommended')
   const [activeCategory, setActiveCategory] = useState<string>(ALL_CATEGORIES)
 
@@ -67,8 +65,6 @@ export function WordSetsPage() {
   function switchTab(tab: Tab) {
     setActiveTab(tab)
     setActiveCategory(ALL_CATEGORIES)
-    setSelectionMode(false)
-    setSelectedIds([])
   }
 
   function handleCreate() {
@@ -84,23 +80,6 @@ export function WordSetsPage() {
     setActiveTab('mine')
   }
 
-  function toggleSelectionMode() {
-    setSelectionMode((v) => !v)
-    setSelectedIds([])
-  }
-
-  function toggleSelect(id: string) {
-    setSelectedIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))
-  }
-
-  function applyBulkStatus(status: 'learned' | 'not_learned') {
-    const wordIds = selectedIds.flatMap((setId) => getWordIdsForSet(setId))
-    setWordsStatus(wordIds, status)
-    reloadWords()
-    setSelectionMode(false)
-    setSelectedIds([])
-  }
-
   return (
     <div className="word-sets-page">
       <PageHeader
@@ -110,16 +89,7 @@ export function WordSetsPage() {
             ? `${visibleSets.length} ${pluralizeRu(visibleSets.length, 'набор', 'набора', 'наборов')} · ${wordsCountLabel(visibleWordsCount)}`
             : undefined
         }
-        actions={
-          <>
-            {tabSets.length > 0 && (
-              <Button variant="ghost" onClick={toggleSelectionMode}>
-                {selectionMode ? 'Отмена' : 'Выбрать'}
-              </Button>
-            )}
-            <Button onClick={() => setCreating(true)}>+ Набор</Button>
-          </>
-        }
+        actions={<Button onClick={() => setCreating(true)}>+ Набор</Button>}
       />
 
       <div className="word-sets-page__tabs">
@@ -173,22 +143,9 @@ export function WordSetsPage() {
             <WordSetCard
               key={set.id}
               set={set}
-              selectionMode={selectionMode}
-              selected={selectedIds.includes(set.id)}
-              onToggleSelect={toggleSelect}
               showCategory={activeTab === 'recommended' && activeCategory === ALL_CATEGORIES}
             />
           ))}
-        </div>
-      )}
-
-      {selectionMode && selectedIds.length > 0 && (
-        <div className="word-sets-page__bulk-bar">
-          <span className="word-sets-page__bulk-count">Выбрано: {selectedIds.length}</span>
-          <Button variant="secondary" onClick={() => applyBulkStatus('not_learned')}>
-            Сбросить статусы
-          </Button>
-          <Button onClick={() => applyBulkStatus('learned')}>Отметить выученными</Button>
         </div>
       )}
 

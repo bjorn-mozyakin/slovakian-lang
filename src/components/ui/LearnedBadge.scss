@@ -1,0 +1,41 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.learned-badge {
+  @include m.button-reset;
+  @include m.focus-ring;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+  &--learned {
+    background: v.$color-success;
+    border-color: v.$color-success;
+    color: #fff;
+
+    // Тот же зелёный, что и у выбранных вкладок/чипов — узнаваемый акцент.
+    &:hover {
+      background: v.$color-primary;
+      border-color: v.$color-primary;
+    }
+  }
+
+  &--not-learned {
+    background: v.$color-surface;
+    border-color: v.$color-border;
+    color: v.$color-border;
+
+    &:hover {
+      border-color: v.$color-text-muted;
+      color: v.$color-text-muted;
+    }
+  }
+}

@@ -8,51 +8,14 @@
   gap: v.$space-3;
   padding: v.$space-3;
 
-  &--learned {
-    opacity: 0.6;
-  }
-
-  &__status {
-    @include m.button-reset;
-    @include m.focus-ring;
-    flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 2px solid v.$color-border;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: v.$color-success;
-    font-size: 16px;
-
-    .word-card--learned & {
-      background: v.$color-success;
-      border-color: v.$color-success;
-      color: #fff;
-    }
-  }
-
-  &__dots {
-    display: flex;
-    gap: 3px;
-  }
-
-  &__dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: v.$color-border;
-
-    &--filled {
-      background: v.$color-success;
-    }
-  }
-
   &__body {
     flex: 1;
     min-width: 0;
     cursor: pointer;
+
+    .word-card--learned & {
+      opacity: 0.6;
+    }
   }
 
   &__row {

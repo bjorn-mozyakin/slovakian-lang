@@ -131,11 +131,19 @@ export function TrainingPage() {
   )
 
   // Сколько слов из выбранных наборов ещё не отгадано в каждой конкретной
-  // игре — уже решённые в игре слова в ней больше не появятся.
+  // игре — уже решённые в игре слова в ней больше не появятся. Спринт —
+  // исключение: там всегда доступны все слова набора, без исключения по
+  // прогрессу (см. GamePage.tsx), поэтому для него просто общее число слов.
   const remainingByGame = useMemo(
-    () => new Map(GAMES.map((game) => [game.type, getNotLearnedPool(userId, selectedIds, game.type).length])),
+    () =>
+      new Map(
+        GAMES.map((game) => [
+          game.type,
+          game.type === 'sprint' ? selectedWordsCount : getNotLearnedPool(userId, selectedIds, game.type).length,
+        ]),
+      ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [userId, selectedIds.join(','), words],
+    [userId, selectedIds.join(','), words, selectedWordsCount],
   )
 
   function toggleExpand(category: string) {

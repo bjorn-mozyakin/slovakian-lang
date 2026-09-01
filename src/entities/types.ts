@@ -31,15 +31,6 @@ export const GENDER_LABELS: Record<Gender, string> = {
   neuter: 'средний',
 }
 
-/**
- * Прогресс тренировки считается по РАЗНЫМ играм: solvedInGames — список типов
- * игр, где слово хотя бы раз было отгадано правильно (без дублей). Слово
- * становится "выучено", когда таких игр набирается MASTERY_TARGET. Внутри
- * одной и той же игры уже решённое в ней слово больше не показывается —
- * только в тех играх, где оно ещё не отгадано.
- */
-export const MASTERY_TARGET = 3
-
 export interface Word {
   id: string
   userId: string
@@ -96,6 +87,15 @@ export const GAMES: GameInfo[] = [
   { type: 'memory', title: 'Мемори', description: 'Найди пары слово ↔ перевод' },
   { type: 'sprint', title: 'Спринт', description: 'Верно или неверно — на скорость' },
 ]
+
+/**
+ * Прогресс тренировки считается по РАЗНЫМ играм: solvedInGames — список типов
+ * игр, где слово хотя бы раз было отгадано правильно (без дублей). Слово
+ * становится "выучено", только когда пройдены ВСЕ игры из GAMES. Внутри
+ * одной и той же игры уже решённое в ней слово больше не показывается —
+ * только в тех играх, где оно ещё не отгадано.
+ */
+export const MASTERY_TARGET = GAMES.length
 
 export interface RoundResult {
   gameType: GameType

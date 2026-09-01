@@ -50,6 +50,13 @@
     @include m.truncate;
   }
 
+  &__end {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: v.$space-2;
+  }
+
   &__count {
     flex-shrink: 0;
     font-size: v.$font-size-sm;
@@ -57,13 +64,4 @@
     white-space: nowrap;
   }
 
-  &__checkbox {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-  }
-
-  &--selectable {
-    cursor: pointer;
-  }
 }

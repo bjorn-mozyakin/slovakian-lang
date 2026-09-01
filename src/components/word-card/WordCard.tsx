@@ -1,5 +1,6 @@
 import type { Word } from '../../entities/types'
-import { PART_OF_SPEECH_LABELS, GENDER_LABELS, MASTERY_TARGET, GAMES } from '../../entities/types'
+import { PART_OF_SPEECH_LABELS, GENDER_LABELS } from '../../entities/types'
+import { LearnedBadge } from '../ui/LearnedBadge'
 import './WordCard.scss'
 
 interface WordCardProps {
@@ -13,34 +14,14 @@ interface WordCardProps {
 
 export function WordCard({ word, onToggleStatus, onEdit, onDelete, categories }: WordCardProps) {
   const learned = word.status === 'learned'
-  const solvedCount = word.solvedInGames.length
-  const solvedTitles = word.solvedInGames.map((t) => GAMES.find((g) => g.type === t)?.title ?? t).join(', ')
 
   return (
     <div className={`word-card${learned ? ' word-card--learned' : ''}`}>
-      <button
-        className="word-card__status"
+      <LearnedBadge
+        learned={learned}
         onClick={() => onToggleStatus(word)}
-        aria-label={learned ? 'Отметить как невыученное' : 'Отметить как выученное'}
-        title={
-          learned
-            ? 'Выучено'
-            : `Прогресс: ${solvedCount}/${MASTERY_TARGET}${solvedTitles ? ` (решено в: ${solvedTitles})` : ''}`
-        }
-      >
-        {learned ? (
-          '✓'
-        ) : (
-          <span className="word-card__dots">
-            {Array.from({ length: MASTERY_TARGET }).map((_, i) => (
-              <span
-                key={i}
-                className={`word-card__dot${i < solvedCount ? ' word-card__dot--filled' : ''}`}
-              />
-            ))}
-          </span>
-        )}
-      </button>
+        title={learned ? 'Выучено — нажмите, чтобы сбросить' : 'Не выучено — нажмите, чтобы отметить выученным'}
+      />
 
       <div className="word-card__body" onClick={() => onEdit(word)}>
         <div className="word-card__row">
