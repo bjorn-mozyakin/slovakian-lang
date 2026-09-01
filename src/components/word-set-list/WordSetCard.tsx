@@ -9,9 +9,11 @@ interface WordSetCardProps {
   selectionMode?: boolean
   selected?: boolean
   onToggleSelect?: (id: string) => void
+  /** Показывать бейдж категории — скрывается, когда список и так отфильтрован по одной категории. */
+  showCategory?: boolean
 }
 
-export function WordSetCard({ set, selectionMode, selected, onToggleSelect }: WordSetCardProps) {
+export function WordSetCard({ set, selectionMode, selected, onToggleSelect, showCategory = true }: WordSetCardProps) {
   const count = useWordCountForSet(set.id)
 
   const content = (
@@ -27,9 +29,9 @@ export function WordSetCard({ set, selectionMode, selected, onToggleSelect }: Wo
       )}
       <div className="word-set-card__main">
         <span className="word-set-card__name">{set.name}</span>
-        {(set.category || set.description) && (
+        {((showCategory && set.category) || set.description) && (
           <div className="word-set-card__meta-row">
-            {set.category && <span className="word-set-card__category">{set.category}</span>}
+            {showCategory && set.category && <span className="word-set-card__category">{set.category}</span>}
             {set.description && <span className="word-set-card__description">{set.description}</span>}
           </div>
         )}

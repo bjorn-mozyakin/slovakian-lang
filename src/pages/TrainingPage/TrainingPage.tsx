@@ -6,28 +6,13 @@ import { useSelectedWordSets } from '../../hooks/useSelectedWordSets'
 import { useWords } from '../../hooks/useWords'
 import { getNotLearnedPool, getWordsBySetIds } from '../../services/wordsService'
 import { wordsCountLabel } from '../../utils/pluralize'
+import { UNCATEGORIZED, sortCategories } from '../../utils/categories'
 import { GAMES } from '../../entities/types'
 import type { WordSet } from '../../entities/types'
 import { PageHeader } from '../../components/ui/PageHeader'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { Button } from '../../components/ui/Button'
 import './TrainingPage.scss'
-
-const UNCATEGORIZED = 'Свои наборы'
-
-const CATEGORY_ORDER = [
-  'Еда',
-  'Дом и быт',
-  'Одежда и части тела',
-  'Люди и общество',
-  'Время, природа и животные',
-  'Язык и грамматика',
-  'Учёба, работа и техника',
-  'Город и транспорт',
-  'Здоровье и спорт',
-  'Абстрактные понятия',
-  UNCATEGORIZED,
-]
 
 function TrainingChip({
   set,
@@ -136,11 +121,7 @@ export function TrainingPage() {
     for (const list of groups.values()) {
       list.sort((a, b) => a.name.localeCompare(b.name, 'ru'))
     }
-    const orderedNames = [
-      ...CATEGORY_ORDER.filter((c) => groups.has(c)),
-      ...[...groups.keys()].filter((c) => !CATEGORY_ORDER.includes(c)).sort((a, b) => a.localeCompare(b, 'ru')),
-    ]
-    return orderedNames.map((name) => ({ category: name, sets: groups.get(name)! }))
+    return sortCategories(groups.keys()).map((name) => ({ category: name, sets: groups.get(name)! }))
   }, [sets])
 
   const selectedWordsCount = useMemo(

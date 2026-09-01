@@ -2,6 +2,60 @@
 @use '../../styles/mixins' as m;
 
 .word-sets-page {
+  &__tabs {
+    display: flex;
+    gap: v.$space-2;
+    margin-bottom: v.$space-4;
+  }
+
+  &__tab {
+    @include m.button-reset;
+    @include m.focus-ring;
+    flex: 1;
+    padding: v.$space-2 v.$space-3;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-sm;
+    background: v.$color-surface;
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+    text-align: center;
+
+    &--active {
+      background: v.$color-primary;
+      border-color: v.$color-primary;
+      color: #fff;
+    }
+  }
+
+  &__tab-count {
+    font-size: 11px;
+    opacity: 0.7;
+  }
+
+  &__categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: v.$space-2;
+    margin-bottom: v.$space-4;
+  }
+
+  &__category-chip {
+    @include m.button-reset;
+    @include m.focus-ring;
+    padding: v.$space-2 v.$space-4;
+    border-radius: 999px;
+    border: 1px solid v.$color-border;
+    background: v.$color-surface;
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+
+    &--active {
+      background: v.$color-primary;
+      border-color: v.$color-primary;
+      color: #fff;
+    }
+  }
+
   &__list {
     display: flex;
     flex-direction: column;

@@ -3,13 +3,19 @@ import { useAuth } from '../../hooks/useAuth'
 import { useWordSets } from '../../hooks/useWordSets'
 import { insertWordSet, setWordsStatus, getWordIdsForSet } from '../../services/db'
 import { useWords } from '../../hooks/useWords'
+import { getWordsBySetIds } from '../../services/wordsService'
 import { PageHeader } from '../../components/ui/PageHeader'
 import { Button } from '../../components/ui/Button'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { Modal } from '../../components/ui/Modal'
 import { WordSetCard } from '../../components/word-set-list/WordSetCard'
 import { pluralizeRu, wordsCountLabel } from '../../utils/pluralize'
+import { sortCategories } from '../../utils/categories'
 import './WordSetsPage.scss'
+
+const ALL_CATEGORIES = 'Все'
+
+type Tab = 'recommended' | 'mine'
 
 export function WordSetsPage() {
   const { session } = useAuth()
@@ -22,11 +28,48 @@ export function WordSetsPage() {
   const [error, setError] = useState<string | null>(null)
   const [selectionMode, setSelectionMode] = useState(false)
   const [selectedIds, setSelectedIds] = useState<string[]>([])
+  const [activeTab, setActiveTab] = useState<Tab>('recommended')
+  const [activeCategory, setActiveCategory] = useState<string>(ALL_CATEGORIES)
 
-  const sortedSets = useMemo(
-    () => [...sets].sort((a, b) => a.name.localeCompare(b.name, 'ru')),
+  // "Рекомендованные" — preset-наборы, заданные по умолчанию; "Мои" —
+  // созданные самим пользователем (isPreset = false).
+  const presetSets = useMemo(
+    () => sets.filter((s) => s.isPreset).sort((a, b) => a.name.localeCompare(b.name, 'ru')),
     [sets],
   )
+  const customSets = useMemo(
+    () => sets.filter((s) => !s.isPreset).sort((a, b) => a.name.localeCompare(b.name, 'ru')),
+    [sets],
+  )
+  const tabSets = activeTab === 'recommended' ? presetSets : customSets
+
+  // Категории есть только у preset-наборов — у "Моих" их не бывает, поэтому
+  // фильтр по категориям имеет смысл только на вкладке "Рекомендованные".
+  const categories = useMemo(
+    () => sortCategories(presetSets.map((s) => s.category).filter((c): c is string => !!c)),
+    [presetSets],
+  )
+
+  const visibleSets = useMemo(
+    () =>
+      activeTab === 'recommended' && activeCategory !== ALL_CATEGORIES
+        ? tabSets.filter((s) => s.category === activeCategory)
+        : tabSets,
+    [tabSets, activeTab, activeCategory],
+  )
+
+  const visibleWordsCount = useMemo(
+    () => getWordsBySetIds(userId, visibleSets.map((s) => s.id)).length,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [userId, visibleSets, words],
+  )
+
+  function switchTab(tab: Tab) {
+    setActiveTab(tab)
+    setActiveCategory(ALL_CATEGORIES)
+    setSelectionMode(false)
+    setSelectedIds([])
+  }
 
   function handleCreate() {
     if (!name.trim()) {
@@ -38,6 +81,7 @@ export function WordSetsPage() {
     setDescription('')
     setError(null)
     setCreating(false)
+    setActiveTab('mine')
   }
 
   function toggleSelectionMode() {
@@ -60,15 +104,15 @@ export function WordSetsPage() {
   return (
     <div className="word-sets-page">
       <PageHeader
-        title="Мои наборы"
+        title="Наборы"
         subtitle={
-          sets.length > 0
-            ? `${sets.length} ${pluralizeRu(sets.length, 'набор', 'набора', 'наборов')} · ${wordsCountLabel(words.length)} всего`
+          visibleSets.length > 0
+            ? `${visibleSets.length} ${pluralizeRu(visibleSets.length, 'набор', 'набора', 'наборов')} · ${wordsCountLabel(visibleWordsCount)}`
             : undefined
         }
         actions={
           <>
-            {sets.length > 0 && (
+            {tabSets.length > 0 && (
               <Button variant="ghost" onClick={toggleSelectionMode}>
                 {selectionMode ? 'Отмена' : 'Выбрать'}
               </Button>
@@ -78,21 +122,61 @@ export function WordSetsPage() {
         }
       />
 
-      {sets.length === 0 ? (
-        <EmptyState
-          title="Наборов пока нет"
-          description="Создайте первый набор слов, чтобы начать пополнять словарь"
-          action={<Button onClick={() => setCreating(true)}>Создать набор</Button>}
-        />
+      <div className="word-sets-page__tabs">
+        <button
+          className={`word-sets-page__tab${activeTab === 'recommended' ? ' word-sets-page__tab--active' : ''}`}
+          onClick={() => switchTab('recommended')}
+        >
+          Рекомендованные <span className="word-sets-page__tab-count">{presetSets.length}</span>
+        </button>
+        <button
+          className={`word-sets-page__tab${activeTab === 'mine' ? ' word-sets-page__tab--active' : ''}`}
+          onClick={() => switchTab('mine')}
+        >
+          Мои <span className="word-sets-page__tab-count">{customSets.length}</span>
+        </button>
+      </div>
+
+      {activeTab === 'recommended' && categories.length > 0 && (
+        <div className="word-sets-page__categories">
+          <button
+            className={`word-sets-page__category-chip${activeCategory === ALL_CATEGORIES ? ' word-sets-page__category-chip--active' : ''}`}
+            onClick={() => setActiveCategory(ALL_CATEGORIES)}
+          >
+            Все
+          </button>
+          {categories.map((category) => (
+            <button
+              key={category}
+              className={`word-sets-page__category-chip${activeCategory === category ? ' word-sets-page__category-chip--active' : ''}`}
+              onClick={() => setActiveCategory(category)}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {tabSets.length === 0 ? (
+        activeTab === 'mine' ? (
+          <EmptyState
+            title="Своих наборов пока нет"
+            description="Создайте набор, чтобы добавлять в него собственные слова"
+            action={<Button onClick={() => setCreating(true)}>Создать набор</Button>}
+          />
+        ) : (
+          <EmptyState title="Рекомендованных наборов нет" />
+        )
       ) : (
         <div className="word-sets-page__list">
-          {sortedSets.map((set) => (
+          {visibleSets.map((set) => (
             <WordSetCard
               key={set.id}
               set={set}
               selectionMode={selectionMode}
               selected={selectedIds.includes(set.id)}
               onToggleSelect={toggleSelect}
+              showCategory={activeTab === 'recommended' && activeCategory === ALL_CATEGORIES}
             />
           ))}
         </div>
