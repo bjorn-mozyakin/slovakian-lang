@@ -1,0 +1,53 @@
+@use 'variables' as v;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: v.$color-bg;
+  color: v.$color-text;
+  font-family: v.$font-family;
+  font-size: v.$font-size-base;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: v.$font-size-base;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: v.$color-primary-light;
+}

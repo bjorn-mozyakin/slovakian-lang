@@ -1,0 +1,14 @@
+@use '../../styles/variables' as v;
+
+.confirm-dialog {
+  &__message {
+    color: v.$color-text-muted;
+    margin-bottom: v.$space-5;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: v.$space-3;
+  }
+}

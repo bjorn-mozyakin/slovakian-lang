@@ -1,0 +1,94 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+.sprint-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: v.$space-5;
+  padding-top: v.$space-4;
+
+  &--setup {
+    padding-top: v.$space-7;
+  }
+
+  &__setup-title {
+    font-size: v.$font-size-md;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  &__setup-description {
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+    text-align: center;
+    max-width: 380px;
+  }
+
+  &__key-hint {
+    opacity: 0.7;
+    font-size: v.$font-size-sm;
+    font-weight: 400;
+  }
+
+  &__hud {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 420px;
+    font-size: v.$font-size-sm;
+    color: v.$color-text-muted;
+  }
+
+  &__timer {
+    font-weight: 700;
+    color: v.$color-primary;
+  }
+
+  &__score {
+    font-weight: 600;
+  }
+
+  &__streak {
+    font-weight: 700;
+  }
+
+  &__pair {
+    @include m.card;
+    width: 100%;
+    max-width: 420px;
+    padding: v.$space-6 v.$space-4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: v.$space-2;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+
+    &--right {
+      background: v.$color-primary-light;
+      border-color: v.$color-success;
+    }
+
+    &--wrong {
+      background: v.$color-danger-light;
+      border-color: v.$color-danger;
+    }
+  }
+
+  &__sk {
+    font-size: v.$font-size-xl;
+    font-weight: 700;
+  }
+
+  &__ru {
+    font-size: v.$font-size-lg;
+    color: v.$color-text-muted;
+  }
+
+  &__actions {
+    display: flex;
+    gap: v.$space-3;
+    width: 100%;
+    max-width: 420px;
+  }
+}

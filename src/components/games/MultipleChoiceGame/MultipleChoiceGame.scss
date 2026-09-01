@@ -1,0 +1,113 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+.mc-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: v.$space-5;
+  padding-top: v.$space-4;
+
+  &__progress {
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+  }
+
+  &__prompt {
+    font-size: v.$font-size-xl;
+    font-weight: 700;
+    text-align: center;
+    min-height: 40px;
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-3;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  &__option {
+    @include m.card;
+    @include m.button-reset;
+    @include m.focus-ring;
+    position: relative;
+    padding: v.$space-4;
+    text-align: center;
+    font-size: v.$font-size-md;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+
+    &:hover:not(:disabled) {
+      border-color: v.$color-primary;
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+
+    &--correct {
+      background: v.$color-primary-light;
+      border-color: v.$color-success;
+      color: v.$color-success;
+    }
+
+    &--wrong {
+      background: v.$color-danger-light;
+      border-color: v.$color-danger;
+      color: v.$color-danger;
+    }
+  }
+
+  &__option-key {
+    position: absolute;
+    left: v.$space-3;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: v.$color-primary-light;
+    color: v.$color-primary-hover;
+    font-size: v.$font-size-sm;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__dont-know {
+    @include m.button-reset;
+    @include m.focus-ring;
+    width: 100%;
+    max-width: 420px;
+    padding: v.$space-3;
+    text-align: center;
+    color: v.$color-text-muted;
+    border: 1px dashed v.$color-border;
+    border-radius: v.$radius-sm;
+
+    &:hover:not(:disabled) {
+      border-color: v.$color-primary;
+      color: v.$color-primary;
+    }
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.5;
+    }
+
+    &--wrong {
+      background: v.$color-danger-light;
+      border: 1px solid v.$color-danger;
+      color: v.$color-danger;
+      opacity: 1;
+    }
+  }
+
+  &__key-hint {
+    opacity: 0.7;
+    font-size: v.$font-size-sm;
+    font-weight: 400;
+  }
+}

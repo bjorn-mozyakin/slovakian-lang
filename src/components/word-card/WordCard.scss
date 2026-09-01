@@ -1,0 +1,117 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.word-card {
+  @include m.card;
+  display: flex;
+  align-items: center;
+  gap: v.$space-3;
+  padding: v.$space-3;
+
+  &--learned {
+    opacity: 0.6;
+  }
+
+  &__status {
+    @include m.button-reset;
+    @include m.focus-ring;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid v.$color-border;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: v.$color-success;
+    font-size: 16px;
+
+    .word-card--learned & {
+      background: v.$color-success;
+      border-color: v.$color-success;
+      color: #fff;
+    }
+  }
+
+  &__dots {
+    display: flex;
+    gap: 3px;
+  }
+
+  &__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: v.$color-border;
+
+    &--filled {
+      background: v.$color-success;
+    }
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+  }
+
+  &__row {
+    display: flex;
+    align-items: baseline;
+    gap: v.$space-2;
+    flex-wrap: wrap;
+  }
+
+  &__sk {
+    font-weight: 600;
+    @include m.truncate;
+  }
+
+  &__ru {
+    color: v.$color-text-muted;
+    @include m.truncate;
+  }
+
+  &__meta {
+    display: flex;
+    gap: v.$space-2;
+    margin-top: 2px;
+    flex-wrap: wrap;
+  }
+
+  &__tag {
+    font-size: v.$font-size-sm;
+    color: v.$color-primary-hover;
+    background: v.$color-primary-light;
+    padding: 1px v.$space-2;
+    border-radius: v.$radius-sm;
+  }
+
+  &__category {
+    font-size: 11px;
+    color: v.$color-text-muted;
+    background: v.$color-bg;
+    border: 1px solid v.$color-border;
+    padding: 0 v.$space-2;
+    border-radius: v.$radius-sm;
+  }
+
+  &__note {
+    font-size: v.$font-size-sm;
+    color: v.$color-text-muted;
+    @include m.truncate;
+  }
+
+  &__delete {
+    @include m.button-reset;
+    @include m.focus-ring;
+    flex-shrink: 0;
+    color: v.$color-text-muted;
+    padding: v.$space-2;
+    font-size: 16px;
+
+    &:hover {
+      color: v.$color-danger;
+    }
+  }
+}

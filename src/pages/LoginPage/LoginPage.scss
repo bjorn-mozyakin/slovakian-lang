@@ -1,0 +1,67 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.login-page {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: v.$space-5;
+
+  &__card {
+    @include m.card;
+    width: 100%;
+    max-width: 360px;
+    padding: v.$space-6 v.$space-5;
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-4;
+  }
+
+  &__title {
+    font-size: v.$font-size-xl;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__subtitle {
+    text-align: center;
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+    margin-top: -#{v.$space-3};
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-2;
+  }
+
+  &__label {
+    font-size: v.$font-size-sm;
+    color: v.$color-text-muted;
+  }
+
+  &__input {
+    padding: v.$space-3;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-sm;
+    margin-bottom: v.$space-2;
+
+    &:focus-visible {
+      outline: 2px solid v.$color-primary;
+    }
+  }
+
+  &__error {
+    color: v.$color-danger;
+    font-size: v.$font-size-sm;
+    margin: -#{v.$space-1} 0 0;
+  }
+
+  &__notice {
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+    text-align: center;
+  }
+}

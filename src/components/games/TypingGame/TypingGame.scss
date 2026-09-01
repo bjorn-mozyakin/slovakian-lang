@@ -1,0 +1,87 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+.typing-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: v.$space-5;
+  padding-top: v.$space-4;
+
+  &__progress {
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+  }
+
+  &__prompt {
+    font-size: v.$font-size-xl;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-3;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  &__input {
+    padding: v.$space-4;
+    border: 2px solid v.$color-border;
+    border-radius: v.$radius-md;
+    font-size: v.$font-size-lg;
+    text-align: center;
+
+    &:focus-visible {
+      outline: none;
+      border-color: v.$color-primary;
+    }
+
+    &--correct {
+      border-color: v.$color-success;
+      color: v.$color-success;
+    }
+
+    &--wrong {
+      border-color: v.$color-danger;
+      color: v.$color-danger;
+    }
+  }
+
+  &__panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: v.$space-1;
+    justify-content: center;
+  }
+
+  &__char {
+    @include m.button-reset;
+    @include m.focus-ring;
+    min-width: 32px;
+    padding: v.$space-1 v.$space-2;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-sm;
+    background: v.$color-surface;
+    font-size: v.$font-size-base;
+
+    &:hover {
+      border-color: v.$color-primary;
+      background: v.$color-primary-light;
+    }
+  }
+
+  &__answer {
+    text-align: center;
+    color: v.$color-danger;
+    font-size: v.$font-size-sm;
+  }
+
+  &__key-hint {
+    opacity: 0.7;
+    font-size: v.$font-size-sm;
+    font-weight: 400;
+  }
+}

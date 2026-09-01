@@ -1,0 +1,100 @@
+@use '../../styles/variables' as v;
+
+.word-set-detail-page {
+  &__description {
+    color: v.$color-text-muted;
+    margin-bottom: v.$space-4;
+  }
+
+  &__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: v.$space-2;
+    margin-bottom: v.$space-4;
+  }
+
+  &__add {
+    display: flex;
+    gap: v.$space-2;
+    margin-bottom: v.$space-4;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-2;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-4;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-2;
+  }
+
+  &__label {
+    font-size: v.$font-size-sm;
+    color: v.$color-text-muted;
+  }
+
+  &__input {
+    padding: v.$space-3;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-sm;
+    width: 100%;
+    font-family: inherit;
+    margin-bottom: v.$space-3;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: v.$space-3;
+  }
+
+  &__attach-list {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-2;
+    max-height: 320px;
+    overflow-y: auto;
+  }
+
+  &__attach-item {
+    display: flex;
+    align-items: center;
+    gap: v.$space-2;
+    padding: v.$space-3;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-sm;
+    background: v.$color-surface;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+      border-color: v.$color-primary;
+    }
+  }
+
+  &__attach-ru {
+    color: v.$color-text-muted;
+    flex: 1;
+  }
+
+  &__attach-plus {
+    color: v.$color-primary;
+    font-weight: 700;
+  }
+
+  &__empty-hint {
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+    text-align: center;
+    padding: v.$space-4 0;
+  }
+}

@@ -1,0 +1,111 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.result-page {
+  min-height: 60dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__card {
+    @include m.card;
+    padding: v.$space-6 v.$space-5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: v.$space-2;
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+  }
+
+  &__label {
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  &__score {
+    font-size: 48px;
+    font-weight: 800;
+    color: v.$color-primary;
+    line-height: 1.1;
+  }
+
+  &__score-caption {
+    color: v.$color-text-muted;
+    margin-bottom: v.$space-3;
+  }
+
+  &__points {
+    font-size: v.$font-size-md;
+    font-weight: 600;
+    color: v.$color-primary-hover;
+  }
+
+  &__mistakes,
+  &__notice {
+    font-size: v.$font-size-sm;
+    color: v.$color-text-muted;
+  }
+
+  &__leaderboard {
+    width: 100%;
+    margin-top: v.$space-3;
+    padding-top: v.$space-3;
+    border-top: 1px solid v.$color-border;
+  }
+
+  &__leaderboard-banner {
+    font-weight: 700;
+    color: v.$color-success;
+    margin-bottom: v.$space-2;
+  }
+
+  &__leaderboard-title {
+    font-size: v.$font-size-sm;
+    color: v.$color-text-muted;
+    margin-bottom: v.$space-2;
+  }
+
+  &__leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: v.$font-size-sm;
+
+    td {
+      padding: v.$space-2 v.$space-2;
+      text-align: left;
+      border-bottom: 1px solid v.$color-border;
+    }
+
+    td:first-child {
+      color: v.$color-text-muted;
+      width: 20px;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+  }
+
+  &__leaderboard-row--current td {
+    font-weight: 700;
+    color: v.$color-primary;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-2;
+    width: 100%;
+    margin-top: v.$space-4;
+  }
+
+  &__key-hint {
+    opacity: 0.7;
+    font-size: v.$font-size-sm;
+    font-weight: 400;
+  }
+}

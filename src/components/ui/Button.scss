@@ -1,0 +1,69 @@
+@use 'sass:color';
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.button {
+  @include m.button-reset;
+  @include m.focus-ring;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-2;
+  padding: v.$space-3 v.$space-5;
+  border-radius: v.$radius-md;
+  font-size: v.$font-size-base;
+  font-weight: 600;
+  transition: background-color 0.15s ease, opacity 0.15s ease, transform 0.05s ease;
+  min-height: 44px;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+
+  &--primary {
+    background: v.$color-primary;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background: v.$color-primary-hover;
+    }
+  }
+
+  &--secondary {
+    background: v.$color-primary-light;
+    color: v.$color-primary-hover;
+
+    &:hover:not(:disabled) {
+      background: color.adjust(v.$color-primary-light, $lightness: -4%);
+    }
+  }
+
+  &--danger {
+    background: v.$color-danger-light;
+    color: v.$color-danger;
+
+    &:hover:not(:disabled) {
+      background: color.adjust(v.$color-danger-light, $lightness: -4%);
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: v.$color-text-muted;
+    border: 1px solid v.$color-border;
+
+    &:hover:not(:disabled) {
+      background: v.$color-surface;
+    }
+  }
+}

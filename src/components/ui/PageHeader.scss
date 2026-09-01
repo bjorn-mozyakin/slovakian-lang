@@ -1,0 +1,30 @@
+@use '../../styles/variables' as v;
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: v.$space-3;
+  margin-bottom: v.$space-5;
+
+  &__titles {
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: v.$font-size-xl;
+    font-weight: 700;
+  }
+
+  &__subtitle {
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+    margin-top: 2px;
+  }
+
+  &__actions {
+    display: flex;
+    gap: v.$space-2;
+    flex-shrink: 0;
+  }
+}

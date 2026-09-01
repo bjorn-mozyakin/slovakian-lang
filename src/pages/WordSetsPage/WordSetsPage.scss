@@ -1,0 +1,76 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.word-sets-page {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-3;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-4;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-2;
+  }
+
+  &__label {
+    font-size: v.$font-size-sm;
+    color: v.$color-text-muted;
+  }
+
+  &__input {
+    padding: v.$space-3;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-sm;
+    width: 100%;
+    font-family: inherit;
+  }
+
+  &__error {
+    color: v.$color-danger;
+    font-size: v.$font-size-sm;
+    margin: 0;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: v.$space-3;
+  }
+
+  &__bulk-bar {
+    position: fixed;
+    left: v.$space-4;
+    right: v.$space-4;
+    bottom: calc(v.$bottom-nav-height + v.$space-3);
+    background: v.$color-surface;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-md;
+    box-shadow: v.$shadow-md;
+    padding: v.$space-3;
+    display: flex;
+    align-items: center;
+    gap: v.$space-2;
+    z-index: 5;
+    max-width: 640px;
+    margin: 0 auto;
+
+    @include m.desktop {
+      bottom: v.$space-4;
+      max-width: 780px;
+    }
+  }
+
+  &__bulk-count {
+    font-size: v.$font-size-sm;
+    color: v.$color-text-muted;
+    margin-right: auto;
+  }
+}

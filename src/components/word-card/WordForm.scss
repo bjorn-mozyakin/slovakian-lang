@@ -1,0 +1,74 @@
+@use '../../styles/variables' as v;
+
+.word-form {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-4;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-2;
+  }
+
+  &__label {
+    font-size: v.$font-size-sm;
+    color: v.$color-text-muted;
+  }
+
+  &__input {
+    padding: v.$space-3;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-sm;
+    background: v.$color-surface;
+    width: 100%;
+
+    &:focus-visible {
+      outline: 2px solid v.$color-primary;
+    }
+
+    &--textarea {
+      resize: vertical;
+      font-family: inherit;
+    }
+  }
+
+  &__sets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: v.$space-2;
+  }
+
+  &__set-tag {
+    display: flex;
+    align-items: center;
+    gap: v.$space-2;
+    font-size: v.$font-size-sm;
+    color: v.$color-text-muted;
+    background: v.$color-bg;
+    border: 1px solid v.$color-border;
+    padding: 2px v.$space-2;
+    border-radius: v.$radius-sm;
+  }
+
+  &__set-category {
+    font-size: 11px;
+    color: v.$color-primary-hover;
+    background: v.$color-primary-light;
+    padding: 0 v.$space-2;
+    border-radius: v.$radius-sm;
+  }
+
+  &__error {
+    color: v.$color-danger;
+    font-size: v.$font-size-sm;
+    margin: 0;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: v.$space-3;
+    margin-top: v.$space-2;
+  }
+}

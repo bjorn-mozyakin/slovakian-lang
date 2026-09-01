@@ -1,0 +1,57 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  @include m.desktop {
+    align-items: center;
+  }
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 22, 20, 0.45);
+  }
+
+  &__panel {
+    position: relative;
+    background: v.$color-surface;
+    border-radius: v.$radius-lg v.$radius-lg 0 0;
+    width: 100%;
+    max-width: 480px;
+    max-height: 88dvh;
+    overflow-y: auto;
+    padding: v.$space-5;
+    box-shadow: v.$shadow-md;
+
+    @include m.desktop {
+      border-radius: v.$radius-lg;
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: v.$space-4;
+  }
+
+  &__title {
+    font-size: v.$font-size-lg;
+    font-weight: 700;
+  }
+
+  &__close {
+    @include m.button-reset;
+    @include m.focus-ring;
+    font-size: v.$font-size-lg;
+    color: v.$color-text-muted;
+    padding: v.$space-2;
+  }
+}

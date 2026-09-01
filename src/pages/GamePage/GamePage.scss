@@ -1,0 +1,24 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.game-page {
+  &__empty-actions {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-2;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: v.$space-4;
+  }
+
+  &__exit {
+    @include m.button-reset;
+    @include m.focus-ring;
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+    padding: v.$space-2 v.$space-3;
+  }
+}

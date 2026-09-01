@@ -1,0 +1,84 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+.memory-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: v.$space-4;
+
+  &__progress {
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: v.$space-2;
+    width: 100%;
+    max-width: 420px;
+
+    @include m.tablet {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  &__card {
+    @include m.button-reset;
+    @include m.focus-ring;
+    position: relative;
+    aspect-ratio: 3 / 4;
+    perspective: 600px;
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+
+  &__card-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: v.$radius-sm;
+    backface-visibility: hidden;
+    transition: transform 0.3s ease;
+    padding: v.$space-1;
+    text-align: center;
+    font-size: v.$font-size-sm;
+    word-break: break-word;
+    border: 1px solid v.$color-border;
+
+    &--back {
+      background: v.$color-primary-light;
+      color: v.$color-primary;
+      font-weight: 700;
+      transform: rotateY(0deg);
+    }
+
+    &--front {
+      background: v.$color-surface;
+      transform: rotateY(-180deg);
+    }
+  }
+
+  &__card--flipped {
+    .memory-game__card-face--back {
+      transform: rotateY(180deg);
+    }
+
+    .memory-game__card-face--front {
+      transform: rotateY(0deg);
+    }
+  }
+
+  &__card--matched {
+    .memory-game__card-face--front {
+      background: v.$color-primary-light;
+      color: v.$color-success;
+      border-color: v.$color-success;
+    }
+  }
+}

@@ -1,0 +1,219 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.training-page {
+  &__filter {
+    margin-bottom: v.$space-6;
+  }
+
+  &__filter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: v.$space-3;
+  }
+
+  &__filter-toggle {
+    @include m.button-reset;
+    @include m.focus-ring;
+    display: flex;
+    align-items: center;
+    gap: v.$space-2;
+    min-width: 0;
+    flex: 1;
+    text-align: left;
+  }
+
+  &__filter-title,
+  &__games-title {
+    font-size: v.$font-size-md;
+    font-weight: 700;
+  }
+
+  &__filter-actions {
+    display: flex;
+    gap: v.$space-3;
+    flex-shrink: 0;
+  }
+
+  &__filter-link {
+    @include m.button-reset;
+    @include m.focus-ring;
+    color: v.$color-primary;
+    font-size: v.$font-size-sm;
+  }
+
+  &__categories {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-1;
+    margin-top: v.$space-3;
+  }
+
+  &__category {
+    border-bottom: 1px solid v.$color-border;
+    padding: v.$space-2 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__category-header {
+    display: flex;
+    align-items: center;
+    gap: v.$space-2;
+  }
+
+  &__category-checkbox {
+    @include m.button-reset;
+    @include m.focus-ring;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: v.$radius-sm;
+    border: 2px solid v.$color-border;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+
+    &[data-state='all'] {
+      background: v.$color-primary;
+      border-color: v.$color-primary;
+    }
+
+    &[data-state='some'] {
+      background: v.$color-primary-light;
+      border-color: v.$color-primary;
+      color: v.$color-primary-hover;
+    }
+  }
+
+  &__category-title {
+    @include m.button-reset;
+    @include m.focus-ring;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: v.$space-2;
+    padding: v.$space-2 0;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  &__category-chevron {
+    display: inline-block;
+    font-size: 11px;
+    color: v.$color-text-muted;
+    transition: transform 0.15s ease;
+
+    &--open {
+      transform: rotate(90deg);
+    }
+  }
+
+  &__category-meta {
+    margin-left: auto;
+    font-size: v.$font-size-sm;
+    font-weight: 400;
+    color: v.$color-text-muted;
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: v.$space-2;
+    margin-top: v.$space-2;
+    padding-left: 30px;
+  }
+
+  &__chip {
+    @include m.button-reset;
+    @include m.focus-ring;
+    display: inline-flex;
+    align-items: center;
+    gap: v.$space-1;
+    padding: v.$space-2 v.$space-4;
+    border-radius: 999px;
+    border: 1px solid v.$color-border;
+    background: v.$color-surface;
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+
+    &--active {
+      background: v.$color-primary;
+      border-color: v.$color-primary;
+      color: #fff;
+    }
+  }
+
+  &__chip-count {
+    font-size: 11px;
+    opacity: 0.65;
+  }
+
+  &__selected-count {
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+    @include m.truncate;
+  }
+
+  &__games-title {
+    margin-bottom: v.$space-3;
+  }
+
+  &__game-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: v.$space-3;
+
+    @include m.tablet {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__game-card {
+    @include m.card;
+    @include m.button-reset;
+    @include m.focus-ring;
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-1;
+    padding: v.$space-4;
+    text-align: left;
+
+    &:hover:not(:disabled) {
+      border-color: v.$color-primary;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__game-title {
+    font-weight: 600;
+  }
+
+  &__game-description {
+    font-size: v.$font-size-sm;
+    color: v.$color-text-muted;
+  }
+
+  &__game-remaining {
+    margin-top: v.$space-1;
+    font-size: v.$font-size-sm;
+    font-weight: 600;
+    color: v.$color-primary-hover;
+  }
+
+  &__hint {
+    margin-top: v.$space-3;
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+  }
+}
