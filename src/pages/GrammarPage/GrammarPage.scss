@@ -1,0 +1,205 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.grammar-page {
+  &__header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: v.$space-4;
+  }
+
+  &__exit {
+    @include m.button-reset;
+    @include m.focus-ring;
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+    padding: v.$space-2 v.$space-3;
+  }
+
+  &__result {
+    @include m.card;
+    padding: v.$space-5;
+    text-align: center;
+    margin-bottom: v.$space-5;
+  }
+
+  &__result-score {
+    font-size: 40px;
+    font-weight: 800;
+    color: v.$color-primary;
+    line-height: 1.1;
+  }
+
+  &__result-caption {
+    color: v.$color-text-muted;
+  }
+
+  &__games-title {
+    margin-bottom: v.$space-3;
+  }
+
+  &__group {
+    @include m.card;
+    padding: v.$space-4;
+  }
+
+  &__group-title {
+    font-size: v.$font-size-base;
+    font-weight: 700;
+    margin-bottom: v.$space-3;
+  }
+
+  &__tenses {
+    display: flex;
+    flex-wrap: wrap;
+    gap: v.$space-2;
+    margin-bottom: v.$space-4;
+  }
+
+  &__tense-chip {
+    @include m.button-reset;
+    @include m.focus-ring;
+    padding: v.$space-2 v.$space-4;
+    border-radius: 999px;
+    border: 1px solid v.$color-border;
+    background: v.$color-surface;
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+
+    &--active {
+      background: v.$color-primary;
+      border-color: v.$color-primary;
+      color: #fff;
+    }
+  }
+
+  &__game-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: v.$space-3;
+
+    @include m.tablet {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__game-card {
+    @include m.card;
+    @include m.button-reset;
+    @include m.focus-ring;
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-1;
+    padding: v.$space-4;
+    text-align: left;
+
+    &:hover:not(:disabled) {
+      border-color: v.$color-primary;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__game-title {
+    font-weight: 600;
+  }
+
+  &__game-description {
+    font-size: v.$font-size-sm;
+    color: v.$color-text-muted;
+  }
+
+  &__hint {
+    margin-top: v.$space-3;
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+  }
+}
+
+.grammar-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: v.$space-5;
+  padding-top: v.$space-4;
+
+  &__progress {
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+  }
+
+  &__prompt {
+    font-size: v.$font-size-xl;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-3;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  &__input {
+    padding: v.$space-4;
+    border: 2px solid v.$color-border;
+    border-radius: v.$radius-md;
+    font-size: v.$font-size-lg;
+    text-align: center;
+
+    &:focus-visible {
+      outline: none;
+      border-color: v.$color-primary;
+    }
+
+    &--correct {
+      border-color: v.$color-success;
+      color: v.$color-success;
+    }
+
+    &--wrong {
+      border-color: v.$color-danger;
+      color: v.$color-danger;
+    }
+  }
+
+  &__panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: v.$space-1;
+    justify-content: center;
+  }
+
+  &__char {
+    @include m.button-reset;
+    @include m.focus-ring;
+    min-width: 32px;
+    padding: v.$space-1 v.$space-2;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-sm;
+    background: v.$color-surface;
+    font-size: v.$font-size-base;
+
+    &:hover {
+      border-color: v.$color-primary;
+      background: v.$color-primary-light;
+    }
+  }
+
+  &__answer {
+    text-align: center;
+    color: v.$color-danger;
+    font-size: v.$font-size-sm;
+  }
+
+  &__key-hint {
+    opacity: 0.7;
+    font-size: v.$font-size-sm;
+    font-weight: 400;
+  }
+}

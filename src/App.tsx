@@ -9,6 +9,7 @@ import { ResultPage } from './pages/ResultPage/ResultPage'
 import { WordSetsPage } from './pages/WordSetsPage/WordSetsPage'
 import { WordSetDetailPage } from './pages/WordSetsPage/WordSetDetailPage'
 import { AllWordsPage } from './pages/AllWordsPage/AllWordsPage'
+import { GrammarPage } from './pages/GrammarPage/GrammarPage'
 import { SettingsPage } from './pages/SettingsPage/SettingsPage'
 import { useAuth } from './hooks/useAuth'
 import { applyDataFixes, syncPresetData } from './services/seed'
@@ -60,6 +61,7 @@ function App() {
           <Route path="/word-sets" element={<WordSetsPage />} />
           <Route path="/word-sets/:id" element={<WordSetDetailPage />} />
           <Route path="/words" element={<AllWordsPage />} />
+          <Route path="/grammar" element={<GrammarPage />} />
           <Route path="/settings" element={<SettingsPage />} />
         </Route>
 

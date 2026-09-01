@@ -5,6 +5,7 @@ const NAV_ITEMS = [
   { to: '/', label: 'Тренировка', icon: '🎯', end: true },
   { to: '/word-sets', label: 'Наборы', icon: '📚', end: false },
   { to: '/words', label: 'Все слова', icon: '📝', end: false },
+  { to: '/grammar', label: 'Грамматика', icon: '🧩', end: false },
   { to: '/settings', label: 'Настройки', icon: '⚙️', end: false },
 ]
 

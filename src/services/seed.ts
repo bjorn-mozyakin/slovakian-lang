@@ -81,7 +81,9 @@ const SET_CATEGORIES: Record<string, string> = {
   'Транспорт': 'Город и транспорт',
 
   'Здоровье и болезни': 'Здоровье и спорт',
-  'Спорт, хобби и досуг': 'Здоровье и спорт',
+  'Спорт': 'Здоровье и спорт',
+
+  'Хобби и досуг': 'Люди и общество',
 
   'Абстрактные понятия': 'Абстрактные понятия',
 }
@@ -738,7 +740,7 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['bolieť', 'болеть', 'verb'], ['liečiť', 'лечить', 'verb'], ['uzdraviť sa', 'выздороветь', 'verb'],
     ['odpočívať', 'отдыхать', 'verb'],
   ],
-  'Спорт, хобби и досуг': [
+  'Спорт': [
     ['šport', 'спорт', 'noun'], ['futbal', 'футбол', 'noun'], ['hokej', 'хоккей', 'noun'],
     ['tenis', 'теннис', 'noun'], ['beh', 'бег', 'noun'], ['plávanie', 'плавание', 'noun'],
     ['cvičenie', 'упражнение', 'noun'], ['hra', 'игра', 'noun'], ['lopta', 'мяч', 'noun'],
@@ -747,6 +749,11 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['gól', 'гол', 'noun'], ['štadión', 'стадион', 'noun'], ['lyže', 'лыжи', 'noun'],
     ['lyžovanie', 'катание на лыжах', 'noun'], ['korčule', 'коньки', 'noun'], ['tréning', 'тренировка', 'noun'],
     ['posilňovňa', 'тренажерный зал', 'noun'],
+    ['puk', 'шайба', 'noun'], ['bránka', 'ворота', 'noun'], ['kôš', 'корзина, кольцо', 'noun'],
+    ['raketa', 'ракетка', 'noun'], ['dres', 'спортивная форма', 'noun'], ['prilba', 'шлем', 'noun'],
+    ['rozhodca', 'судья', 'noun'], ['píšťalka', 'свисток', 'noun'],
+  ],
+  'Хобби и досуг': [
     ['hudba', 'музыка', 'noun'], ['pieseň', 'песня', 'noun'], ['film', 'фильм', 'noun'],
     ['seriál', 'сериал', 'noun'], ['fotografia', 'фотография', 'noun'], ['obrázok', 'картинка', 'noun'],
     ['umenie', 'искусство', 'noun'], ['kultúra', 'культура', 'noun'], ['správa', 'сообщение, новость', 'noun'],
@@ -1425,6 +1432,40 @@ export function applyDataFixes(userId: string): void {
           itemsChanged = true
         }
       }
+    }
+  }
+
+  // "Спорт, хобби и досуг" разделяем: спортивные слова уходят в новый набор
+  // "Спорт" (его создаст syncPresetData ниже, слова уже есть в словаре и
+  // просто переиспользуются), а сам набор переименовываем в "Хобби и досуг"
+  // и переносим в категорию "Люди и общество".
+  {
+    const mixedSet = sets.find((s) => s.userId === userId && s.name === 'Спорт, хобби и досуг' && s.isPreset)
+    if (mixedSet) {
+      const sportWords: Array<[sk: string, ru: string]> = [
+        ['šport', 'спорт'], ['futbal', 'футбол'], ['hokej', 'хоккей'], ['tenis', 'теннис'],
+        ['beh', 'бег'], ['plávanie', 'плавание'], ['cvičenie', 'упражнение'], ['hra', 'игра'],
+        ['lopta', 'мяч'], ['tím', 'команда'], ['zápas', 'матч'], ['súťaž', 'соревнование'],
+        ['víťaz', 'победитель'], ['prehra', 'поражение'], ['výhra', 'победа, выигрыш'],
+        ['gól', 'гол'], ['štadión', 'стадион'], ['lyže', 'лыжи'], ['lyžovanie', 'катание на лыжах'],
+        ['korčule', 'коньки'], ['tréning', 'тренировка'], ['posilňovňa', 'тренажерный зал'],
+      ]
+      for (const [sk, ru] of sportWords) {
+        const word = words.find(
+          (w) =>
+            w.userId === userId &&
+            w.slovakWord.toLowerCase() === sk.toLowerCase() &&
+            w.russianTranslation.toLowerCase() === ru.toLowerCase(),
+        )
+        if (!word) continue
+        const before = items.length
+        items = items.filter((i) => !(i.wordId === word.id && i.wordSetId === mixedSet.id))
+        if (items.length !== before) itemsChanged = true
+      }
+      sets = sets.map((s) =>
+        s.id === mixedSet.id ? { ...s, name: 'Хобби и досуг', category: 'Люди и общество', updatedAt: nowIso() } : s,
+      )
+      setsChanged = true
     }
   }
 
