@@ -3,7 +3,10 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import type { RoundResult } from '../../entities/types'
 import { GAMES } from '../../entities/types'
 import { useAuth } from '../../hooks/useAuth'
+import { useWordSets } from '../../hooks/useWordSets'
+import { useSelectedWordSets } from '../../hooks/useSelectedWordSets'
 import { getSprintScores } from '../../services/db'
+import { getNotLearnedPool, getWordsBySetIds } from '../../services/wordsService'
 import { Button } from '../../components/ui/Button'
 import './ResultPage.scss'
 
@@ -15,14 +18,23 @@ export function ResultPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const { session } = useAuth()
+  const userId = session!.userId
+  const { sets } = useWordSets(userId)
+  const { selectedIds } = useSelectedWordSets(sets)
   const result = location.state as RoundResult | undefined
+
+  const hasMoreWords = result
+    ? result.gameType === 'sprint'
+      ? getWordsBySetIds(userId, selectedIds).length > 0
+      : getNotLearnedPool(userId, selectedIds, result.gameType).length > 0
+    : false
 
   useEffect(() => {
     if (!result) return
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Enter') {
         e.preventDefault()
-        navigate(`/game/${result!.gameType}`, { replace: true })
+        hasMoreWords ? navigate(`/game/${result!.gameType}`, { replace: true }) : navigate('/')
       } else if (e.key === 'Escape') {
         e.preventDefault()
         navigate('/')
@@ -30,7 +42,7 @@ export function ResultPage() {
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [result, navigate])
+  }, [result, hasMoreWords, navigate])
 
   if (!result) {
     return <Navigate to="/" replace />
@@ -91,15 +103,20 @@ export function ResultPage() {
           </div>
         )}
 
+        {!hasMoreWords && (
+          <p className="result-page__notice">
+            В этой игре больше не осталось слов — смените наборы или выберите другую игру.
+          </p>
+        )}
+
         <div className="result-page__actions">
-          <Button fullWidth onClick={() => navigate(`/game/${result.gameType}`, { replace: true })}>
-            Повторить эту игру <span className="result-page__key-hint">Enter</span>
-          </Button>
+          {hasMoreWords && (
+            <Button fullWidth onClick={() => navigate(`/game/${result.gameType}`, { replace: true })}>
+              Играть ещё раз <span className="result-page__key-hint">Enter</span>
+            </Button>
+          )}
           <Button fullWidth variant="secondary" onClick={() => navigate('/')}>
-            Выбрать другую игру <span className="result-page__key-hint">Esc</span>
-          </Button>
-          <Button fullWidth variant="ghost" onClick={() => navigate('/')}>
-            Сменить наборы
+            К странице Тренировки <span className="result-page__key-hint">Esc</span>
           </Button>
         </div>
       </div>

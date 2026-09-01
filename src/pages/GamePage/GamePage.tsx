@@ -65,7 +65,7 @@ export function GamePage() {
       description="В выбранных наборах не осталось невыученных слов. Смените наборы или сбросьте статусы в настройках."
       action={
         <div className="game-page__empty-actions">
-          <Button onClick={() => navigate('/')}>Сменить наборы</Button>
+          <Button onClick={() => navigate('/')}>К странице Тренировки</Button>
           <Button variant="ghost" onClick={() => navigate('/settings')}>
             Настройки
           </Button>
@@ -80,7 +80,7 @@ export function GamePage() {
         <EmptyState
           title="В выбранных наборах нет слов"
           description="Выберите наборы, в которых есть хотя бы несколько слов."
-          action={<Button onClick={() => navigate('/')}>Сменить наборы</Button>}
+          action={<Button onClick={() => navigate('/')}>К странице Тренировки</Button>}
         />
       )
     }
@@ -104,7 +104,7 @@ export function GamePage() {
       <EmptyState
         title="Недостаточно слов для этой игры"
         description={`Нужно как минимум ${minRequired} невыученных слова в выбранных наборах.`}
-        action={<Button onClick={() => navigate('/')}>Сменить наборы</Button>}
+        action={<Button onClick={() => navigate('/')}>К странице Тренировки</Button>}
       />
     )
   }
