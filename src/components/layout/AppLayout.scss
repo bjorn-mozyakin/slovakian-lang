@@ -40,7 +40,11 @@
     backface-visibility: hidden;
 
     @include m.desktop {
-      position: static;
+      // На десктопе меню — это верхняя панель, а не нижняя: "примораживаем"
+      // её к верху при скролле, чтобы не приходилось прокручивать назад,
+      // чтобы кликнуть по пункту меню.
+      position: sticky;
+      top: 0;
       order: -1;
       justify-content: center;
       gap: v.$space-7;
