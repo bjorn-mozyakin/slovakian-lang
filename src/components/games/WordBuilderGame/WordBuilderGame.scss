@@ -43,6 +43,13 @@
     color: v.$color-danger;
     font-size: v.$font-size-sm;
     margin-top: -#{v.$space-3};
+    // Место под текст держим всегда — иначе появление ошибки сдвигает
+    // плитки и кнопки под ними вверх-вниз.
+    min-height: 1.4em;
+
+    &--hidden {
+      visibility: hidden;
+    }
   }
 
   &__tiles {

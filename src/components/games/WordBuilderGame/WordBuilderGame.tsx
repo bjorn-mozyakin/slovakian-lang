@@ -130,7 +130,9 @@ export function WordBuilderGame({ gameType, words, onFinish }: WordBuilderGamePr
         {builtWord || ' '}
       </div>
 
-      {status === 'wrong' && <p className="builder-game__answer">Верно: {answer}</p>}
+      <p className={`builder-game__answer${status === 'wrong' ? '' : ' builder-game__answer--hidden'}`}>
+        Верно: {answer}
+      </p>
 
       <div className="builder-game__tiles">
         {tiles.map((tile) => (

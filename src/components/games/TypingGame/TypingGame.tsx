@@ -117,9 +117,9 @@ export function TypingGame({ gameType, words, direction, onFinish }: TypingGameP
           </div>
         )}
 
-        {checked && !wasCorrect && (
-          <p className="typing-game__answer">Верный ответ: {answer}</p>
-        )}
+        <p className={`typing-game__answer${checked && !wasCorrect ? '' : ' typing-game__answer--hidden'}`}>
+          Верный ответ: {answer}
+        </p>
 
         <Button type="submit" fullWidth>
           {checked ? (index + 1 >= words.length ? 'Завершить' : 'Далее') : 'Проверить'}

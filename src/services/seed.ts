@@ -196,8 +196,7 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['električka', 'трамвай'], ['stanica', 'станция'], ['trolejbus', 'троллейбус'],
     ['lístok', 'билет'], ['batožina', 'багаж'], ['kufor', 'чемодан'], ['pas', 'паспорт'],
     ['mapa', 'карта'], ['výlet', 'поездка, экскурсия'], ['doprava', 'транспорт'],
-    ['premávka', 'дорожное движение'], ['smer', 'направление'], ['vchod', 'вход'],
-    ['východ', 'выход, восток'], ['sever', 'север'], ['juh', 'юг'], ['západ', 'запад'],
+    ['premávka', 'дорожное движение'],
     ['cestujúci', 'пассажир'], ['nástupište', 'платформа'], ['koľaj', 'рельс, путь'],
     ['meškanie', 'опоздание, задержка'], ['odchod', 'отправление'], ['príchod', 'прибытие'],
     ['spoj', 'рейс'], ['prestup', 'пересадка'], ['diaľnica', 'автомагистраль'],
@@ -477,6 +476,8 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['písomne', 'письменно', 'adverb'], ['ústne', 'устно', 'adverb'], ['zadarmo', 'бесплатно', 'adverb'],
   ],
   'Направления и расположение': [
+    ['smer', 'направление', 'noun'], ['vchod', 'вход', 'noun'], ['východ', 'выход, восток', 'noun'],
+    ['sever', 'север', 'noun'], ['juh', 'юг', 'noun'], ['západ', 'запад', 'noun'],
     ['tu', 'здесь, тут', 'adverb'], ['tam', 'там', 'adverb'], ['sem', 'сюда', 'adverb'],
     ['von', 'наружу', 'adverb'], ['dnu', 'внутрь', 'adverb'], ['hore', 'наверху, вверх', 'adverb'],
     ['dole', 'внизу, вниз', 'adverb'], ['vľavo', 'слева', 'adverb'], ['vpravo', 'справа', 'adverb'],
@@ -1764,6 +1765,39 @@ export function applyDataFixes(userId: string): void {
       }
       sets = sets.map((s) => (s.id === placesSet.id ? { ...s, name: 'Места', updatedAt: nowIso() } : s))
       setsChanged = true
+    }
+  }
+
+  // Слова о направлениях переносим из "Транспорт" в "Направления и
+  // расположение" (оба набора уже существуют — со связыванием, не только отвязкой).
+  {
+    const transportSet = sets.find((s) => s.userId === userId && s.name === 'Транспорт' && s.isPreset)
+    const directionsSet = sets.find((s) => s.userId === userId && s.name === 'Направления и расположение' && s.isPreset)
+    if (transportSet && directionsSet) {
+      const directionWords: Array<[sk: string, ru: string]> = [
+        ['smer', 'направление'],
+        ['vchod', 'вход'],
+        ['východ', 'выход, восток'],
+        ['sever', 'север'],
+        ['juh', 'юг'],
+        ['západ', 'запад'],
+      ]
+      for (const [sk, ru] of directionWords) {
+        const word = words.find(
+          (w) =>
+            w.userId === userId &&
+            w.slovakWord.toLowerCase() === sk.toLowerCase() &&
+            w.russianTranslation.toLowerCase() === ru.toLowerCase(),
+        )
+        if (!word) continue
+        const before = items.length
+        items = items.filter((i) => !(i.wordId === word.id && i.wordSetId === transportSet.id))
+        if (items.length !== before) itemsChanged = true
+        if (!items.some((i) => i.wordId === word.id && i.wordSetId === directionsSet.id)) {
+          items = [...items, { id: uuid(), wordId: word.id, wordSetId: directionsSet.id }]
+          itemsChanged = true
+        }
+      }
     }
   }
 

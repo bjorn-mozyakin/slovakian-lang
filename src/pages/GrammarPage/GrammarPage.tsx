@@ -27,6 +27,7 @@ export function GrammarPage() {
   const [selectedTenses, setSelectedTenses] = useState<Set<Tense>>(new Set(TENSES))
   const [direction, setDirection] = useState<Direction>('ru-sk')
   const [phrases, setPhrases] = useState<VerbPhrase[] | null>(null)
+  const [lastResult, setLastResult] = useState<{ correct: number; total: number } | null>(null)
   const [index, setIndex] = useState(0)
   const [correct, setCorrect] = useState(0)
   const [value, setValue] = useState('')
@@ -50,6 +51,7 @@ export function GrammarPage() {
 
   function handleStart(dir: Direction) {
     setDirection(dir)
+    setLastResult(null)
     setPhrases(buildRound(selectedTenses))
     setIndex(0)
     setCorrect(0)
@@ -69,6 +71,7 @@ export function GrammarPage() {
   function handleNext() {
     if (!phrases) return
     if (index + 1 >= phrases.length) {
+      setLastResult({ correct, total: phrases.length })
       setPhrases(null)
     } else {
       setIndex((i) => i + 1)
@@ -99,21 +102,53 @@ export function GrammarPage() {
     if (phrases && !checked) inputRef.current?.focus()
   }, [phrases, checked, index])
 
-  // Настройка (до старта раунда) или итог (раунд завершён).
+  // Итог раунда — отдельный экран, как в обычных играх из "Тренировки".
+  useEffect(() => {
+    if (!lastResult) return
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        handleStart(direction)
+      } else if (e.key === 'Escape') {
+        e.preventDefault()
+        setLastResult(null)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastResult, direction])
+
+  if (!phrases && lastResult) {
+    return (
+      <div className="grammar-page">
+        <div className="grammar-page__result-screen">
+          <div className="grammar-page__result-card">
+            <p className="grammar-page__result-label">Глаголы</p>
+            <p className="grammar-page__result-score">
+              {lastResult.correct}/{lastResult.total}
+            </p>
+            <p className="grammar-page__result-caption">правильных ответов</p>
+
+            <div className="grammar-page__result-actions">
+              <Button fullWidth onClick={() => handleStart(direction)}>
+                Играть ещё раз <span className="grammar-game__key-hint">Enter</span>
+              </Button>
+              <Button fullWidth variant="secondary" onClick={() => setLastResult(null)}>
+                К странице Грамматики <span className="grammar-game__key-hint">Esc</span>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Настройка (до старта раунда).
   if (!phrases) {
-    const finished = correct > 0 || index > 0
     return (
       <div className="grammar-page">
         <PageHeader title="Грамматика" />
-
-        {finished && (
-          <div className="grammar-page__result">
-            <p className="grammar-page__result-score">
-              {correct}/{ROUND_SIZE}
-            </p>
-            <p className="grammar-page__result-caption">правильных ответов</p>
-          </div>
-        )}
 
         <section className="grammar-page__games">
           <h2 className="grammar-page__games-title">Игры</h2>
@@ -215,7 +250,9 @@ export function GrammarPage() {
             </div>
           )}
 
-          {checked && !wasCorrect && <p className="grammar-game__answer">Верный ответ: {answer}</p>}
+          <p className={`grammar-game__answer${checked && !wasCorrect ? '' : ' grammar-game__answer--hidden'}`}>
+            Верный ответ: {answer}
+          </p>
 
           <Button type="submit" fullWidth>
             {checked ? (index + 1 >= phrases.length ? 'Завершить' : 'Далее') : 'Проверить'}
