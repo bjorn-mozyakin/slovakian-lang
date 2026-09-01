@@ -84,8 +84,8 @@ export const GAMES: GameInfo[] = [
   { type: 'type-sk-ru', title: 'Ввод перевода', description: 'Впиши перевод на русском (SK → RU)' },
   { type: 'type-ru-sk', title: 'Ввод слова', description: 'Впиши слово на словацком (RU → SK)' },
   { type: 'builder', title: 'Конструктор слов', description: 'Собери словацкое слово из букв' },
-  { type: 'memory', title: 'Мемори', description: 'Найди пары слово ↔ перевод' },
   { type: 'sprint', title: 'Спринт', description: 'Верно или неверно — на скорость' },
+  { type: 'memory', title: 'Мемори', description: 'Найди пары слово ↔ перевод' },
 ]
 
 /**

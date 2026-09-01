@@ -1,0 +1,9 @@
+@use '../../styles/variables' as v;
+
+.game-icon {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  border-radius: v.$radius-sm;
+  object-fit: cover;
+}

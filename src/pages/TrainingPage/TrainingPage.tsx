@@ -12,6 +12,7 @@ import type { WordSet } from '../../entities/types'
 import { PageHeader } from '../../components/ui/PageHeader'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { Button } from '../../components/ui/Button'
+import { GameIcon } from '../../components/ui/GameIcon'
 import './TrainingPage.scss'
 
 function TrainingChip({
@@ -228,13 +229,16 @@ export function TrainingPage() {
               disabled={selectedIds.length === 0}
               onClick={() => navigate(`/game/${game.type}`)}
             >
-              <span className="training-page__game-title">{game.title}</span>
-              <span className="training-page__game-description">{game.description}</span>
-              {selectedIds.length > 0 && (
-                <span className="training-page__game-remaining">
-                  Осталось {wordsCountLabel(remainingByGame.get(game.type) ?? 0)}
-                </span>
-              )}
+              <GameIcon type={game.type} />
+              <span className="training-page__game-body">
+                <span className="training-page__game-title">{game.title}</span>
+                <span className="training-page__game-description">{game.description}</span>
+                {selectedIds.length > 0 && (
+                  <span className="training-page__game-remaining">
+                    Осталось {wordsCountLabel(remainingByGame.get(game.type) ?? 0)}
+                  </span>
+                )}
+              </span>
             </button>
           ))}
         </div>
