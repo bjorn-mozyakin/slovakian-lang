@@ -37,6 +37,7 @@ const SET_CATEGORIES: Record<string, string> = {
 
   'Дом снаружи': 'Дом и быт',
   'Дом внутри': 'Дом и быт',
+  'Мебель': 'Дом и быт',
   'Посуда': 'Дом и быт',
   'Утварь': 'Дом и быт',
   'Материалы и инструменты': 'Дом и быт',
@@ -47,6 +48,7 @@ const SET_CATEGORIES: Record<string, string> = {
   'Части тела: тело': 'Одежда и части тела',
 
   'Люди и семья': 'Люди и общество',
+  'Члены семьи': 'Люди и общество',
   'Работа и профессии': 'Люди и общество',
   'Вежливые слова и приветствия': 'Люди и общество',
   'Государство и политика': 'Люди и общество',
@@ -62,12 +64,15 @@ const SET_CATEGORIES: Record<string, string> = {
   'Наречия частоты': 'Время, природа и животные',
   'Природа и погода': 'Время, природа и животные',
   'Животные': 'Время, природа и животные',
+  'Насекомые': 'Время, природа и животные',
+  'Птицы': 'Время, природа и животные',
 
   'Прилагательные': 'Язык и грамматика',
   'Цвета': 'Язык и грамматика',
   'Наречия: степень и образ действия': 'Язык и грамматика',
   'Направления и расположение': 'Язык и грамматика',
-  'Местоимения и вопросы': 'Язык и грамматика',
+  'Местоимения': 'Язык и грамматика',
+  'Вопросы': 'Язык и грамматика',
   'Языки': 'Язык и грамматика',
   'Числа': 'Язык и грамматика',
   'Меры и величины': 'Язык и грамматика',
@@ -77,7 +82,8 @@ const SET_CATEGORIES: Record<string, string> = {
   'Финансы и деньги': 'Учёба, работа и техника',
   'Глаголы: работа и организация': 'Учёба, работа и техника',
 
-  'Здания и места': 'Город и транспорт',
+  'Здания': 'Город и транспорт',
+  'Места': 'Город и транспорт',
   'Транспорт': 'Город и транспорт',
 
   'Здоровье и болезни': 'Здоровье и спорт',
@@ -221,19 +227,25 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['jednolôžková izba', 'одноместный номер'], ['dvojlôžková izba', 'двухместный номер'],
     ['klimatizácia', 'кондиционер'],
   ],
-  'Здания и места': [
-    ['dom', 'дом'], ['chrám', 'храм'], ['obchod', 'магазин'], ['banka', 'банк'],
-    ['zámok', 'замок'], ['kancelária', 'офис'], ['škola', 'школа'], ['trh', 'рынок'],
-    ['divadlo', 'театр'], ['park', 'парк'], ['nemocnica', 'больница'], ['polícia', 'полиция'],
-    ['pošta', 'почта'], ['obchodné centrum', 'торговый центр'], ['budova', 'здание'],
-    ['mesto', 'город'], ['dedina', 'деревня'], ['ulica', 'улица'], ['námestie', 'площадь'],
-    ['cesta', 'дорога, путь'], ['chodník', 'тротуар, тропа'], ['križovatka', 'перекресток'],
-    ['most', 'мост'], ['zastávka', 'остановка'], ['letisko', 'аэропорт'], ['nádražie', 'вокзал'],
+  'Здания': [
+    ['budova', 'здание'], ['dom', 'дом'], ['chrám', 'храм'], ['obchod', 'магазин'], ['banka', 'банк'],
+    ['zámok', 'замок'], ['kancelária', 'офис'], ['škola', 'школа'],
+    ['divadlo', 'театр'], ['nemocnica', 'больница'], ['polícia', 'полиция'],
+    ['pošta', 'почта'], ['obchodné centrum', 'торговый центр'],
     ['hotel', 'отель'], ['lekáreň', 'аптека'], ['úrad', 'учреждение, ведомство'],
     ['kostol', 'церковь'], ['múzeum', 'музей'], ['kino', 'кинотеатр'], ['knižnica', 'библиотека'],
-    ['bazén', 'бассейн'], ['ihrisko', 'площадка'], ['centrum', 'центр'], ['veža', 'башня'],
-    ['hrad', 'замок, крепость'], ['palác', 'дворец'], ['fontána', 'фонтан'], ['socha', 'статуя'],
-    ['galéria', 'галерея'], ['výstava', 'выставка'], ['predmestie', 'пригород'],
+    ['bazén', 'бассейн'], ['veža', 'башня'],
+    ['hrad', 'замок, крепость'], ['palác', 'дворец'], ['galéria', 'галерея'],
+    ['nádražie', 'вокзал'], ['letisko', 'аэропорт'],
+  ],
+  'Места': [
+    ['trh', 'рынок'], ['park', 'парк'],
+    ['mesto', 'город'], ['dedina', 'деревня'], ['ulica', 'улица'], ['námestie', 'площадь'],
+    ['cesta', 'дорога, путь'], ['chodník', 'тротуар, тропа'], ['križovatka', 'перекресток'],
+    ['most', 'мост'], ['zastávka', 'остановка'],
+    ['ihrisko', 'площадка'], ['centrum', 'центр'],
+    ['fontána', 'фонтан'], ['socha', 'статуя'],
+    ['výstava', 'выставка'], ['predmestie', 'пригород'],
     ['sídlisko', 'жилой микрорайон'], ['štvrť', 'квартал, район'], ['obec', 'муниципалитет, село'],
     ['okres', 'район'], ['kraj', 'край, регион'], ['hlavné mesto', 'столица'],
   ],
@@ -249,17 +261,16 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['nájom', 'аренда'], ['nájomné', 'арендная плата'],
   ],
   'Дом внутри': [
-    ['izba', 'комната'], ['stôl', 'стол'], ['stolička', 'стул'], ['posteľ', 'кровать'],
-    ['gauč', 'диван'], ['pohovka', 'диван'], ['zrkadlo', 'зеркало'], ['chladnička', 'холодильник'],
-    ['sporák', 'плита'], ['práčka', 'стиральная машинка'], ['skriňa', 'шкаф'],
-    ['vaňa', 'ванна'], ['kuchyňa', 'кухня'], ['komoda', 'комод'], ['koberec', 'ковер'],
-    ['schody', 'лестница'], ['nábytok', 'мебель'], ['podlaha', 'пол'],
+    ['izba', 'комната'], ['zrkadlo', 'зеркало'], ['chladnička', 'холодильник'],
+    ['sporák', 'плита'], ['práčka', 'стиральная машинка'],
+    ['vaňa', 'ванна'], ['kuchyňa', 'кухня'], ['koberec', 'ковер'],
+    ['schody', 'лестница'], ['podlaha', 'пол'],
     ['strop', 'потолок'], ['stena', 'стена'],
-    ['polica', 'полка'], ['kreslo', 'кресло'], ['lampa', 'лампа'], ['svetlo', 'свет'],
+    ['lampa', 'лампа'], ['svetlo', 'свет'],
     ['rúra', 'духовка'], ['televízor', 'телевизор'], ['počítač', 'компьютер'],
     ['internet', 'интернет'], ['elektrina', 'электричество'],
     ['plyn', 'газ'], ['kúrenie', 'отопление'], ['výťah', 'лифт'], ['pivnica', 'подвал'],
-    ['skrinka', 'шкафчик'], ['vešiak', 'вешалка'], ['záclona', 'занавеска'], ['záves', 'штора'],
+    ['záclona', 'занавеска'], ['záves', 'штора'],
     ['žalúzie', 'жалюзи'], ['paplón, prikrývka', 'одеяло'],
     ['matrac', 'матрас'], ['zámka', 'замок'], ['alarm', 'сигнализация'], ['interkom', 'домофон'],
     ['elektromer', 'электросчетчик'],
@@ -267,6 +278,11 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['bojler', 'бойлер'], ['kohútik', 'кран'],
     ['pleseň', 'плесень'], ['prach', 'пыль'], ['komín', 'дымоход'],
     ['mraznička', 'морозильник'], ['luster', 'люстра'],
+  ],
+  'Мебель': [
+    ['nábytok', 'мебель'], ['stôl', 'стол'], ['stolička', 'стул'], ['posteľ', 'кровать'],
+    ['gauč', 'диван'], ['pohovka', 'диван'], ['skriňa', 'шкаф'], ['komoda', 'комод'],
+    ['polica', 'полка'], ['kreslo', 'кресло'], ['skrinka', 'шкафчик'], ['vešiak', 'вешалка'],
   ],
   'Посуда': [
     ['lyžica', 'ложка'], ['vidlička', 'вилка'], ['nôž', 'нож'], ['tanier', 'тарелка'],
@@ -475,20 +491,16 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['náhodou', 'случайно', 'adverb'], ['našťastie', 'к счастью', 'adverb'],
     ['bohužiaľ, žiaľ', 'к сожалению', 'adverb'],
   ],
-  'Местоимения и вопросы': [
+  'Местоимения': [
     ['ja', 'я', 'pronoun'], ['ty', 'ты', 'pronoun'], ['on', 'он', 'pronoun'], ['ona', 'она', 'pronoun'],
     ['ono', 'оно', 'pronoun'], ['my', 'мы', 'pronoun'], ['vy', 'вы', 'pronoun'], ['oni', 'они', 'pronoun'],
     ['môj', 'мой', 'pronoun'], ['tvoj', 'твой', 'pronoun'], ['jeho', 'его', 'pronoun'],
     ['jej', 'ее', 'pronoun'], ['náš', 'наш', 'pronoun'], ['váš', 'ваш', 'pronoun'],
     ['ich', 'их', 'pronoun'], ['svoj', 'свой', 'pronoun'],
     ['tento', 'этот', 'pronoun'], ['tamten', 'тот', 'pronoun'], ['taký', 'такой', 'pronoun'],
-    ['aký', 'какой', 'pronoun'], ['ktorý', 'который', 'pronoun'], ['kto', 'кто', 'pronoun'],
-    ['čo', 'что', 'pronoun'], ['čí', 'чей', 'pronoun'],
     ['niekto', 'кто-то', 'pronoun'], ['niečo', 'что-то', 'pronoun'], ['nikto', 'никто', 'pronoun'],
     ['nič', 'ничто', 'pronoun'], ['každý', 'каждый', 'pronoun'], ['všetko', 'все', 'pronoun'],
     ['všetci', 'все', 'pronoun'], ['iný', 'другой', 'pronoun'],
-    ['kde', 'где', 'adverb'], ['kam', 'куда', 'adverb'], ['kedy', 'когда', 'adverb'],
-    ['prečo', 'почему', 'adverb'], ['koľko', 'сколько', 'adverb'], ['odkiaľ', 'откуда', 'adverb'],
     ['niekoľko', 'несколько', 'pronoun'], ['mnoho', 'много', 'pronoun'],
     ['dostatok', 'достаточное количество', 'noun'], ['väčšina', 'большинство', 'noun'],
     ['menšina', 'меньшинство', 'noun'], ['obaja', 'оба', 'pronoun'], ['obidve', 'обе', 'pronoun'],
@@ -497,6 +509,12 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['ktokoľvek', 'кто угодно', 'pronoun'], ['čokoľvek', 'что угодно', 'pronoun'],
     ['kedykoľvek', 'когда угодно', 'adverb'], ['kdekoľvek', 'где угодно', 'adverb'],
     ['navždy', 'навсегда', 'adverb'],
+  ],
+  'Вопросы': [
+    ['kto', 'кто', 'pronoun'], ['čo', 'что', 'pronoun'], ['aký', 'какой', 'pronoun'],
+    ['ktorý', 'который', 'pronoun'], ['čí', 'чей', 'pronoun'],
+    ['kde', 'где', 'adverb'], ['kam', 'куда', 'adverb'], ['kedy', 'когда', 'adverb'],
+    ['prečo', 'почему', 'adverb'], ['koľko', 'сколько', 'adverb'], ['odkiaľ', 'откуда', 'adverb'],
   ],
   'Числа': [
     ['jeden', 'один', 'numeral'], ['dva', 'два', 'numeral'], ['tri', 'три', 'numeral'],
@@ -515,17 +533,12 @@ const PRESETS: Record<string, PresetEntry[]> = {
   'Люди и семья': [
     ['človek', 'человек', 'noun'], ['ľudia', 'люди', 'noun'], ['muž', 'мужчина', 'noun'],
     ['žena', 'женщина', 'noun'], ['chlapec', 'мальчик', 'noun'], ['dievča', 'девочка', 'noun'],
-    ['dieťa', 'ребенок', 'noun'], ['rodina', 'семья', 'noun'], ['rodič', 'родитель', 'noun'],
-    ['matka', 'мать', 'noun'], ['mama', 'мама', 'noun'], ['otec', 'отец', 'noun'],
-    ['syn', 'сын', 'noun'], ['dcéra', 'дочь', 'noun'], ['brat', 'брат', 'noun'],
-    ['sestra', 'сестра', 'noun'], ['starý otec', 'дедушка', 'noun'], ['stará mama', 'бабушка', 'noun'],
-    ['manžel', 'муж', 'noun'], ['manželka', 'жена', 'noun'], ['priateľ', 'друг', 'noun'],
+    ['priateľ', 'друг', 'noun'],
     ['priateľka', 'подруга', 'noun'], ['kamarát', 'приятель', 'noun'], ['sused', 'сосед', 'noun'],
-    ['kolega', 'коллега', 'noun'], ['šéf', 'начальник', 'noun'], ['zákazník', 'клиент', 'noun'],
-    ['hosť', 'гость', 'noun'], ['učiteľ', 'учитель', 'noun'], ['študent', 'студент', 'noun'],
-    ['žiak', 'ученик', 'noun'], ['lekár', 'врач', 'noun'], ['policajt', 'полицейский', 'noun'],
-    ['predavač', 'продавец', 'noun'], ['čašník', 'официант', 'noun'], ['kuchár', 'повар', 'noun'],
-    ['vodič', 'водитель', 'noun'], ['meno', 'имя', 'noun'], ['priezvisko', 'фамилия', 'noun'],
+    ['kolega', 'коллега', 'noun'], ['zákazník', 'клиент', 'noun'],
+    ['hosť', 'гость', 'noun'], ['študent', 'студент', 'noun'],
+    ['žiak', 'ученик', 'noun'],
+    ['meno', 'имя', 'noun'], ['priezvisko', 'фамилия', 'noun'],
     ['vek', 'возраст', 'noun'], ['adresa', 'адрес', 'noun'], ['telefón', 'телефон', 'noun'],
     ['číslo', 'номер', 'noun'], ['život', 'жизнь', 'noun'], ['láska', 'любовь', 'noun'],
     ['priateľstvo', 'дружба', 'noun'], ['svadba', 'свадьба', 'noun'], ['narodeniny', 'день рождения', 'noun'],
@@ -538,6 +551,13 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['gratulovať', 'поздравлять', 'verb'], ['želať', 'желать', 'verb'], ['darovať', 'дарить', 'verb'],
     ['odpustiť', 'простить', 'verb'], ['ospravedlniť sa', 'извиниться', 'verb'],
     ['adoptovať', 'усыновлять', 'verb'],
+  ],
+  'Члены семьи': [
+    ['rodina', 'семья', 'noun'], ['dieťa', 'ребенок', 'noun'], ['rodič', 'родитель', 'noun'],
+    ['matka', 'мать', 'noun'], ['mama', 'мама', 'noun'], ['otec', 'отец', 'noun'],
+    ['syn', 'сын', 'noun'], ['dcéra', 'дочь', 'noun'], ['brat', 'брат', 'noun'],
+    ['sestra', 'сестра', 'noun'], ['starý otec', 'дедушка', 'noun'], ['stará mama', 'бабушка', 'noun'],
+    ['manžel', 'муж', 'noun'], ['manželka', 'жена', 'noun'],
   ],
   'Вежливые слова и приветствия': [
     ['ahoj', 'привет, пока', 'interjection'], ['dovidenia', 'до свидания', 'interjection'],
@@ -554,6 +574,9 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['opísať', 'описать', 'verb'], ['porovnať, porovnávať', 'сравнить, сравнивать', 'verb'],
   ],
   'Работа и профессии': [
+    ['učiteľ', 'учитель', 'noun'], ['lekár', 'врач', 'noun'], ['policajt', 'полицейский', 'noun'],
+    ['predavač', 'продавец', 'noun'], ['čašník', 'официант', 'noun'], ['kuchár', 'повар', 'noun'],
+    ['vodič', 'водитель', 'noun'], ['šéf', 'начальник', 'noun'],
     ['práca', 'работа', 'noun'], ['zamestnanie', 'занятость', 'noun'], ['firma', 'фирма', 'noun'],
     ['spoločnosť', 'компания', 'noun'], ['stretnutie', 'встреча', 'noun'], ['porada', 'совещание', 'noun'],
     ['projekt', 'проект', 'noun'], ['plán', 'план', 'noun'], ['plat', 'зарплата', 'noun'],
@@ -653,6 +676,7 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['znečisťovať', 'загрязнять', 'verb'], ['obnoviteľný zdroj', 'возобновляемый источник', 'noun'],
     ['emisia', 'выброс', 'noun'], ['ovzdušie', 'воздух, атмосфера', 'noun'],
     ['sucho', 'засуха', 'noun'], ['povodeň', 'наводнение', 'noun'],
+    ['požiar', 'пожар', 'noun'], ['dym', 'дым', 'noun'],
   ],
   'Языки': [
     ['slovenčina', 'словацкий язык', 'noun'], ['ruština', 'русский язык', 'noun'],
@@ -729,7 +753,7 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['vyšetrenie', 'обследование', 'noun'], ['liečba', 'лечение', 'noun'], ['obväz', 'бинт', 'noun'],
     ['rana', 'рана', 'noun'], ['zlomenina', 'перелом', 'noun'], ['alergia', 'аллергия', 'noun'],
     ['hlad', 'голод', 'noun'], ['smäd', 'жажда', 'noun'], ['zubár', 'стоматолог', 'noun'],
-    ['požiar', 'пожар', 'noun'], ['dym', 'дым', 'noun'], ['evakuácia', 'эвакуация', 'noun'],
+    ['evakuácia', 'эвакуация', 'noun'],
     ['opuch', 'отек', 'noun'], ['modrina', 'синяк', 'noun'], ['popálenina', 'ожог', 'noun'],
     ['infekcia', 'инфекция', 'noun'], ['zápal', 'воспаление', 'noun'], ['vírus', 'вирус', 'noun'],
     ['baktéria', 'бактерия', 'noun'], ['príznak', 'симптом', 'noun'], ['diagnóza', 'диагноз', 'noun'],
@@ -768,23 +792,18 @@ const PRESETS: Record<string, PresetEntry[]> = {
   ],
   'Животные': [
     ['zviera', 'животное', 'noun'], ['pes', 'собака', 'noun'], ['mačka', 'кошка', 'noun'],
-    ['vták', 'птица', 'noun'], ['kôň', 'лошадь', 'noun'], ['krava', 'корова', 'noun'],
+    ['kôň', 'лошадь', 'noun'], ['krava', 'корова', 'noun'],
     ['prasa', 'свинья', 'noun'], ['ovca', 'овца', 'noun'], ['koza', 'коза', 'noun'],
     ['medveď', 'медведь', 'noun'], ['vlk', 'волк', 'noun'], ['líška', 'лиса', 'noun'],
     ['zajac', 'заяц', 'noun'], ['jeleň', 'олень', 'noun'], ['myš', 'мышь', 'noun'],
-    ['sliepka', 'курица (птица)', 'noun'], ['kohút', 'петух', 'noun'], ['kačica', 'утка', 'noun'],
-    ['hus', 'гусь', 'noun'], ['včela', 'пчела', 'noun'], ['mucha', 'муха', 'noun'],
-    ['komár', 'комар', 'noun'], ['motýľ', 'бабочка', 'noun'], ['pavúk', 'паук', 'noun'],
+    ['pavúk', 'паук', 'noun'],
     ['had', 'змея', 'noun'], ['žaba', 'лягушка', 'noun'],
-    ['cicavec', 'млекопитающее', 'noun'], ['hmyz', 'насекомое', 'noun'], ['králik', 'кролик', 'noun'],
+    ['cicavec', 'млекопитающее', 'noun'], ['králik', 'кролик', 'noun'],
     ['potkan', 'крыса', 'noun'], ['veverička', 'белка', 'noun'], ['ježko', 'еж', 'noun'],
     ['srna', 'косуля', 'noun'], ['diviak', 'кабан', 'noun'], ['opica', 'обезьяна', 'noun'],
     ['lev', 'лев', 'noun'], ['tiger', 'тигр', 'noun'], ['slon', 'слон', 'noun'], ['žirafa', 'жираф', 'noun'],
-    ['jašterica', 'ящерица', 'noun'], ['korytnačka', 'черепаха', 'noun'], ['osa', 'оса', 'noun'],
-    ['mravec', 'муравей', 'noun'], ['chrobák', 'жук', 'noun'], ['orol', 'орел', 'noun'],
-    ['sova', 'сова', 'noun'], ['holub', 'голубь', 'noun'], ['vrabec', 'воробей', 'noun'],
-    ['lastovička', 'ласточка', 'noun'], ['labuť', 'лебедь', 'noun'], ['čajka', 'чайка', 'noun'],
-    ['papagáj', 'попугай', 'noun'], ['zoo', 'зоопарк', 'noun'], ['klietka', 'клетка', 'noun'],
+    ['jašterica', 'ящерица', 'noun'], ['korytnačka', 'черепаха', 'noun'],
+    ['zoo', 'зоопарк', 'noun'], ['klietka', 'клетка', 'noun'],
     ['akvárium', 'аквариум', 'noun'], ['útulok', 'приют', 'noun'], ['veterinár', 'ветеринар', 'noun'],
     ['krmivo', 'корм', 'noun'], ['vodítko', 'поводок', 'noun'], ['obojok', 'ошейник', 'noun'],
     ['srsť', 'шерсть', 'noun'], ['chvost', 'хвост', 'noun'], ['labka', 'лапа', 'noun'],
@@ -795,6 +814,18 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['mňaukať', 'мяукать', 'verb'], ['lietať', 'летать', 'verb'], ['skákať', 'прыгать', 'verb'],
     ['liezť', 'ползти, лезть', 'verb'], ['hrýzť', 'кусать', 'verb'], ['štípať', 'жалить, щипать', 'verb'],
     ['loviť', 'охотиться', 'verb'], ['chovať', 'разводить, содержать', 'verb'],
+  ],
+  'Насекомые': [
+    ['hmyz', 'насекомое', 'noun'], ['včela', 'пчела', 'noun'], ['osa', 'оса', 'noun'],
+    ['mucha', 'муха', 'noun'], ['komár', 'комар', 'noun'], ['motýľ', 'бабочка', 'noun'],
+    ['mravec', 'муравей', 'noun'], ['chrobák', 'жук', 'noun'],
+  ],
+  'Птицы': [
+    ['vták', 'птица', 'noun'], ['sliepka', 'курица (птица)', 'noun'], ['kohút', 'петух', 'noun'],
+    ['kačica', 'утка', 'noun'], ['hus', 'гусь', 'noun'], ['orol', 'орел', 'noun'],
+    ['sova', 'сова', 'noun'], ['holub', 'голубь', 'noun'], ['vrabec', 'воробей', 'noun'],
+    ['lastovička', 'ласточка', 'noun'], ['labuť', 'лебедь', 'noun'], ['čajka', 'чайка', 'noun'],
+    ['papagáj', 'попугай', 'noun'],
   ],
   'Абстрактные понятия': [
     ['problém', 'проблема', 'noun'], ['riešenie', 'решение', 'noun'], ['dôvod', 'причина', 'noun'],
@@ -1465,6 +1496,273 @@ export function applyDataFixes(userId: string): void {
       sets = sets.map((s) =>
         s.id === mixedSet.id ? { ...s, name: 'Хобби и досуг', category: 'Люди и общество', updatedAt: nowIso() } : s,
       )
+      setsChanged = true
+    }
+  }
+
+  // "Дым"/"Пожар" переносим из "Здоровье и болезни" в "Природа и погода".
+  {
+    const healthSet = sets.find((s) => s.userId === userId && s.name === 'Здоровье и болезни' && s.isPreset)
+    const natureSet = sets.find((s) => s.userId === userId && s.name === 'Природа и погода' && s.isPreset)
+    if (healthSet && natureSet) {
+      const toMove: Array<[sk: string, ru: string]> = [
+        ['požiar', 'пожар'],
+        ['dym', 'дым'],
+      ]
+      for (const [sk, ru] of toMove) {
+        const word = words.find(
+          (w) =>
+            w.userId === userId &&
+            w.slovakWord.toLowerCase() === sk.toLowerCase() &&
+            w.russianTranslation.toLowerCase() === ru.toLowerCase(),
+        )
+        if (!word) continue
+        const before = items.length
+        items = items.filter((i) => !(i.wordId === word.id && i.wordSetId === healthSet.id))
+        if (items.length !== before) itemsChanged = true
+        if (!items.some((i) => i.wordId === word.id && i.wordSetId === natureSet.id)) {
+          items = [...items, { id: uuid(), wordId: word.id, wordSetId: natureSet.id }]
+          itemsChanged = true
+        }
+      }
+    }
+  }
+
+  // Насекомых выделяем из "Животные" в отдельный набор "Насекомые" (его
+  // создаст syncPresetData ниже, слова уже есть в словаре и переиспользуются).
+  {
+    const animalsSet = sets.find((s) => s.userId === userId && s.name === 'Животные' && s.isPreset)
+    if (animalsSet) {
+      const insectWords: Array<[sk: string, ru: string]> = [
+        ['hmyz', 'насекомое'],
+        ['včela', 'пчела'],
+        ['osa', 'оса'],
+        ['mucha', 'муха'],
+        ['komár', 'комар'],
+        ['motýľ', 'бабочка'],
+        ['mravec', 'муравей'],
+        ['chrobák', 'жук'],
+      ]
+      for (const [sk, ru] of insectWords) {
+        const word = words.find(
+          (w) =>
+            w.userId === userId &&
+            w.slovakWord.toLowerCase() === sk.toLowerCase() &&
+            w.russianTranslation.toLowerCase() === ru.toLowerCase(),
+        )
+        if (!word) continue
+        const before = items.length
+        items = items.filter((i) => !(i.wordId === word.id && i.wordSetId === animalsSet.id))
+        if (items.length !== before) itemsChanged = true
+      }
+    }
+  }
+
+  // Мебель выделяем из "Дом внутри" в отдельный набор "Мебель" (его создаст
+  // syncPresetData ниже, слова уже есть в словаре и переиспользуются).
+  {
+    const insideSet2 = sets.find((s) => s.userId === userId && s.name === 'Дом внутри' && s.isPreset)
+    if (insideSet2) {
+      const furnitureWords: Array<[sk: string, ru: string]> = [
+        ['nábytok', 'мебель'],
+        ['stôl', 'стол'],
+        ['stolička', 'стул'],
+        ['posteľ', 'кровать'],
+        ['gauč', 'диван'],
+        ['pohovka', 'диван'],
+        ['skriňa', 'шкаф'],
+        ['komoda', 'комод'],
+        ['polica', 'полка'],
+        ['kreslo', 'кресло'],
+        ['skrinka', 'шкафчик'],
+        ['vešiak', 'вешалка'],
+      ]
+      for (const [sk, ru] of furnitureWords) {
+        const word = words.find(
+          (w) =>
+            w.userId === userId &&
+            w.slovakWord.toLowerCase() === sk.toLowerCase() &&
+            w.russianTranslation.toLowerCase() === ru.toLowerCase(),
+        )
+        if (!word) continue
+        const before = items.length
+        items = items.filter((i) => !(i.wordId === word.id && i.wordSetId === insideSet2.id))
+        if (items.length !== before) itemsChanged = true
+      }
+    }
+  }
+
+  // Членов семьи выделяем из "Люди и семья" в отдельный набор "Члены семьи"
+  // (его создаст syncPresetData ниже, слова уже есть в словаре и переиспользуются).
+  {
+    const peopleSet = sets.find((s) => s.userId === userId && s.name === 'Люди и семья' && s.isPreset)
+    if (peopleSet) {
+      const familyWords: Array<[sk: string, ru: string]> = [
+        ['rodina', 'семья'],
+        ['dieťa', 'ребенок'],
+        ['rodič', 'родитель'],
+        ['matka', 'мать'],
+        ['mama', 'мама'],
+        ['otec', 'отец'],
+        ['syn', 'сын'],
+        ['dcéra', 'дочь'],
+        ['brat', 'брат'],
+        ['sestra', 'сестра'],
+        ['starý otec', 'дедушка'],
+        ['stará mama', 'бабушка'],
+        ['manžel', 'муж'],
+        ['manželka', 'жена'],
+      ]
+      for (const [sk, ru] of familyWords) {
+        const word = words.find(
+          (w) =>
+            w.userId === userId &&
+            w.slovakWord.toLowerCase() === sk.toLowerCase() &&
+            w.russianTranslation.toLowerCase() === ru.toLowerCase(),
+        )
+        if (!word) continue
+        const before = items.length
+        items = items.filter((i) => !(i.wordId === word.id && i.wordSetId === peopleSet.id))
+        if (items.length !== before) itemsChanged = true
+      }
+    }
+  }
+
+  // Профессии переносим из "Люди и семья" в "Работа и профессии" (оба
+  // набора уже существуют — переносим со связыванием, не только отвязкой).
+  {
+    const peopleSet2 = sets.find((s) => s.userId === userId && s.name === 'Люди и семья' && s.isPreset)
+    const jobsSet = sets.find((s) => s.userId === userId && s.name === 'Работа и профессии' && s.isPreset)
+    if (peopleSet2 && jobsSet) {
+      const professionWords: Array<[sk: string, ru: string]> = [
+        ['učiteľ', 'учитель'],
+        ['lekár', 'врач'],
+        ['policajt', 'полицейский'],
+        ['predavač', 'продавец'],
+        ['čašník', 'официант'],
+        ['kuchár', 'повар'],
+        ['vodič', 'водитель'],
+        ['šéf', 'начальник'],
+      ]
+      for (const [sk, ru] of professionWords) {
+        const word = words.find(
+          (w) =>
+            w.userId === userId &&
+            w.slovakWord.toLowerCase() === sk.toLowerCase() &&
+            w.russianTranslation.toLowerCase() === ru.toLowerCase(),
+        )
+        if (!word) continue
+        const before = items.length
+        items = items.filter((i) => !(i.wordId === word.id && i.wordSetId === peopleSet2.id))
+        if (items.length !== before) itemsChanged = true
+        if (!items.some((i) => i.wordId === word.id && i.wordSetId === jobsSet.id)) {
+          items = [...items, { id: uuid(), wordId: word.id, wordSetId: jobsSet.id }]
+          itemsChanged = true
+        }
+      }
+    }
+  }
+
+  // Птиц выделяем из "Животные" в отдельный набор "Птицы" (его создаст
+  // syncPresetData ниже, слова уже есть в словаре и переиспользуются).
+  {
+    const animalsSet2 = sets.find((s) => s.userId === userId && s.name === 'Животные' && s.isPreset)
+    if (animalsSet2) {
+      const birdWords: Array<[sk: string, ru: string]> = [
+        ['vták', 'птица'],
+        ['sliepka', 'курица (птица)'],
+        ['kohút', 'петух'],
+        ['kačica', 'утка'],
+        ['hus', 'гусь'],
+        ['orol', 'орел'],
+        ['sova', 'сова'],
+        ['holub', 'голубь'],
+        ['vrabec', 'воробей'],
+        ['lastovička', 'ласточка'],
+        ['labuť', 'лебедь'],
+        ['čajka', 'чайка'],
+        ['papagáj', 'попугай'],
+      ]
+      for (const [sk, ru] of birdWords) {
+        const word = words.find(
+          (w) =>
+            w.userId === userId &&
+            w.slovakWord.toLowerCase() === sk.toLowerCase() &&
+            w.russianTranslation.toLowerCase() === ru.toLowerCase(),
+        )
+        if (!word) continue
+        const before = items.length
+        items = items.filter((i) => !(i.wordId === word.id && i.wordSetId === animalsSet2.id))
+        if (items.length !== before) itemsChanged = true
+      }
+    }
+  }
+
+  // Вопросительные слова выделяем из "Местоимения и вопросы" в отдельный
+  // набор "Вопросы" (его создаст syncPresetData ниже), сам набор
+  // переименовываем в "Местоимения".
+  {
+    const pronounsSet = sets.find((s) => s.userId === userId && s.name === 'Местоимения и вопросы' && s.isPreset)
+    if (pronounsSet) {
+      const questionWords: Array<[sk: string, ru: string]> = [
+        ['kto', 'кто'],
+        ['čo', 'что'],
+        ['aký', 'какой'],
+        ['ktorý', 'который'],
+        ['čí', 'чей'],
+        ['kde', 'где'],
+        ['kam', 'куда'],
+        ['kedy', 'когда'],
+        ['prečo', 'почему'],
+        ['koľko', 'сколько'],
+        ['odkiaľ', 'откуда'],
+      ]
+      for (const [sk, ru] of questionWords) {
+        const word = words.find(
+          (w) =>
+            w.userId === userId &&
+            w.slovakWord.toLowerCase() === sk.toLowerCase() &&
+            w.russianTranslation.toLowerCase() === ru.toLowerCase(),
+        )
+        if (!word) continue
+        const before = items.length
+        items = items.filter((i) => !(i.wordId === word.id && i.wordSetId === pronounsSet.id))
+        if (items.length !== before) itemsChanged = true
+      }
+      sets = sets.map((s) => (s.id === pronounsSet.id ? { ...s, name: 'Местоимения', updatedAt: nowIso() } : s))
+      setsChanged = true
+    }
+  }
+
+  // "Здания" выделяем из "Здания и места" отдельным набором, сам набор
+  // переименовываем в "Места" (его создаст syncPresetData ниже для "Здания").
+  {
+    const placesSet = sets.find((s) => s.userId === userId && s.name === 'Здания и места' && s.isPreset)
+    if (placesSet) {
+      const buildingWords: Array<[sk: string, ru: string]> = [
+        ['budova', 'здание'], ['dom', 'дом'], ['chrám', 'храм'], ['obchod', 'магазин'], ['banka', 'банк'],
+        ['zámok', 'замок'], ['kancelária', 'офис'], ['škola', 'школа'],
+        ['divadlo', 'театр'], ['nemocnica', 'больница'], ['polícia', 'полиция'],
+        ['pošta', 'почта'], ['obchodné centrum', 'торговый центр'],
+        ['hotel', 'отель'], ['lekáreň', 'аптека'], ['úrad', 'учреждение, ведомство'],
+        ['kostol', 'церковь'], ['múzeum', 'музей'], ['kino', 'кинотеатр'], ['knižnica', 'библиотека'],
+        ['bazén', 'бассейн'], ['veža', 'башня'],
+        ['hrad', 'замок, крепость'], ['palác', 'дворец'], ['galéria', 'галерея'],
+        ['nádražie', 'вокзал'], ['letisko', 'аэропорт'],
+      ]
+      for (const [sk, ru] of buildingWords) {
+        const word = words.find(
+          (w) =>
+            w.userId === userId &&
+            w.slovakWord.toLowerCase() === sk.toLowerCase() &&
+            w.russianTranslation.toLowerCase() === ru.toLowerCase(),
+        )
+        if (!word) continue
+        const before = items.length
+        items = items.filter((i) => !(i.wordId === word.id && i.wordSetId === placesSet.id))
+        if (items.length !== before) itemsChanged = true
+      }
+      sets = sets.map((s) => (s.id === placesSet.id ? { ...s, name: 'Места', updatedAt: nowIso() } : s))
       setsChanged = true
     }
   }
