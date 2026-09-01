@@ -10,9 +10,11 @@ interface WordSetCardProps {
   set: WordSet
   /** Показывать бейдж категории — скрывается, когда список и так отфильтрован по одной категории. */
   showCategory?: boolean
+  /** Удаление доступно только для собственных наборов пользователя (не для preset). */
+  onDelete?: (set: WordSet) => void
 }
 
-export function WordSetCard({ set, showCategory = true }: WordSetCardProps) {
+export function WordSetCard({ set, showCategory = true, onDelete }: WordSetCardProps) {
   const { total, learned } = useSetProgress(set.id)
   // У набора нет промежуточного статуса — либо выучены все слова, либо нет.
   const isFullyLearned = total > 0 && learned === total
@@ -22,6 +24,12 @@ export function WordSetCard({ set, showCategory = true }: WordSetCardProps) {
     e.stopPropagation()
     if (total === 0) return
     setWordsStatus(getWordIdsForSet(set.id), isFullyLearned ? 'not_learned' : 'learned')
+  }
+
+  function handleDeleteClick(e: React.MouseEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    onDelete?.(set)
   }
 
   return (
@@ -43,6 +51,11 @@ export function WordSetCard({ set, showCategory = true }: WordSetCardProps) {
             onClick={handleStatusClick}
             title={isFullyLearned ? 'Выучено — нажмите, чтобы сбросить' : 'Не выучено — нажмите, чтобы отметить выученным'}
           />
+        )}
+        {!set.isPreset && onDelete && (
+          <button className="word-set-card__delete" onClick={handleDeleteClick} aria-label="Удалить набор">
+            🗑
+          </button>
         )}
       </div>
     </Link>

@@ -1,13 +1,15 @@
 import { useMemo, useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { useWordSets } from '../../hooks/useWordSets'
-import { insertWordSet } from '../../services/db'
+import { insertWordSet, deleteWordSet } from '../../services/db'
 import { useWords } from '../../hooks/useWords'
 import { getWordsBySetIds } from '../../services/wordsService'
+import type { WordSet } from '../../entities/types'
 import { PageHeader } from '../../components/ui/PageHeader'
 import { Button } from '../../components/ui/Button'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { Modal } from '../../components/ui/Modal'
+import { ConfirmDialog } from '../../components/ui/ConfirmDialog'
 import { WordSetCard } from '../../components/word-set-list/WordSetCard'
 import { pluralizeRu, wordsCountLabel } from '../../utils/pluralize'
 import { sortCategories } from '../../utils/categories'
@@ -28,6 +30,7 @@ export function WordSetsPage() {
   const [error, setError] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<Tab>('recommended')
   const [activeCategory, setActiveCategory] = useState<string>(ALL_CATEGORIES)
+  const [deletingSet, setDeletingSet] = useState<WordSet | null>(null)
 
   // "Рекомендованные" — preset-наборы, заданные по умолчанию; "Мои" —
   // созданные самим пользователем (isPreset = false).
@@ -80,6 +83,12 @@ export function WordSetsPage() {
     setActiveTab('mine')
   }
 
+  function handleDelete() {
+    if (!deletingSet) return
+    deleteWordSet(deletingSet.id)
+    setDeletingSet(null)
+  }
+
   return (
     <div className="word-sets-page">
       <PageHeader
@@ -89,7 +98,11 @@ export function WordSetsPage() {
             ? `${visibleSets.length} ${pluralizeRu(visibleSets.length, 'набор', 'набора', 'наборов')} · ${wordsCountLabel(visibleWordsCount)}`
             : undefined
         }
-        actions={<Button onClick={() => setCreating(true)}>+ Набор</Button>}
+        actions={
+          activeTab === 'mine' && customSets.length > 0 ? (
+            <Button onClick={() => setCreating(true)}>+ Набор</Button>
+          ) : undefined
+        }
       />
 
       <div className="word-sets-page__tabs">
@@ -144,6 +157,7 @@ export function WordSetsPage() {
               key={set.id}
               set={set}
               showCategory={activeTab === 'recommended' && activeCategory === ALL_CATEGORIES}
+              onDelete={setDeletingSet}
             />
           ))}
         </div>
@@ -185,6 +199,17 @@ export function WordSetsPage() {
             </div>
           </div>
         </Modal>
+      )}
+
+      {deletingSet && (
+        <ConfirmDialog
+          title="Удалить набор?"
+          message="Набор будет удалён. Слова из набора не удаляются — они останутся в разделе «Все слова» без привязки к набору."
+          confirmLabel="Удалить"
+          danger
+          onConfirm={handleDelete}
+          onCancel={() => setDeletingSet(null)}
+        />
       )}
     </div>
   )
