@@ -26,11 +26,13 @@ export function WordSetCard({ set, selectionMode, selected, onToggleSelect }: Wo
         />
       )}
       <div className="word-set-card__main">
-        <div className="word-set-card__title-row">
-          <span className="word-set-card__name">{set.name}</span>
-          {set.category && <span className="word-set-card__category">{set.category}</span>}
-        </div>
-        {set.description && <span className="word-set-card__description">{set.description}</span>}
+        <span className="word-set-card__name">{set.name}</span>
+        {(set.category || set.description) && (
+          <div className="word-set-card__meta-row">
+            {set.category && <span className="word-set-card__category">{set.category}</span>}
+            {set.description && <span className="word-set-card__description">{set.description}</span>}
+          </div>
+        )}
       </div>
       <span className="word-set-card__count">{wordsCountLabel(count)}</span>
     </>

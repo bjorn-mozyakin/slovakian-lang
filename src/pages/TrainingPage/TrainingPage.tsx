@@ -88,10 +88,12 @@ function CategoryGroup({
           {allSelected ? '✓' : someSelected ? '–' : ''}
         </button>
         <button className="training-page__category-title" onClick={onToggleExpand}>
-          <span className={`training-page__category-chevron${expanded ? ' training-page__category-chevron--open' : ''}`}>
-            ▸
+          <span className="training-page__category-name-row">
+            <span className={`training-page__category-chevron${expanded ? ' training-page__category-chevron--open' : ''}`}>
+              ▸
+            </span>
+            {category}
           </span>
-          {category}
           <span className="training-page__category-meta">
             {selectedCount}/{sets.length} наборов · {wordsCountLabel(totalWords)}
           </span>
@@ -184,10 +186,12 @@ export function TrainingPage() {
       <section className="training-page__filter">
         <div className="training-page__filter-header">
           <button className="training-page__filter-toggle" onClick={() => setFilterOpen((v) => !v)}>
-            <span className={`training-page__category-chevron${filterOpen ? ' training-page__category-chevron--open' : ''}`}>
-              ▸
+            <span className="training-page__category-name-row">
+              <span className={`training-page__category-chevron${filterOpen ? ' training-page__category-chevron--open' : ''}`}>
+                ▸
+              </span>
+              <h2 className="training-page__filter-title">Наборы для тренировки</h2>
             </span>
-            <h2 className="training-page__filter-title">Наборы для тренировки</h2>
             <span className="training-page__selected-count">
               {selectedIds.length === 0
                 ? 'не выбраны'

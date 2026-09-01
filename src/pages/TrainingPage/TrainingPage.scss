@@ -17,11 +17,18 @@
     @include m.button-reset;
     @include m.focus-ring;
     display: flex;
-    align-items: center;
-    gap: v.$space-2;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
     min-width: 0;
     flex: 1;
     text-align: left;
+
+    @include m.tablet {
+      flex-direction: row;
+      align-items: center;
+      gap: v.$space-2;
+    }
   }
 
   &__filter-title,
@@ -97,11 +104,25 @@
     @include m.focus-ring;
     flex: 1;
     display: flex;
-    align-items: center;
-    gap: v.$space-2;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
     padding: v.$space-2 0;
     font-weight: 600;
     text-align: left;
+
+    @include m.tablet {
+      flex-direction: row;
+      align-items: center;
+      gap: v.$space-2;
+    }
+  }
+
+  &__category-name-row {
+    display: flex;
+    align-items: center;
+    gap: v.$space-2;
+    min-width: 0;
   }
 
   &__category-chevron {
@@ -116,10 +137,13 @@
   }
 
   &__category-meta {
-    margin-left: auto;
     font-size: v.$font-size-sm;
     font-weight: 400;
     color: v.$color-text-muted;
+
+    @include m.tablet {
+      margin-left: auto;
+    }
   }
 
   &__chips {
@@ -158,7 +182,11 @@
   &__selected-count {
     color: v.$color-text-muted;
     font-size: v.$font-size-sm;
-    @include m.truncate;
+
+    @include m.tablet {
+      margin-left: auto;
+      @include m.truncate;
+    }
   }
 
   &__games-title {

@@ -8,7 +8,7 @@
 
   &__content {
     flex: 1;
-    padding: v.$space-4 v.$space-4 calc(v.$bottom-nav-height + v.$space-5);
+    padding: v.$space-4 v.$space-4 calc(v.$bottom-nav-height + env(safe-area-inset-bottom, 0) + v.$space-5);
     max-width: 640px;
     width: 100%;
     margin: 0 auto;
@@ -29,9 +29,15 @@
     justify-content: space-around;
     background: v.$color-surface;
     border-top: 1px solid v.$color-border;
-    height: v.$bottom-nav-height;
+    height: calc(v.$bottom-nav-height + env(safe-area-inset-bottom, 0));
     padding-bottom: env(safe-area-inset-bottom, 0);
     z-index: 10;
+    // iOS Safari иногда "теряет" фон у фиксированных элементов при инерционном
+    // скролле (перерисовывает без бэкграунда на пару кадров) — принудительный
+    // отдельный композитный слой убирает этот баг.
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
 
     @include m.desktop {
       position: static;
@@ -42,6 +48,7 @@
       border-bottom: 1px solid v.$color-border;
       height: auto;
       padding: v.$space-4 0;
+      transform: none;
     }
   }
 

@@ -23,16 +23,16 @@
     min-width: 0;
   }
 
-  &__title-row {
+  &__name {
+    font-weight: 600;
+    @include m.truncate;
+  }
+
+  &__meta-row {
     display: flex;
     align-items: center;
     gap: v.$space-2;
     min-width: 0;
-  }
-
-  &__name {
-    font-weight: 600;
-    @include m.truncate;
   }
 
   &__category {
