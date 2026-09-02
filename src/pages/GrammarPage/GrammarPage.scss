@@ -2,20 +2,6 @@
 @use '../../styles/mixins' as m;
 
 .grammar-page {
-  &__header {
-    display: flex;
-    justify-content: center;
-    margin-bottom: v.$space-4;
-  }
-
-  &__exit {
-    @include m.button-reset;
-    @include m.focus-ring;
-    color: v.$color-text-muted;
-    font-size: v.$font-size-sm;
-    padding: v.$space-2 v.$space-3;
-  }
-
   &__result-screen {
     min-height: 60dvh;
     display: flex;

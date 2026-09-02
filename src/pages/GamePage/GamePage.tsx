@@ -8,6 +8,7 @@ import type { GameType, RoundResult } from '../../entities/types'
 import { GAMES } from '../../entities/types'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { Button } from '../../components/ui/Button'
+import { GameShell } from '../../components/layout/GameShell'
 import { MultipleChoiceGame } from '../../components/games/MultipleChoiceGame/MultipleChoiceGame'
 import { TypingGame } from '../../components/games/TypingGame/TypingGame'
 import { WordBuilderGame } from '../../components/games/WordBuilderGame/WordBuilderGame'
@@ -85,14 +86,9 @@ export function GamePage() {
       )
     }
     return (
-      <div className="game-page">
-        <div className="game-page__header">
-          <button className="game-page__exit" onClick={() => navigate('/')} aria-label="Завершить игру">
-            ✕ {game.title}
-          </button>
-        </div>
+      <GameShell title={game.title} onExit={() => navigate('/')}>
         <SprintGame gameType={gameType} pool={sprintPool} userId={userId} onFinish={handleFinish} />
-      </div>
+      </GameShell>
     )
   }
 
@@ -110,12 +106,7 @@ export function GamePage() {
   }
 
   return (
-    <div className={`game-page${gameType === 'memory' ? ' game-page--memory' : ''}`}>
-      <div className="game-page__header">
-        <button className="game-page__exit" onClick={() => navigate('/')} aria-label="Завершить игру">
-          ✕ {game.title}
-        </button>
-      </div>
+    <GameShell title={game.title} onExit={() => navigate('/')} fitScreen={gameType === 'memory'}>
       {(gameType === 'choice-sk-ru' || gameType === 'choice-ru-sk') && (
         <MultipleChoiceGame
           gameType={gameType}
@@ -136,6 +127,6 @@ export function GamePage() {
       )}
       {gameType === 'builder' && <WordBuilderGame gameType={gameType} words={roundWords} onFinish={handleFinish} />}
       {gameType === 'memory' && <MemoryGame gameType={gameType} words={roundWords} onFinish={handleFinish} />}
-    </div>
+    </GameShell>
   )
 }

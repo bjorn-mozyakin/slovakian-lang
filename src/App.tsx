@@ -10,6 +10,7 @@ import { WordSetsPage } from './pages/WordSetsPage/WordSetsPage'
 import { WordSetDetailPage } from './pages/WordSetsPage/WordSetDetailPage'
 import { AllWordsPage } from './pages/AllWordsPage/AllWordsPage'
 import { GrammarPage } from './pages/GrammarPage/GrammarPage'
+import { GrammarPlayPage } from './pages/GrammarPage/GrammarPlayPage'
 import { SettingsPage } from './pages/SettingsPage/SettingsPage'
 import { useAuth } from './hooks/useAuth'
 import { applyDataFixes, syncPresetData } from './services/seed'
@@ -46,6 +47,14 @@ function App() {
           element={
             <ProtectedRoute>
               <ResultPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/grammar/play"
+          element={
+            <ProtectedRoute>
+              <GrammarPlayPage />
             </ProtectedRoute>
           }
         />

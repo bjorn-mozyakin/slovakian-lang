@@ -1,0 +1,40 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+// Экран игрового раунда (/game/:type, /grammar/play) рендерится вне
+// AppLayout — нет ни нижней навигации, ни паддингов, поэтому свои паддинги
+// и отступы задаются здесь же, одинаково для всех игр.
+.game-shell {
+  padding: v.$space-4 v.$space-5;
+
+  @include m.desktop {
+    padding: v.$space-6 v.$space-4;
+  }
+
+  // На мобильных некоторые игры (например, Мемори) должны целиком
+  // помещаться на экран без прокрутки: растягиваем оболочку на всю
+  // видимую область и отдаём остаток высоты содержимому по флексу.
+  &--fit {
+    @media (max-width: (v.$bp-tablet - 1px)) {
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      overflow: hidden;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: v.$space-4;
+    flex-shrink: 0;
+  }
+
+  &__exit {
+    @include m.button-reset;
+    @include m.focus-ring;
+    color: v.$color-text-muted;
+    font-size: v.$font-size-sm;
+    padding: v.$space-2 v.$space-3;
+  }
+}
