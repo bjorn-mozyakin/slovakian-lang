@@ -6,10 +6,17 @@
   flex-direction: column;
   align-items: center;
   gap: v.$space-4;
+  width: 100%;
+
+  @media (max-width: (v.$bp-tablet - 1px)) {
+    flex: 1;
+    min-height: 0;
+  }
 
   &__progress {
     color: v.$color-text-muted;
     font-size: v.$font-size-sm;
+    flex-shrink: 0;
   }
 
   &__grid {
@@ -22,6 +29,12 @@
     @include m.tablet {
       grid-template-columns: repeat(5, 1fr);
     }
+
+    @media (max-width: (v.$bp-tablet - 1px)) {
+      flex: 1;
+      min-height: 0;
+      grid-auto-rows: 1fr;
+    }
   }
 
   &__card {
@@ -30,6 +43,12 @@
     position: relative;
     aspect-ratio: 3 / 4;
     perspective: 600px;
+
+    @media (max-width: (v.$bp-tablet - 1px)) {
+      aspect-ratio: auto;
+      width: 100%;
+      height: 100%;
+    }
 
     &:disabled {
       cursor: default;
@@ -44,7 +63,7 @@
     justify-content: center;
     border-radius: v.$radius-sm;
     backface-visibility: hidden;
-    transition: transform 0.3s ease;
+    transition: transform 0.6s ease-in-out;
     padding: v.$space-1;
     text-align: center;
     font-size: v.$font-size-sm;
@@ -76,9 +95,9 @@
 
   &__card--matched {
     .memory-game__card-face--front {
-      background: v.$color-primary-light;
-      color: v.$color-success;
-      border-color: v.$color-success;
+      background: v.$color-accent-purple;
+      color: darken(v.$color-accent-purple, 45%);
+      border-color: darken(v.$color-accent-purple, 25%);
     }
   }
 }

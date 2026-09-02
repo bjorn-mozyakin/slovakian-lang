@@ -8,10 +8,24 @@
     gap: v.$space-2;
   }
 
+  // На мобильных Мемори должно целиком помещаться на экран без прокрутки.
+  // Страница игры (/game/:type) рендерится вне AppLayout — нет ни нижней
+  // навигации, ни паддингов, поэтому высота — это просто вся видимая область;
+  // сетка карточек растягивается на весь остаток по флексу.
+  &--memory {
+    @media (max-width: (v.$bp-tablet - 1px)) {
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      overflow: hidden;
+    }
+  }
+
   &__header {
     display: flex;
     justify-content: center;
     margin-bottom: v.$space-4;
+    flex-shrink: 0;
   }
 
   &__exit {

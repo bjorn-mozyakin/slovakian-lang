@@ -110,7 +110,7 @@ export function GamePage() {
   }
 
   return (
-    <div className="game-page">
+    <div className={`game-page${gameType === 'memory' ? ' game-page--memory' : ''}`}>
       <div className="game-page__header">
         <button className="game-page__exit" onClick={() => navigate('/')} aria-label="Завершить игру">
           ✕ {game.title}
