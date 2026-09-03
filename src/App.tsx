@@ -13,18 +13,15 @@ import { GrammarPage } from './pages/GrammarPage/GrammarPage'
 import { GrammarPlayPage } from './pages/GrammarPage/GrammarPlayPage'
 import { SettingsPage } from './pages/SettingsPage/SettingsPage'
 import { useAuth } from './hooks/useAuth'
-import { applyDataFixes, syncPresetData } from './services/seed'
+import { syncPresetData } from './services/seed'
 
 function App() {
   const { session } = useAuth()
 
   // Подхватывает новые/обновлённые preset-наборы при каждом входе, без
-  // необходимости сбрасывать локальные данные вручную. applyDataFixes
-  // должна идти первой — она чинит/переструктурирует уже сохранённые данные,
-  // прежде чем syncPresetData добавит то, чего не хватает.
+  // необходимости сбрасывать локальные данные вручную.
   useEffect(() => {
     if (session) {
-      applyDataFixes(session.userId)
       syncPresetData(session.userId)
     }
   }, [session])
