@@ -3,6 +3,7 @@ import type { GameType, RoundResult, Word } from '../../../entities/types'
 import { shuffle, getPrimaryVariant } from '../../../services/wordsService'
 import { recordAnswer } from '../../../services/db'
 import { Button } from '../../ui/Button'
+import { SpeakButton } from '../../ui/SpeakButton'
 import './WordBuilderGame.scss'
 
 interface WordBuilderGameProps {
@@ -128,10 +129,12 @@ export function WordBuilderGame({ gameType, words, onFinish }: WordBuilderGamePr
         }`}
       >
         {builtWord || ' '}
+        {status === 'correct' && <SpeakButton text={answer} />}
       </div>
 
       <p className={`builder-game__answer${status === 'wrong' ? '' : ' builder-game__answer--hidden'}`}>
         Верно: {answer}
+        {status === 'wrong' && <SpeakButton text={answer} />}
       </p>
 
       <div className="builder-game__tiles">

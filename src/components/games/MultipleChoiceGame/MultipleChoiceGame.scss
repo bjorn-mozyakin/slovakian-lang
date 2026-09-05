@@ -14,6 +14,10 @@
   }
 
   &__prompt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: v.$space-2;
     font-size: v.$font-size-xl;
     font-weight: 700;
     text-align: center;

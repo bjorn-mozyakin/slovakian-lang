@@ -1,0 +1,19 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.speak-button {
+  @include m.button-reset;
+  @include m.focus-ring;
+  flex-shrink: 0;
+  display: inline-flex;
+  color: v.$color-text-muted;
+  font-size: 15px;
+  line-height: 1;
+  padding: 2px;
+  margin-left: v.$space-1;
+  vertical-align: middle;
+
+  &:hover {
+    color: v.$color-primary;
+  }
+}

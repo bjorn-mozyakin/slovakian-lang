@@ -1,6 +1,7 @@
 import type { Word } from '../../entities/types'
 import { PART_OF_SPEECH_LABELS, GENDER_LABELS } from '../../entities/types'
 import { LearnedBadge } from '../ui/LearnedBadge'
+import { SpeakButton } from '../ui/SpeakButton'
 import './WordCard.scss'
 
 interface WordCardProps {
@@ -26,6 +27,7 @@ export function WordCard({ word, onToggleStatus, onEdit, onDelete, categories }:
       <div className="word-card__body" onClick={() => onEdit(word)}>
         <div className="word-card__row">
           <span className="word-card__sk">{word.slovakWord}</span>
+          <SpeakButton text={word.slovakWord} />
           <span className="word-card__ru">{word.russianTranslation}</span>
         </div>
         <div className="word-card__meta">

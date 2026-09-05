@@ -4,6 +4,7 @@ import { SLOVAK_SPECIAL_CHARS } from '../../../entities/types'
 import { isAnswerCorrect } from '../../../services/wordsService'
 import { recordAnswer } from '../../../services/db'
 import { Button } from '../../ui/Button'
+import { SpeakButton } from '../../ui/SpeakButton'
 import './TypingGame.scss'
 
 interface TypingGameProps {
@@ -80,7 +81,10 @@ export function TypingGame({ gameType, words, direction, onFinish }: TypingGameP
       <p className="typing-game__progress">
         {index + 1} / {words.length}
       </p>
-      <div className="typing-game__prompt">{prompt}</div>
+      <div className="typing-game__prompt">
+        {prompt}
+        {isSkToRu && <SpeakButton text={word.slovakWord} />}
+      </div>
 
       <form
         className="typing-game__form"
@@ -119,6 +123,7 @@ export function TypingGame({ gameType, words, direction, onFinish }: TypingGameP
 
         <p className={`typing-game__answer${checked && !wasCorrect ? '' : ' typing-game__answer--hidden'}`}>
           Верный ответ: {answer}
+          {!isSkToRu && <SpeakButton text={word.slovakWord} />}
         </p>
 
         <Button type="submit" fullWidth>

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import type { GameType, RoundResult, Word } from '../../../entities/types'
 import { pickDistractors, shuffle } from '../../../services/wordsService'
 import { recordAnswer } from '../../../services/db'
+import { SpeakButton } from '../../ui/SpeakButton'
 import './MultipleChoiceGame.scss'
 
 interface MultipleChoiceGameProps {
@@ -84,7 +85,10 @@ export function MultipleChoiceGame({ gameType, words, pool, userId, direction, o
       <p className="mc-game__progress">
         {index + 1} / {questions.length}
       </p>
-      <div className="mc-game__prompt">{isSkToRu ? question.word.slovakWord : question.word.russianTranslation}</div>
+      <div className="mc-game__prompt">
+        {isSkToRu ? question.word.slovakWord : question.word.russianTranslation}
+        {isSkToRu && <SpeakButton text={question.word.slovakWord} />}
+      </div>
 
       <div className="mc-game__options">
         {question.options.map((opt, i) => {
