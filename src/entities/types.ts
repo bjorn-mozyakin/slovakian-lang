@@ -68,6 +68,7 @@ export type GameType =
   | 'choice-ru-sk'
   | 'type-sk-ru'
   | 'type-ru-sk'
+  | 'listening'
   | 'builder'
   | 'memory'
   | 'sprint'
@@ -83,6 +84,7 @@ export const GAMES: GameInfo[] = [
   { type: 'choice-ru-sk', title: 'Перевод → слово', description: 'Выбери верное слово (RU → SK)' },
   { type: 'type-sk-ru', title: 'Ввод перевода', description: 'Впиши перевод на русском (SK → RU)' },
   { type: 'type-ru-sk', title: 'Ввод слова', description: 'Впиши слово на словацком (RU → SK)' },
+  { type: 'listening', title: 'Аудирование', description: 'Прослушай и напиши слово на словацком' },
   { type: 'builder', title: 'Конструктор слов', description: 'Собери словацкое слово из букв' },
   { type: 'sprint', title: 'Спринт', description: 'Верно или неверно — на скорость' },
   { type: 'memory', title: 'Мемори', description: 'Найди пары слово ↔ перевод' },

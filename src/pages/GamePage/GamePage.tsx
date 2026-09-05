@@ -11,6 +11,7 @@ import { Button } from '../../components/ui/Button'
 import { GameShell } from '../../components/layout/GameShell'
 import { MultipleChoiceGame } from '../../components/games/MultipleChoiceGame/MultipleChoiceGame'
 import { TypingGame } from '../../components/games/TypingGame/TypingGame'
+import { ListeningGame } from '../../components/games/ListeningGame/ListeningGame'
 import { WordBuilderGame } from '../../components/games/WordBuilderGame/WordBuilderGame'
 import { MemoryGame } from '../../components/games/MemoryGame/MemoryGame'
 import { SprintGame } from '../../components/games/SprintGame/SprintGame'
@@ -125,6 +126,7 @@ export function GamePage() {
           onFinish={handleFinish}
         />
       )}
+      {gameType === 'listening' && <ListeningGame gameType={gameType} words={roundWords} onFinish={handleFinish} />}
       {gameType === 'builder' && <WordBuilderGame gameType={gameType} words={roundWords} onFinish={handleFinish} />}
       {gameType === 'memory' && <MemoryGame gameType={gameType} words={roundWords} onFinish={handleFinish} />}
     </GameShell>

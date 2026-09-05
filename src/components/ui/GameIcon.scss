@@ -6,4 +6,12 @@
   flex-shrink: 0;
   border-radius: v.$radius-sm;
   object-fit: cover;
+
+  &--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: v.$color-primary-light;
+    font-size: 40px;
+  }
 }
