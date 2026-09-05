@@ -16,6 +16,14 @@ interface Card {
   label: string
 }
 
+// При совпадении карточки остаются открытыми навсегда — торопиться некуда,
+// пауза нужна только чтобы избежать визуального рывка. При несовпадении и
+// в конце игры пользователю нужно время прочитать, что было на карточках,
+// прежде чем они перевернутся обратно или начнётся переход на результат.
+const MATCH_DELAY_MS = 700
+const MISMATCH_DELAY_MS = 1500
+const FINISH_DELAY_MS = 1500
+
 export function MemoryGame({ gameType, words, onFinish }: MemoryGameProps) {
   const cards = useMemo<Card[]>(
     () =>
@@ -47,25 +55,30 @@ export function MemoryGame({ gameType, words, onFinish }: MemoryGameProps) {
       const second = cards.find((c) => c.id === secondId)!
       const isMatch = first.wordId === second.wordId && first.id !== second.id
 
-      setTimeout(() => {
-        if (isMatch) {
-          recordAnswer(first.wordId, gameType, true)
-          const nextMatched = new Set(matched)
-          nextMatched.add(firstId)
-          nextMatched.add(secondId)
-          setMatched(nextMatched)
-          setFlipped([])
-          setBusy(false)
+      setTimeout(
+        () => {
+          if (isMatch) {
+            recordAnswer(first.wordId, gameType, true)
+            const nextMatched = new Set(matched)
+            nextMatched.add(firstId)
+            nextMatched.add(secondId)
+            setMatched(nextMatched)
+            setFlipped([])
+            setBusy(false)
 
-          if (nextMatched.size === cards.length) {
-            onFinish({ gameType, correct: words.length, total: words.length, mistakes })
+            if (nextMatched.size === cards.length) {
+              setTimeout(() => {
+                onFinish({ gameType, correct: words.length, total: words.length, mistakes })
+              }, FINISH_DELAY_MS)
+            }
+          } else {
+            setMistakes((m) => m + 1)
+            setFlipped([])
+            setBusy(false)
           }
-        } else {
-          setMistakes((m) => m + 1)
-          setFlipped([])
-          setBusy(false)
-        }
-      }, 700)
+        },
+        isMatch ? MATCH_DELAY_MS : MISMATCH_DELAY_MS,
+      )
     }
   }
 
