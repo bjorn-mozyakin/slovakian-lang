@@ -285,6 +285,7 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['bojler', 'bojler', 'бойлер'], ['kohutik', 'kohútik', 'кран'],
     ['plesen', 'pleseň', 'плесень'], ['prach', 'prach', 'пыль'], ['komin', 'komín', 'дымоход'],
     ['mraznicka', 'mraznička', 'морозильник'], ['luster', 'luster', 'люстра'],
+    ['tlmene_svetlo', 'tlmené svetlo', 'приглушённый свет', 'noun'],
   ],
   'Мебель': [
     ['nabytok', 'nábytok', 'мебель'], ['stol', 'stôl', 'стол'], ['stolicka', 'stolička', 'стул'], ['postel', 'posteľ', 'кровать'],
@@ -355,6 +356,8 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['uzitocny', 'užitočný', 'полезный', 'adjective'], ['zbytocny', 'zbytočný', 'бесполезный', 'adjective'],
     ['mokry', 'mokrý', 'мокрый', 'adjective'], ['suchy', 'suchý', 'сухой', 'adjective'],
     ['mlady', 'mladý', 'молодой', 'adjective'],
+    ['jedinecny', 'jedinečný', 'уникальный', 'adjective'], ['jemny', 'jemný', 'нежный, мягкий', 'adjective'],
+    ['vlastny', 'vlastný', 'собственный', 'adjective'],
   ],
   'Цвета': [
     ['cerveny', 'červený', 'красный', 'adjective'], ['ruzovy', 'ružový', 'розовый', 'adjective'],
@@ -438,6 +441,7 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['hodina', 'hodina', 'час', 'noun'], ['den', 'deň', 'день', 'noun'],
     ['tyzden', 'týždeň', 'неделя', 'noun'], ['mesiac', 'mesiac', 'месяц', 'noun'],
     ['rok', 'rok', 'год', 'noun'], ['storocie', 'storočie', 'век', 'noun'],
+    ['pocas', 'počas', 'во время, в течение', 'preposition'],
   ],
   'Месяцы года': [
     ['januar', 'január', 'январь', 'noun'], ['februar', 'február', 'февраль', 'noun'],
@@ -482,6 +486,8 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['vazne', 'vážne', 'серьезно', 'adverb'], ['veselo', 'veselo', 'весело', 'adverb'], ['smutne', 'smutne', 'грустно', 'adverb'],
     ['pekne', 'pekne', 'красиво, хорошо', 'adverb'], ['osobne', 'osobne', 'лично', 'adverb'],
     ['pisomne', 'písomne', 'письменно', 'adverb'], ['ustne', 'ústne', 'устно', 'adverb'], ['zadarmo', 'zadarmo', 'бесплатно', 'adverb'],
+    ['uplne', 'úplne', 'полностью, совершенно', 'adverb'], ['starostlivo', 'starostlivo', 'тщательно, заботливо', 'adverb'],
+    ['spravne', 'správne', 'правильно, верно', 'adverb'],
   ],
   'Направления и расположение': [
     ['smer', 'smer', 'направление', 'noun'], ['vchod', 'vchod', 'вход', 'noun'], ['vychod', 'východ', 'выход, восток', 'noun'],
@@ -581,6 +587,7 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['radit', 'radiť', 'советовать', 'verb'], ['poprosit', 'poprosiť', 'попросить', 'verb'],
     ['oznamit', 'oznámiť', 'сообщить', 'verb'], ['informovat', 'informovať', 'информировать', 'verb'],
     ['opisat', 'opísať', 'описать', 'verb'], ['porovnat', 'porovnať', 'сравнить', 'verb'], ['porovnavat', 'porovnávať', 'сравнивать', 'verb'],
+    ['vdaka', 'vďaka', 'благодаря, спасибо', 'interjection'],
   ],
   'Работа и профессии': [
     ['ucitel', 'učiteľ', 'учитель', 'noun'], ['lekar', 'lekár', 'врач', 'noun'], ['policajt', 'policajt', 'полицейский', 'noun'],
@@ -879,6 +886,9 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['predstava', 'predstava', 'представление', 'noun'], ['sustredenie', 'sústredenie', 'сосредоточение', 'noun'],
     ['pamat', 'pamäť', 'память', 'noun'], ['talent', 'talent', 'талант', 'noun'], ['zvyk', 'zvyk', 'привычка', 'noun'],
     ['spravanie', 'správanie', 'поведение', 'noun'],
+    ['pohyb', 'pohyb', 'движение', 'noun'], ['zazitok', 'zážitok', 'впечатление, переживание, опыт', 'noun'],
+    ['priestor', 'priestor', 'пространство, помещение', 'noun'], ['krok', 'krok', 'шаг', 'noun'],
+    ['nezalezi', 'nezáleží', 'не имеет значения, неважно', 'adverb'],
     ['dosiahnut', 'dosiahnuť', 'достичь', 'verb'], ['riesit', 'riešiť', 'решать', 'verb'], ['vyriesit', 'vyriešiť', 'решить', 'verb'],
     ['tvorit', 'tvoriť', 'создавать', 'verb'], ['vytvorit', 'vytvoriť', 'создать', 'verb'], ['zvysit', 'zvýšiť', 'увеличить', 'verb'],
     ['znizit', 'znížiť', 'уменьшить', 'verb'], ['zlepsit', 'zlepšiť', 'улучшить', 'verb'], ['zhorsit', 'zhoršiť', 'ухудшить', 'verb'],
@@ -984,6 +994,8 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['obnovit', 'obnoviť', 'восстановить, обновить', 'verb'], ['skontrolovat', 'skontrolovať', 'проверить', 'verb'],
     ['spustit', 'spustiť', 'запустить', 'verb'], ['zastavit', 'zastaviť', 'остановить', 'verb'],
     ['povolit', 'povoliť', 'разрешить', 'verb'], ['zakazat', 'zakázať', 'запретить', 'verb'],
+    ['vypnut', 'vypnúť', 'выключить', 'verb'], ['zapnut', 'zapnúť', 'включить', 'verb'],
+    ['vypinat', 'vypínať', 'выключать', 'verb'], ['zapinat', 'zapínať', 'включать', 'verb'],
   ],
   'Финансы и деньги': [
     ['cena', 'cena', 'цена', 'noun'], ['peniaze', 'peniaze', 'деньги', 'noun'], ['euro', 'euro', 'евро', 'noun'],
@@ -1044,6 +1056,8 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['financovat', 'financovať', 'финансировать', 'verb'], ['nahlasit', 'nahlásiť', 'сообщить', 'verb'], ['ohlasit', 'ohlásiť', 'объявить', 'verb'],
     ['udrziavat', 'udržiavať', 'поддерживать', 'verb'], ['zapajat', 'zapájať', 'подключать', 'verb'],
     ['nabijat', 'nabíjať', 'заряжать', 'verb'], ['vybijat', 'vybíjať', 'разряжать', 'verb'],
+    ['skusit', 'skúsiť', 'попробовать', 'verb'], ['pokracovat', 'pokračovať', 'продолжать', 'verb'],
+    ['spajat', 'spájať', 'соединять, объединять', 'verb'], ['prebiehat', 'prebiehať', 'проходить, происходить', 'verb'],
   ],
 }
 
