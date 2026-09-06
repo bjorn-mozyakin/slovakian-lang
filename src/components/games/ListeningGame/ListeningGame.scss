@@ -74,12 +74,12 @@
   &__char {
     @include m.button-reset;
     @include m.focus-ring;
-    min-width: 32px;
-    padding: v.$space-1 v.$space-2;
+    min-width: 44px;
+    padding: v.$space-2 v.$space-3;
     border: 1px solid v.$color-border;
     border-radius: v.$radius-sm;
     background: v.$color-surface;
-    font-size: v.$font-size-base;
+    font-size: v.$font-size-lg;
 
     &:hover {
       border-color: v.$color-primary;
@@ -90,7 +90,7 @@
   &__answer {
     text-align: center;
     color: v.$color-text-muted;
-    font-size: v.$font-size-sm;
+    font-size: v.$font-size-base;
     // Место под текст держим всегда — иначе появление перевода сдвигает
     // кнопку "Далее" и всю раскладку вверх-вниз.
     min-height: 1.4em;

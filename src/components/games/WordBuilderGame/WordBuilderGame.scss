@@ -41,7 +41,7 @@
 
   &__answer {
     color: v.$color-danger;
-    font-size: v.$font-size-sm;
+    font-size: v.$font-size-base;
     margin-top: -#{v.$space-3};
     // Место под текст держим всегда — иначе появление ошибки сдвигает
     // плитки и кнопки под ними вверх-вниз.
@@ -64,12 +64,12 @@
     @include m.button-reset;
     @include m.focus-ring;
     @include m.card;
-    width: 44px;
-    height: 44px;
+    width: 52px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: v.$font-size-lg;
+    font-size: v.$font-size-xl;
     font-weight: 600;
 
     &:hover:not(:disabled) {
