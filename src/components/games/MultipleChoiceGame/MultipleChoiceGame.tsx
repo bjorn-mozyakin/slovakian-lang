@@ -2,7 +2,10 @@ import { useEffect, useMemo, useState } from 'react'
 import type { GameType, RoundResult, Word } from '../../../entities/types'
 import { pickDistractors, shuffle } from '../../../services/wordsService'
 import { recordAnswer } from '../../../services/db'
+import { speakSlovak } from '../../../services/speech'
+import { useAutoplaySetting } from '../../../hooks/useAutoplaySetting'
 import { SpeakButton } from '../../ui/SpeakButton'
+import { AutoplayToggle } from '../../ui/AutoplayToggle'
 import './MultipleChoiceGame.scss'
 
 interface MultipleChoiceGameProps {
@@ -38,6 +41,7 @@ export function MultipleChoiceGame({ gameType, words, pool, userId, direction, o
   const [index, setIndex] = useState(0)
   const [correct, setCorrect] = useState(0)
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [autoplay, setAutoplay] = useAutoplaySetting(gameType)
 
   const question = questions[index]
   const isSkToRu = direction === 'sk-ru'
@@ -80,6 +84,13 @@ export function MultipleChoiceGame({ gameType, words, pool, userId, direction, o
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [question, selectedId])
 
+  // Озвучиваем словацкое слово при появлении каждого нового вопроса (только
+  // в направлении SK → RU, где оно и есть промпт).
+  useEffect(() => {
+    if (isSkToRu && autoplay) speakSlovak(question.word.slovakWord)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index])
+
   return (
     <div className="mc-game">
       <p className="mc-game__progress">
@@ -89,6 +100,8 @@ export function MultipleChoiceGame({ gameType, words, pool, userId, direction, o
         {isSkToRu ? question.word.slovakWord : question.word.russianTranslation}
         {isSkToRu && <SpeakButton text={question.word.slovakWord} />}
       </div>
+
+      {isSkToRu && <AutoplayToggle checked={autoplay} onChange={setAutoplay} />}
 
       <div className="mc-game__options">
         {question.options.map((opt, i) => {

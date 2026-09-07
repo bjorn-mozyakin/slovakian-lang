@@ -6,6 +6,7 @@ export const STORAGE_KEYS = {
   selectedWordSetIds: 'slovak_trainer:selected_word_set_ids',
   seeded: 'slovak_trainer:seeded_v1',
   sprintScores: 'slovak_trainer:sprint_scores',
+  autoplayPronunciation: 'slovak_trainer:autoplay_pronunciation',
 } as const
 
 export function readJson<T>(key: string, fallback: T): T {

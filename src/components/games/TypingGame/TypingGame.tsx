@@ -3,8 +3,11 @@ import type { GameType, RoundResult, Word } from '../../../entities/types'
 import { SLOVAK_SPECIAL_CHARS } from '../../../entities/types'
 import { isAnswerCorrect } from '../../../services/wordsService'
 import { recordAnswer } from '../../../services/db'
+import { speakSlovak } from '../../../services/speech'
+import { useAutoplaySetting } from '../../../hooks/useAutoplaySetting'
 import { Button } from '../../ui/Button'
 import { SpeakButton } from '../../ui/SpeakButton'
+import { AutoplayToggle } from '../../ui/AutoplayToggle'
 import './TypingGame.scss'
 
 interface TypingGameProps {
@@ -20,6 +23,7 @@ export function TypingGame({ gameType, words, direction, onFinish }: TypingGameP
   const [value, setValue] = useState('')
   const [checked, setChecked] = useState(false)
   const [wasCorrect, setWasCorrect] = useState(false)
+  const [autoplay, setAutoplay] = useAutoplaySetting(gameType)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const word = words[index]
@@ -76,6 +80,13 @@ export function TypingGame({ gameType, words, direction, onFinish }: TypingGameP
     }
   }, [checked, index])
 
+  // Озвучиваем словацкое слово при появлении каждого нового слова (только
+  // в направлении SK → RU, где оно и есть промпт).
+  useEffect(() => {
+    if (isSkToRu && autoplay) speakSlovak(word.slovakWord)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index])
+
   return (
     <div className="typing-game">
       <p className="typing-game__progress">
@@ -85,6 +96,8 @@ export function TypingGame({ gameType, words, direction, onFinish }: TypingGameP
         {prompt}
         {isSkToRu && <SpeakButton text={word.slovakWord} />}
       </div>
+
+      {isSkToRu && <AutoplayToggle checked={autoplay} onChange={setAutoplay} />}
 
       <form
         className="typing-game__form"

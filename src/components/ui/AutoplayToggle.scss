@@ -1,0 +1,14 @@
+@use '../../styles/variables' as v;
+
+.autoplay-toggle {
+  display: flex;
+  align-items: center;
+  gap: v.$space-2;
+  color: v.$color-text-muted;
+  font-size: v.$font-size-sm;
+  cursor: pointer;
+
+  input {
+    cursor: pointer;
+  }
+}

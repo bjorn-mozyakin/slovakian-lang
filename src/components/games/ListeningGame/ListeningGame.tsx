@@ -4,7 +4,9 @@ import { SLOVAK_SPECIAL_CHARS } from '../../../entities/types'
 import { isAnswerCorrect, getPrimaryVariant } from '../../../services/wordsService'
 import { recordAnswer } from '../../../services/db'
 import { speakSlovak } from '../../../services/speech'
+import { useAutoplaySetting } from '../../../hooks/useAutoplaySetting'
 import { Button } from '../../ui/Button'
+import { AutoplayToggle } from '../../ui/AutoplayToggle'
 import './ListeningGame.scss'
 
 interface ListeningGameProps {
@@ -19,6 +21,7 @@ export function ListeningGame({ gameType, words, onFinish }: ListeningGameProps)
   const [value, setValue] = useState('')
   const [checked, setChecked] = useState(false)
   const [wasCorrect, setWasCorrect] = useState(false)
+  const [autoplay, setAutoplay] = useAutoplaySetting(gameType)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const word = words[index]
@@ -42,6 +45,10 @@ export function ListeningGame({ gameType, words, onFinish }: ListeningGameProps)
         insufficientWords: words.length < 10,
       })
     } else {
+      // Озвучиваем следующее слово синхронно прямо в обработчике клика/Enter
+      // (а не в useEffect по index) — на мобильных браузерах автопроигрывание
+      // звука разрешено, только если оно — прямое следствие жеста пользователя.
+      if (autoplay) speakSlovak(getPrimaryVariant(words[index + 1].slovakWord))
       setIndex((i) => i + 1)
       setValue('')
       setChecked(false)
@@ -71,12 +78,14 @@ export function ListeningGame({ gameType, words, onFinish }: ListeningGameProps)
     if (!checked) inputRef.current?.focus()
   }, [checked, index])
 
-  // Слово озвучивается автоматически при появлении — кнопка нужна, чтобы
-  // прослушать ещё раз, а не только один раз при загрузке.
+  // Озвучиваем самое первое слово при загрузке игры (если автопроигрывание
+  // включено) — только один раз при монтировании. Для всех следующих слов
+  // озвучка запускается синхронно в handleNext (см. там) — так на мобильных
+  // она с большей вероятностью считается частью жеста пользователя.
   useEffect(() => {
-    speakSlovak(answer)
+    if (autoplay) speakSlovak(answer)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index])
+  }, [])
 
   return (
     <div className="listening-game">
@@ -87,6 +96,8 @@ export function ListeningGame({ gameType, words, onFinish }: ListeningGameProps)
       <button type="button" className="listening-game__play" onClick={() => speakSlovak(answer)} aria-label="Прослушать слово">
         🔊
       </button>
+
+      <AutoplayToggle checked={autoplay} onChange={setAutoplay} />
 
       <form
         className="listening-game__form"

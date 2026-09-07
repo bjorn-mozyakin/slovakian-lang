@@ -13,6 +13,7 @@ import { PageHeader } from '../../components/ui/PageHeader'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { Button } from '../../components/ui/Button'
 import { GameIcon } from '../../components/ui/GameIcon'
+import { primeSpeech } from '../../services/speech'
 import './TrainingPage.scss'
 
 function TrainingChip({
@@ -227,7 +228,17 @@ export function TrainingPage() {
               key={game.type}
               className="training-page__game-card"
               disabled={selectedIds.length === 0}
-              onClick={() => navigate(`/game/${game.type}`)}
+              onClick={() => {
+                // Игры с автопроизношением словацкого слова (Аудирование,
+                // Слово → перевод, Ввод перевода) озвучивают его сразу при
+                // открытии — на мобильных браузерах для этого нужен реальный
+                // жест пользователя, а переход по SPA-маршруту им уже не
+                // считается. "Прогреваем" звук прямо в этом клике.
+                if (game.type === 'listening' || game.type === 'choice-sk-ru' || game.type === 'type-sk-ru') {
+                  primeSpeech()
+                }
+                navigate(`/game/${game.type}`)
+              }}
             >
               <GameIcon type={game.type} />
               <span className="training-page__game-body">
