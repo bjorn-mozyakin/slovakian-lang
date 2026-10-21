@@ -1180,6 +1180,14 @@ export function syncPresetData(userId: string): void {
 
   const setByName = new Map(sets.filter((s) => s.userId === userId && s.isPreset).map((s) => [s.name, s]))
 
+  // Наборы, переименованные/удалённые/разбитые в PRESETS (например, когда
+  // один набор разделили на два под новыми именами), иначе остались бы в
+  // localStorage навсегда — синхронизация сама по себе только добавляет.
+  const presetNames = new Set(Object.keys(PRESETS))
+  const staleSetIds = new Set(
+    sets.filter((s) => s.userId === userId && s.isPreset && !presetNames.has(s.name)).map((s) => s.id),
+  )
+
   // Одно и то же слово может встречаться в нескольких тематических наборах
   // (например "хлеб" в "Еда" и "Гарниры") — переиспользуем уже созданное
   // слово вместо дублирования записи в словаре.
@@ -1244,7 +1252,11 @@ export function syncPresetData(userId: string): void {
   }
 
   if (newWords.length > 0) replaceWords([...words, ...newWords])
-  if (newSets.length > 0) replaceWordSets([...sets, ...newSets])
-  if (newItems.length > 0) replaceWordSetItems([...items, ...newItems])
+  if (newSets.length > 0 || staleSetIds.size > 0) {
+    replaceWordSets([...sets.filter((s) => !staleSetIds.has(s.id)), ...newSets])
+  }
+  if (newItems.length > 0 || staleSetIds.size > 0) {
+    replaceWordSetItems([...items.filter((i) => !staleSetIds.has(i.wordSetId)), ...newItems])
+  }
 }
 
