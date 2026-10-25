@@ -45,10 +45,13 @@ const SET_CATEGORIES: Record<string, string> = {
 
   'Дом снаружи': 'Дом и быт',
   'Дом внутри': 'Дом и быт',
-  'Мебель': 'Дом и быт',
   'Посуда': 'Дом и быт',
-  'Утварь': 'Дом и быт',
   'Материалы и инструменты': 'Дом и быт',
+  'Уборка': 'Дом и быт',
+  'Комната': 'Дом и быт',
+  'Спальня': 'Дом и быт',
+  'Ванная комната': 'Дом и быт',
+  'Кухня': 'Дом и быт',
 
   'Одежда': 'Одежда и части тела',
   'Аксессуары': 'Одежда и части тела',
@@ -265,46 +268,36 @@ const PRESETS: Record<string, PresetEntry[]> = {
   'Дом снаружи': [
     ['dom', 'dom', 'дом'], ['byt', 'byt', 'квартира'], ['poschodie', 'poschodie', 'этаж'], ['strecha', 'strecha', 'крыша'],
     ['dvere', 'dvere', 'дверь'], ['okno', 'okno', 'окно'], ['balkon', 'balkón', 'балкон'], ['garaz', 'garáž', 'гараж'],
-    ['plot', 'plot', 'забор'], ['kluc', 'kľúč', 'ключ'], ['izba', 'izba', 'комната'], ['kuchyna', 'kuchyňa', 'кухня'],
-    ['spalna', 'spálňa', 'спальня'], ['obyvacka', 'obývačka', 'гостиная'], ['chodba', 'chodba', 'коридор'],
-    ['kupelna', 'kúpeľňa', 'ванная'], ['zahrada', 'záhrada', 'сад'], ['dvor', 'dvor', 'двор'],
-    ['panelak', 'panelák', 'панельный дом'], ['novostavba', 'novostavba', 'новостройка'], ['lodzia', 'lodžia', 'лоджия'],
-    ['zabradlie', 'zábradlie', 'перила'], ['branka', 'bránka', 'калитка'], ['predsien', 'predsieň', 'прихожая'],
-    ['komora', 'komora', 'кладовая'], ['spajza', 'špajza', 'кладовая'], ['pracovna', 'pracovňa', 'кабинет'],
+    ['plot', 'plot', 'забор'], ['zahrada', 'záhrada', 'сад'], ['dvor', 'dvor', 'двор'],
+    ['panelak', 'panelák', 'панельный дом'], ['novostavba', 'novostavba', 'новостройка'],
+    ['zabradlie', 'zábradlie', 'перила'], ['branka', 'bránka', 'калитка'],
     ['najom', 'nájom', 'аренда'], ['najomne', 'nájomné', 'арендная плата'],
+    ['kontajner_na_odpad', 'kontajner na odpad', 'мусорный контейнер'],
   ],
   'Дом внутри': [
-    ['izba', 'izba', 'комната'], ['zrkadlo', 'zrkadlo', 'зеркало'], ['chladnicka', 'chladnička', 'холодильник'],
-    ['sporak', 'sporák', 'плита'], ['pracka', 'práčka', 'стиральная машинка'],
-    ['vana', 'vaňa', 'ванна'], ['kuchyna', 'kuchyňa', 'кухня'], ['koberec', 'koberec', 'ковер'],
+    ['izba', 'izba', 'комната'],
+    ['kuchyna', 'kuchyňa', 'кухня'],
     ['schody', 'schody', 'лестница'], ['podlaha', 'podlaha', 'пол'],
     ['strop', 'strop', 'потолок'], ['stena', 'stena', 'стена'],
-    ['lampa', 'lampa', 'лампа'], ['svetlo', 'svetlo', 'свет'],
-    ['rura', 'rúra', 'духовка'], ['televizor', 'televízor', 'телевизор'], ['pocitac', 'počítač', 'компьютер'],
+    ['svetlo', 'svetlo', 'свет'],
     ['internet', 'internet', 'интернет'], ['elektrina', 'elektrina', 'электричество'],
     ['plyn', 'plyn', 'газ'], ['kurenie', 'kúrenie', 'отопление'], ['vytah', 'výťah', 'лифт'], ['pivnica', 'pivnica', 'подвал'],
-    ['zaclona', 'záclona', 'занавеска'], ['zaves', 'záves', 'штора'],
-    ['zaluzie', 'žalúzie', 'жалюзи'], ['paplon', 'paplón', 'одеяло'], ['prikryvka', 'prikrývka', 'одеяло'],
-    ['matrac', 'matrac', 'матрас'], ['zamka', 'zámka', 'замок'], ['alarm', 'alarm', 'сигнализация'], ['interkom', 'interkom', 'домофон'],
+    ['alarm', 'alarm', 'сигнализация'], ['interkom', 'interkom', 'домофон'],
     ['elektromer', 'elektromer', 'электросчетчик'],
     ['plynomer', 'plynomer', 'газовый счетчик'], ['vodomer', 'vodomer', 'счетчик воды'], ['kotol', 'kotol', 'котел'],
-    ['bojler', 'bojler', 'бойлер'], ['kohutik', 'kohútik', 'кран'],
-    ['plesen', 'pleseň', 'плесень'], ['prach', 'prach', 'пыль'], ['komin', 'komín', 'дымоход'],
-    ['mraznicka', 'mraznička', 'морозильник'], ['luster', 'luster', 'люстра'],
+    ['bojler', 'bojler', 'бойлер'],
     ['tlmene_svetlo', 'tlmené svetlo', 'приглушённый свет', 'noun'],
     ['sprcha', 'sprcha', 'душ', 'noun'],
-  ],
-  'Мебель': [
-    ['nabytok', 'nábytok', 'мебель'], ['stol', 'stôl', 'стол'], ['stolicka', 'stolička', 'стул'], ['postel', 'posteľ', 'кровать'],
-    ['gauc', 'gauč', 'диван'], ['pohovka', 'pohovka', 'диван'], ['skrina', 'skriňa', 'шкаф'], ['komoda', 'komoda', 'комод'],
-    ['polica', 'polica', 'полка'], ['kreslo', 'kreslo', 'кресло'], ['skrinka', 'skrinka', 'шкафчик'], ['vesiak', 'vešiak', 'вешалка'],
+    ['spalna', 'spálňa', 'спальня'], ['obyvacka', 'obývačka', 'гостиная'], ['chodba', 'chodba', 'коридор'],
+    ['kupelna', 'kúpeľňa', 'ванная'], ['lodzia', 'lodžia', 'лоджия'], ['predsien', 'predsieň', 'прихожая'],
+    ['komora', 'komora', 'кладовая'], ['spajza', 'špajza', 'кладовая'], ['pracovna', 'pracovňa', 'кабинет'],
   ],
   'Посуда': [
     ['lyzica', 'lyžica', 'ложка'], ['vidlicka', 'vidlička', 'вилка'], ['noz', 'nôž', 'нож'], ['tanier', 'tanier', 'тарелка'],
     ['hrniec', 'hrniec', 'кастрюля'], ['panvica', 'panvica', 'сковорода'], ['kanvica', 'kanvica', 'чайник'],
     ['mikrovlnka', 'mikrovlnka', 'микроволновка'], ['hrncek', 'hrnček', 'кружка'], ['salka', 'šálka', 'чашка'], ['flasa', 'fľaša', 'бутылка'],
     ['pohar', 'pohár', 'стакан'], ['obrus', 'obrus', 'скатерть'],
-    ['drez', 'drez', 'кухонная мойка'], ['digestor', 'digestor', 'вытяжка'], ['kavovar', 'kávovar', 'кофемашина'],
+    ['digestor', 'digestor', 'вытяжка'], ['kavovar', 'kávovar', 'кофемашина'],
     ['mixer', 'mixér', 'блендер'], ['pokrievka', 'pokrievka', 'крышка'], ['doska', 'doska', 'доска'],
     ['otvarac', 'otvárač', 'открывалка'], ['vyvrtka', 'vývrtka', 'штопор'], ['servitka', 'servítka', 'салфетка'],
     ['riad', 'riad', 'посуда'], ['pribor', 'príbor', 'столовые приборы'], ['varecha', 'varecha', 'деревянная ложка'],
@@ -312,16 +305,50 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['lyzicka', 'lyžička', 'чайная ложка'],
     ['miska', 'miska', 'миска', 'noun'], ['cajnik', 'čajník', 'чайник', 'noun'],
   ],
-  'Утварь': [
-    ['mobil', 'mobil', 'мобильный телефон'],
-    ['deka', 'deka', 'одеяло'], ['vankus', 'vankúš', 'подушка'], ['plachta', 'plachta', 'простынка'],
-    ['obliecka_na_vankus', 'obliečka na vankúš', 'наволочка'], ['umyvadlo', 'umývadlo', 'раковина'], ['uterak', 'uterák', 'полотенце'],
-    ['zasuvka', 'zásuvka', 'розетка'], ['mydlo', 'mydlo', 'мыло'], ['kefa', 'kefa', 'щетка'], ['sampon', 'šampón', 'шампунь'],
+  'Уборка': [
+    ['plesen', 'pleseň', 'плесень'], ['prach', 'prach', 'пыль'],
+    ['upratovat', 'upratovať', 'убирать', 'verb'], ['cistit', 'čistiť', 'чистить', 'verb'], ['umyvat', 'umývať', 'мыть', 'verb'],
+    ['prat', 'prať', 'стирать', 'verb'], ['zehlit', 'žehliť', 'гладить', 'verb'], ['susit', 'sušiť', 'сушить', 'verb'],
+    ['vetrat', 'vetrať', 'проветривать', 'verb'],
+    ['bioodpad', 'bioodpad', 'биоотходы'], ['odpad', 'odpad', 'отходы, мусор'],
+    ['vedro', 'vedro', 'ведро'], ['mop', 'mop', 'швабра'], ['cistiaci_prostriedok', 'čistiaci prostriedok', 'чистящее средство'],
+    ['skvrna', 'škvrna', 'пятно'], ['flak', 'fľak', 'пятно'],
+    ['handra_na_podlahu', 'handra na podlahu', 'половая тряпка'],
+    ['odpadkovy_kos', 'odpadkový kôš', 'мусорная корзина'], ['smetny_kos', 'smetný kôš', 'мусорная корзина'],
+  ],
+  'Комната': [
+    ['televizor', 'televízor', 'телевизор'], ['pocitac', 'počítač', 'компьютер'], ['krb', 'krb', 'камин'],
+    ['zasuvka', 'zásuvka', 'розетка, выдвижной ящик'], ['botnik', 'botník', 'обувница'], ['skrina', 'skriňa', 'шкаф'],
+    ['obuvacia_lyzica', 'obúvacia lyžica', 'ложка для обуви'],
+    ['kluc', 'kľúč', 'ключ'], ['koberec', 'koberec', 'ковер'], ['zamka', 'zámka', 'замок'],
+    ['rohozka', 'rohožka', 'коврик в прихожей'],
+    ['nabytok', 'nábytok', 'мебель'], ['stol', 'stôl', 'стол'], ['stolicka', 'stolička', 'стул'],
+    ['gauc', 'gauč', 'диван'], ['pohovka', 'pohovka', 'диван'], ['komoda', 'komoda', 'комод'],
+    ['polica', 'polica', 'полка'], ['kreslo', 'kreslo', 'кресло'], ['skrinka', 'skrinka', 'шкафчик'], ['vesiak', 'vešiak', 'вешалка'],
+    ['mobil', 'mobil', 'мобильный телефон'], ['komin', 'komín', 'дымоход'],
+  ],
+  'Спальня': [
+    ['paplon', 'paplón', 'одеяло'], ['prikryvka', 'prikrývka', 'одеяло'], ['deka', 'deka', 'одеяло, плед'],
+    ['matrac', 'matrac', 'матрас'], ['vankus', 'vankúš', 'подушка'], ['plachta', 'plachta', 'простынка'],
+    ['obliecka_na_vankus', 'obliečka na vankúš', 'наволочка'], ['zrkadlo', 'zrkadlo', 'зеркало'], ['luster', 'luster', 'люстра'],
+    ['zaclona', 'záclona', 'занавеска'], ['zaves', 'záves', 'штора'], ['zaluzie', 'žalúzie', 'жалюзи'], ['lampa', 'lampa', 'лампа'],
+    ['nocny_stolik', 'nočný stolík', 'тумбочка'],
+    ['zasuvka', 'zásuvka', 'розетка, выдвижной ящик'], ['skrina', 'skriňa', 'шкаф'], ['postel', 'posteľ', 'кровать'],
+  ],
+  'Ванная комната': [
+    ['pracka', 'práčka', 'стиральная машинка'], ['vana', 'vaňa', 'ванна'], ['umyvadlo', 'umývadlo', 'раковина в ванной'],
+    ['uterak', 'uterák', 'полотенце'], ['sampon', 'šampón', 'шампунь'], ['mydlo', 'mydlo', 'мыло'],
+    ['zubna_kefka', 'zubná kefka', 'зубная щётка'], ['zubna_pasta', 'zubná pasta', 'зубная паста'], ['kefa', 'kefa', 'щетка'],
     ['hreben', 'hrebeň', 'расческа'], ['fen', 'fén', 'фен'], ['kozmetika', 'kozmetika', 'косметика'], ['parfum', 'parfum', 'духи'],
-    ['krem', 'krém', 'крем'], ['botnik', 'botník', 'обувница'], ['susiak', 'sušiak', 'сушилка'], ['zastera', 'zástera', 'фартук'],
-    ['upratovanie', 'upratovanie', 'уборка'], ['cistenie', 'čistenie', 'чистка'], ['umyvanie', 'umývanie', 'мытье'], ['pranie', 'pranie', 'стирка'],
-    ['zehlenie', 'žehlenie', 'глажка'], ['susenie', 'sušenie', 'сушка'], ['vetranie', 'vetranie', 'проветривание'],
-    ['bioodpad', 'bioodpad', 'биоотходы'], ['skvrna', 'škvrna', 'пятно'], ['flak', 'fľak', 'пятно'],
+    ['krem', 'krém', 'крем'], ['susiak', 'sušiak', 'сушилка'], ['zvon_na_odpad', 'zvon na odpad', 'вантуз'],
+    ['kupelnova_predlozka', 'kúpeľňová predložka', 'коврик в ванной'],
+  ],
+  'Кухня': [
+    ['chladnicka', 'chladnička', 'холодильник'], ['sporak', 'sporák', 'плита'], ['rura', 'rúra', 'духовка'],
+    ['kohutik', 'kohútik', 'кран'], ['mraznicka', 'mraznička', 'морозильник'], ['zastera', 'zástera', 'фартук'],
+    ['drez', 'drez', 'кухонная мойка, раковина на кухне'], ['umyvacka_riadu', 'umývačka riadu', 'посудомоечная машина'],
+    ['spongia', 'špongia', 'губка'], ['handra', 'handra', 'тряпка'], ['handricka', 'handrička', 'тряпочка'],
+    ['handricka_na_riad', 'handrička na riad', 'тряпка для посуды'],
   ],
   'Материалы и инструменты': [
     ['bavlna', 'bavlna', 'хлопок', 'noun'], ['hodvab', 'hodváb', 'шелк', 'noun'], ['kov', 'kov', 'металл', 'noun'],
@@ -1202,6 +1229,13 @@ export function syncPresetData(userId: string): void {
   const newSets: WordSet[] = []
   const newItems: WordSetItem[] = []
 
+  // Слово могли убрать из набора, не переименовывая/не удаляя сам набор
+  // (например, при переносе слов между существующими наборами) — для таких
+  // случаев мало добавлять новое, нужно ещё убрать привязку к старому месту.
+  // Копим ожидаемый состав каждого preset-набора по его id, чтобы в конце
+  // вычислить лишние (устаревшие) привязки.
+  const expectedWordIdsBySetId = new Map<string, Set<string>>()
+
   for (const [setName, presetWords] of Object.entries(PRESETS)) {
     let set = setByName.get(setName)
     if (!set) {
@@ -1219,6 +1253,9 @@ export function syncPresetData(userId: string): void {
       setByName.set(setName, set)
       newSets.push(set)
     }
+    const expectedWordIds = new Set<string>()
+    expectedWordIdsBySetId.set(set.id, expectedWordIds)
+
     // id пока не используется — локальная синхронизация по-прежнему
     // сверяет слова по паре sk+ru (см. комментарий у PresetEntry).
     for (const [, sk, ru, pos] of presetWords) {
@@ -1243,6 +1280,7 @@ export function syncPresetData(userId: string): void {
         wordIndex.set(cacheKey, wordId)
         newWords.push(word)
       }
+      expectedWordIds.add(wordId)
       const attachKey = `${wordId}|${set.id}`
       if (!attachedKeys.has(attachKey)) {
         attachedKeys.add(attachKey)
@@ -1251,12 +1289,24 @@ export function syncPresetData(userId: string): void {
     }
   }
 
+  const staleItemIds = new Set(
+    items
+      .filter((i) => {
+        const expected = expectedWordIdsBySetId.get(i.wordSetId)
+        return expected !== undefined && !expected.has(i.wordId)
+      })
+      .map((i) => i.id),
+  )
+
   if (newWords.length > 0) replaceWords([...words, ...newWords])
   if (newSets.length > 0 || staleSetIds.size > 0) {
     replaceWordSets([...sets.filter((s) => !staleSetIds.has(s.id)), ...newSets])
   }
-  if (newItems.length > 0 || staleSetIds.size > 0) {
-    replaceWordSetItems([...items.filter((i) => !staleSetIds.has(i.wordSetId)), ...newItems])
+  if (newItems.length > 0 || staleSetIds.size > 0 || staleItemIds.size > 0) {
+    replaceWordSetItems([
+      ...items.filter((i) => !staleSetIds.has(i.wordSetId) && !staleItemIds.has(i.id)),
+      ...newItems,
+    ])
   }
 }
 
