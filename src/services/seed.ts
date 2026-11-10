@@ -101,11 +101,14 @@ const SET_CATEGORIES: Record<string, string> = {
   'Основные глаголы 1': 'Язык и грамматика',
   'Основные глаголы 2': 'Язык и грамматика',
 
-  'Учеба и школа': 'Учёба, работа и техника',
+  'Школа': 'Учёба, работа и техника',
+  'Университет': 'Учёба, работа и техника',
+  'Язык и навыки': 'Учёба, работа и техника',
   'IT': 'Учёба, работа и техника',
   'Техника': 'Учёба, работа и техника',
   'Глаголы': 'Учёба, работа и техника',
-  'Финансы и деньги': 'Учёба, работа и техника',
+  'Банки и страхование': 'Учёба, работа и техника',
+  'Деньги и покупки': 'Учёба, работа и техника',
   'Глаголы: работа и организация': 'Учёба, работа и техника',
 
   'Здания': 'Город и транспорт',
@@ -577,6 +580,8 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['uplne', 'úplne', 'полностью, совершенно', 'adverb'], ['starostlivo', 'starostlivo', 'тщательно, заботливо', 'adverb'],
     ['spravne', 'správne', 'правильно, верно', 'adverb'],
     ['uprimne', 'úprimne', 'честно, искренне', 'adverb'], ['vyborne', 'výborne', 'отлично', 'adverb'],
+    ['nahodou', 'náhodou', 'случайно', 'adverb'], ['nastastie', 'našťastie', 'к счастью', 'adverb'],
+    ['bohuzial', 'bohužiaľ', 'к сожалению', 'adverb'], ['zial', 'žiaľ', 'к сожалению', 'adverb'],
   ],
   'Направления и расположение': [
     ['smer', 'smer', 'направление', 'noun'], ['vchod', 'vchod', 'вход', 'noun'], ['vychod', 'východ', 'выход, восток', 'noun'],
@@ -853,52 +858,62 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['prekladat', 'prekladať', 'переводить', 'verb'], ['tlmocit', 'tlmočiť', 'переводить устно', 'verb'],
     ['vyslovit', 'vysloviť', 'произносить', 'verb'], ['vyslovovat', 'vyslovovať', 'произнести', 'verb'],
   ],
-  'Учеба и школа': [
-    ['univerzita', 'univerzita', 'университет', 'noun'], ['trieda', 'trieda', 'класс', 'noun'], ['kurz', 'kurz', 'курс', 'noun'],
-    ['lekcia', 'lekcia', 'урок', 'noun'], ['uloha', 'úloha', 'задание', 'noun'], ['zadanie', 'zadanie', 'задание', 'noun'], ['skuska', 'skúška', 'экзамен', 'noun'],
-    ['test', 'test', 'тест', 'noun'], ['otazka', 'otázka', 'вопрос', 'noun'], ['odpoved', 'odpoveď', 'ответ', 'noun'],
-    ['kniha', 'kniha', 'книга', 'noun'], ['ucebnica', 'učebnica', 'учебник', 'noun'], ['zosit', 'zošit', 'тетрадь', 'noun'],
-    ['papier', 'papier', 'бумага', 'noun'], ['pero', 'pero', 'ручка', 'noun'], ['ceruzka', 'ceruzka', 'карандаш', 'noun'],
-    ['slovnik', 'slovník', 'словарь', 'noun'], ['slovnicek', 'slovníček', 'словарик', 'noun'], ['slovo', 'slovo', 'слово', 'noun'],
-    ['veta', 'veta', 'предложение', 'noun'], ['text', 'text', 'текст', 'noun'], ['gramatika', 'gramatika', 'грамматика', 'noun'],
-    ['vyslovnost', 'výslovnosť', 'произношение', 'noun'], ['vyznam', 'význam', 'значение', 'noun'], ['chyba', 'chyba', 'ошибка', 'noun'],
-    ['priklad', 'príklad', 'пример', 'noun'], ['predmet', 'predmet', 'предмет', 'noun'], ['matematika', 'matematika', 'математика', 'noun'],
-    ['dejepis', 'dejepis', 'история', 'noun'], ['geografia', 'geografia', 'география', 'noun'], ['biologia', 'biológia', 'биология', 'noun'],
-    ['chemia', 'chémia', 'химия', 'noun'], ['fyzika', 'fyzika', 'физика', 'noun'], ['informatika', 'informatika', 'информатика', 'noun'],
+  'Школа': [
+    ['trieda', 'trieda', 'класс', 'noun'], ['skolka', 'škôlka', 'детский сад', 'noun'],
+    ['ucebna', 'učebňa', 'учебная аудитория', 'noun'], ['lavica', 'lavica', 'парта', 'noun'],
     ['prestavka', 'prestávka', 'перемена, перерыв', 'noun'], ['znamka', 'známka', 'оценка', 'noun'], ['hodnotenie', 'hodnotenie', 'оценка', 'noun'],
-    ['semester', 'semester', 'семестр', 'noun'], ['prednaska', 'prednáška', 'лекция', 'noun'], ['seminar', 'seminár', 'семинар', 'noun'],
-    ['studium', 'štúdium', 'учеба', 'noun'], ['vzdelanie', 'vzdelanie', 'образование', 'noun'], ['vzdelavanie', 'vzdelávanie', 'образование', 'noun'],
-    ['ucenie', 'učenie', 'обучение', 'noun'], ['preklad', 'preklad', 'перевод', 'noun'],
-    ['ucebna', 'učebňa', 'учебная аудитория', 'noun'], ['aula', 'aula', 'актовый зал', 'noun'],
-    ['studovna', 'študovňa', 'читальный зал', 'noun'], ['skolka', 'škôlka', 'детский сад', 'noun'],
     ['krieda', 'krieda', 'мел', 'noun'], ['fixka', 'fixka', 'маркер', 'noun'], ['pravitko', 'pravítko', 'линейка', 'noun'],
     ['guma', 'guma', 'ластик', 'noun'], ['noznice', 'nožnice', 'ножницы', 'noun'], ['lepidlo', 'lepidlo', 'клей', 'noun'],
-    ['peracnik', 'peračník', 'пенал', 'noun'], ['lavica', 'lavica', 'парта', 'noun'], ['karticka', 'kartička', 'карточка', 'noun'],
-    ['samostudium', 'samoštúdium', 'самостоятельное обучение', 'noun'], ['uspesnost', 'úspešnosť', 'успешность', 'noun'],
-    ['skusajuci', 'skúšajúci', 'экзаменатор', 'noun'], ['maturita', 'maturita', 'выпускной экзамен', 'noun'],
-    ['vysvedcenie', 'vysvedčenie', 'табель, свидетельство', 'noun'], ['prospech', 'prospech', 'успеваемость', 'noun'],
+    ['peracnik', 'peračník', 'пенал', 'noun'], ['karticka', 'kartička', 'карточка', 'noun'],
+    ['zosit', 'zošit', 'тетрадь', 'noun'], ['papier', 'papier', 'бумага', 'noun'], ['pero', 'pero', 'ручка', 'noun'], ['ceruzka', 'ceruzka', 'карандаш', 'noun'],
+    ['diktat', 'diktát', 'диктант', 'noun'], ['vysvedcenie', 'vysvedčenie', 'табель, свидетельство', 'noun'],
+    ['maturita', 'maturita', 'выпускной экзамен', 'noun'], ['maturovat', 'maturovať', 'сдавать выпускной экзамен', 'verb'],
     ['dochadzka', 'dochádzka', 'посещаемость', 'noun'], ['absencia', 'absencia', 'отсутствие', 'noun'],
+    ['matematika', 'matematika', 'математика', 'noun'], ['dejepis', 'dejepis', 'история', 'noun'], ['geografia', 'geografia', 'география', 'noun'],
+    ['biologia', 'biológia', 'биология', 'noun'], ['chemia', 'chémia', 'химия', 'noun'], ['fyzika', 'fyzika', 'физика', 'noun'],
+    ['informatika', 'informatika', 'информатика', 'noun'],
+    ['studium', 'štúdium', 'учеба', 'noun'], ['vzdelanie', 'vzdelanie', 'образование', 'noun'], ['vzdelavanie', 'vzdelávanie', 'образование', 'noun'],
+    ['ucenie', 'učenie', 'обучение', 'noun'], ['samostudium', 'samoštúdium', 'самостоятельное обучение', 'noun'],
+    ['uspesnost', 'úspešnosť', 'успешность', 'noun'], ['prospech', 'prospech', 'успеваемость', 'noun'], ['ucivo', 'učivo', 'учебный материал', 'noun'],
+    ['opakovat', 'opakovať', 'повторять', 'verb'], ['zopakovat', 'zopakovať', 'повторить', 'verb'],
+    ['naucit_sa', 'naučiť sa', 'выучить', 'verb'], ['naucit', 'naučiť', 'научить', 'verb'], ['vzdelavat', 'vzdelávať', 'обучать', 'verb'],
+    ['vyucovat', 'vyučovať', 'преподавать', 'verb'], ['skusat', 'skúšať', 'экзаменовать, пробовать', 'verb'],
+    ['precvicit', 'precvičiť', 'тренировать', 'verb'], ['precvicovat', 'precvičovať', 'потренировать', 'verb'],
+    ['pochopit', 'pochopiť', 'понять', 'verb'],
+  ],
+  'Университет': [
+    ['univerzita', 'univerzita', 'университет', 'noun'],
+    ['semester', 'semester', 'семестр', 'noun'], ['prednaska', 'prednáška', 'лекция', 'noun'], ['seminar', 'seminár', 'семинар', 'noun'],
+    ['aula', 'aula', 'актовый зал', 'noun'], ['studovna', 'študovňa', 'читальный зал', 'noun'],
     ['internat', 'internát', 'общежитие', 'noun'], ['stipendium', 'štipendium', 'стипендия', 'noun'],
     ['skolne', 'školné', 'плата за обучение', 'noun'], ['prihlaska', 'prihláška', 'заявление на поступление', 'noun'],
     ['zapis', 'zápis', 'запись, регистрация', 'noun'], ['odbor', 'odbor', 'специальность', 'noun'],
     ['fakulta', 'fakulta', 'факультет', 'noun'], ['katedra', 'katedra', 'кафедра', 'noun'], ['bakalar', 'bakalár', 'бакалавр', 'noun'],
     ['magister', 'magister', 'магистр', 'noun'], ['doktorand', 'doktorand', 'аспирант', 'noun'],
-    ['certifikat', 'certifikát', 'сертификат', 'noun'], ['osvedcenie', 'osvedčenie', 'свидетельство', 'noun'], ['diplom', 'diplom', 'диплом', 'noun'],
-    ['ucivo', 'učivo', 'учебный материал', 'noun'], ['poznamka', 'poznámka', 'заметка', 'noun'], ['diktat', 'diktát', 'диктант', 'noun'],
+    ['promovat', 'promovať', 'выпускаться из университета', 'verb'],
+    ['diplom', 'diplom', 'диплом', 'noun'], ['certifikat', 'certifikát', 'сертификат', 'noun'], ['osvedcenie', 'osvedčenie', 'свидетельство', 'noun'],
+  ],
+  'Язык и навыки': [
+    ['kurz', 'kurz', 'курс', 'noun'],
+    ['lekcia', 'lekcia', 'урок', 'noun'], ['uloha', 'úloha', 'задание', 'noun'], ['zadanie', 'zadanie', 'задание', 'noun'], ['skuska', 'skúška', 'экзамен', 'noun'],
+    ['test', 'test', 'тест', 'noun'], ['otazka', 'otázka', 'вопрос', 'noun'], ['odpoved', 'odpoveď', 'ответ', 'noun'],
+    ['kniha', 'kniha', 'книга', 'noun'], ['ucebnica', 'učebnica', 'учебник', 'noun'],
+    ['slovnik', 'slovník', 'словарь', 'noun'], ['slovnicek', 'slovníček', 'словарик', 'noun'], ['slovo', 'slovo', 'слово', 'noun'],
+    ['veta', 'veta', 'предложение', 'noun'], ['text', 'text', 'текст', 'noun'], ['gramatika', 'gramatika', 'грамматика', 'noun'],
+    ['vyslovnost', 'výslovnosť', 'произношение', 'noun'], ['vyznam', 'význam', 'значение', 'noun'], ['chyba', 'chyba', 'ошибка', 'noun'],
+    ['priklad', 'príklad', 'пример', 'noun'], ['predmet', 'predmet', 'предмет', 'noun'], ['preklad', 'preklad', 'перевод', 'noun'],
+    ['poznamka', 'poznámka', 'заметка', 'noun'], ['skusajuci', 'skúšajúci', 'экзаменатор', 'noun'],
     ['pocuvanie', 'počúvanie', 'аудирование', 'noun'], ['citanie', 'čítanie', 'чтение', 'noun'], ['pisanie', 'písanie', 'письмо', 'noun'],
     ['hovorenie', 'hovorenie', 'говорение', 'noun'], ['porozumenie', 'porozumenie', 'понимание', 'noun'],
     ['konverzacia', 'konverzácia', 'разговорная практика', 'noun'], ['debata', 'debata', 'дебаты, беседа', 'noun'],
     ['argument', 'argument', 'аргумент', 'noun'], ['vyjadrenie', 'vyjadrenie', 'выражение, заявление', 'noun'],
     ['namietka', 'námietka', 'возражение', 'noun'],
-    ['prelozit', 'preložiť', 'перевести', 'verb'], ['opakovat', 'opakovať', 'повторять', 'verb'], ['zopakovat', 'zopakovať', 'повторить', 'verb'],
-    ['naucit_sa', 'naučiť sa', 'выучить', 'verb'], ['naucit', 'naučiť', 'научить', 'verb'], ['vzdelavat', 'vzdelávať', 'обучать', 'verb'],
-    ['maturovat', 'maturovať', 'сдавать выпускной экзамен', 'verb'], ['promovat', 'promovať', 'выпускаться из университета', 'verb'],
+    ['prelozit', 'preložiť', 'перевести', 'verb'],
     ['zapisovat', 'zapisovať', 'записывать', 'verb'], ['poznamenat', 'poznamenať', 'отметить', 'verb'],
     ['podciarknut', 'podčiarknuť', 'подчеркнуть', 'verb'], ['zakruzkovat', 'zakrúžkovať', 'обвести', 'verb'],
-    ['vyucovat', 'vyučovať', 'преподавать', 'verb'], ['skusat', 'skúšať', 'экзаменовать, пробовать', 'verb'],
-    ['precvicit', 'precvičiť', 'тренировать', 'verb'], ['precvicovat', 'precvičovať', 'потренировать', 'verb'], ['precitat', 'prečítať', 'прочитать', 'verb'],
+    ['precitat', 'prečítať', 'прочитать', 'verb'],
     ['komunikovat', 'komunikovať', 'общаться', 'verb'], ['debatovat', 'debatovať', 'дискутировать', 'verb'],
-    ['reagovat', 'reagovať', 'реагировать', 'verb'], ['pochopit', 'pochopiť', 'понять', 'verb'],
+    ['reagovat', 'reagovať', 'реагировать', 'verb'],
   ],
   'Здоровье и болезни': [
     ['zdravie', 'zdravie', 'здоровье', 'noun'], ['choroba', 'choroba', 'болезнь', 'noun'], ['bolest', 'bolesť', 'боль', 'noun'],
@@ -1076,8 +1091,6 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['uzkost', 'úzkosť', 'тревога', 'noun'], ['hanba', 'hanba', 'стыд', 'noun'],
     ['zavist', 'závisť', 'зависть', 'noun'], ['ziarlivost', 'žiarlivosť', 'ревность', 'noun'],
     ['zazitok', 'zážitok', 'впечатление, переживание, опыт', 'noun'],
-    ['nahodou', 'náhodou', 'случайно', 'adverb'], ['nastastie', 'našťastie', 'к счастью', 'adverb'],
-    ['bohuzial', 'bohužiaľ', 'к сожалению', 'adverb'], ['zial', 'žiaľ', 'к сожалению', 'adverb'],
   ],
   'Черты характера': [
     ['charakter', 'charakter', 'характер', 'noun'], ['povaha', 'povaha', 'характер', 'noun'], ['osobnost', 'osobnosť', 'личность', 'noun'], ['osoba', 'osoba', 'лицо, человек', 'noun'],
@@ -1162,29 +1175,34 @@ const PRESETS: Record<string, PresetEntry[]> = {
     ['vypinat', 'vypínať', 'выключать', 'verb'], ['zapinat', 'zapínať', 'включать', 'verb'],
     ['odhlasit_sa', 'odhlásiť sa', 'отписаться, отменить регистрацию', 'verb'], ['skopirovat', 'skopírovať', 'скопировать', 'verb'],
   ],
-  'Финансы и деньги': [
-    ['cena', 'cena', 'цена', 'noun'], ['peniaze', 'peniaze', 'деньги', 'noun'], ['euro', 'euro', 'евро', 'noun'],
-    ['ucet', 'účet', 'счет', 'noun'], ['pokladna', 'pokladňa', 'касса', 'noun'], ['zlava', 'zľava', 'скидка', 'noun'],
-    ['tovar', 'tovar', 'товар', 'noun'], ['nakup', 'nákup', 'покупка', 'noun'],
-    ['dan', 'daň', 'налог', 'noun'], ['poplatok', 'poplatok', 'сбор, плата, пошлина', 'noun'], ['urok', 'úrok', 'процент (по кредиту)', 'noun'],
-    ['dlh', 'dlh', 'долг', 'noun'], ['prijem', 'príjem', 'доход', 'noun'], ['vydavok', 'výdavok', 'расход', 'noun'],
-    ['majetok', 'majetok', 'имущество', 'noun'], ['vlastnictvo', 'vlastníctvo', 'собственность', 'noun'], ['nehnutelnost', 'nehnuteľnosť', 'недвижимость', 'noun'],
-    ['pozemok', 'pozemok', 'земельный участок', 'noun'], ['kaucia', 'kaucia', 'залог', 'noun'], ['depozit', 'depozit', 'депозит', 'noun'],
+  'Банки и страхование': [
+    ['ucet', 'účet', 'счет', 'noun'], ['bankomat', 'bankomat', 'банкомат', 'noun'], ['karta', 'karta', 'карта', 'noun'],
+    ['hotovost', 'hotovosť', 'наличные', 'noun'], ['minca', 'minca', 'монета', 'noun'], ['bankovka', 'bankovka', 'банкнота', 'noun'],
+    ['vymena', 'výmena', 'обмен', 'noun'],
+    ['dlh', 'dlh', 'долг', 'noun'], ['kaucia', 'kaucia', 'залог', 'noun'], ['depozit', 'depozit', 'депозит', 'noun'],
     ['sporenie', 'sporenie', 'накопление', 'noun'], ['investicia', 'investícia', 'инвестиция', 'noun'], ['hypoteka', 'hypotéka', 'ипотека', 'noun'],
     ['uver', 'úver', 'кредит', 'noun'], ['splatka', 'splátka', 'взнос', 'noun'], ['poistne', 'poistné', 'страховой взнос', 'noun'],
     ['poistenie', 'poistenie', 'страхование', 'noun'], ['poistovna', 'poisťovňa', 'страховая компания', 'noun'],
     ['nahrada', 'náhrada', 'компенсация', 'noun'], ['odskodnenie', 'odškodnenie', 'возмещение', 'noun'],
-    ['bankomat', 'bankomat', 'банкомат', 'noun'], ['karta', 'karta', 'карта', 'noun'], ['hotovost', 'hotovosť', 'наличные', 'noun'],
-    ['minca', 'minca', 'монета', 'noun'], ['bankovka', 'bankovka', 'банкнота', 'noun'], ['vymena', 'výmena', 'обмен', 'noun'],
     ['pozicka', 'pôžička', 'заем', 'noun'], ['uspora', 'úspora', 'сбережение', 'noun'],
+    ['majetok', 'majetok', 'имущество', 'noun'], ['vlastnictvo', 'vlastníctvo', 'собственность', 'noun'], ['nehnutelnost', 'nehnuteľnosť', 'недвижимость', 'noun'],
+    ['pozemok', 'pozemok', 'земельный участок', 'noun'], ['urok', 'úrok', 'процент (по кредиту)', 'noun'],
+    ['vlastnit', 'vlastniť', 'владеть', 'verb'], ['pozicat', 'požičať', 'одолжить', 'verb'], ['pozicat_si', 'požičať si', 'взять взаймы', 'verb'],
+    ['splatit', 'splatiť', 'погасить', 'verb'], ['poistit', 'poistiť', 'застраховать', 'verb'],
+    ['setrit', 'šetriť', 'экономить, беречь', 'verb'], ['usetrit', 'ušetriť', 'сэкономить', 'verb'],
+  ],
+  'Деньги и покупки': [
+    ['cena', 'cena', 'цена', 'noun'], ['peniaze', 'peniaze', 'деньги', 'noun'], ['euro', 'euro', 'евро', 'noun'],
+    ['pokladna', 'pokladňa', 'касса', 'noun'], ['zlava', 'zľava', 'скидка', 'noun'],
+    ['tovar', 'tovar', 'товар', 'noun'], ['nakup', 'nákup', 'покупка', 'noun'],
+    ['dan', 'daň', 'налог', 'noun'], ['poplatok', 'poplatok', 'сбор, плата, пошлина', 'noun'],
+    ['prijem', 'príjem', 'доход', 'noun'], ['vydavok', 'výdavok', 'расход', 'noun'],
     ['zisk', 'zisk', 'прибыль', 'noun'], ['strata_2', 'strata', 'потеря, убыток', 'noun'], ['naklad', 'náklad', 'расход, груз', 'noun'],
     ['vynos', 'výnos', 'доход', 'noun'], ['obrat', 'obrat', 'оборот', 'noun'], ['trzba', 'tržba', 'выручка', 'noun'],
     ['rozpocet', 'rozpočet', 'бюджет', 'noun'],
-    ['minut', 'minúť', 'потратить', 'verb'], ['setrit', 'šetriť', 'экономить, беречь', 'verb'], ['usetrit', 'ušetriť', 'сэкономить', 'verb'],
-    ['vlastnit', 'vlastniť', 'владеть', 'verb'], ['zarobit', 'zarobiť', 'заработать', 'verb'],
+    ['minut', 'minúť', 'потратить', 'verb'], ['zarobit', 'zarobiť', 'заработать', 'verb'],
     ['platit', 'platiť', 'платить', 'verb'], ['zaplatit', 'zaplatiť', 'заплатить', 'verb'], ['kupit', 'kúpiť', 'купить', 'verb'], ['predat', 'predať', 'продать', 'verb'],
-    ['uhradit', 'uhradiť', 'оплатить', 'verb'], ['pozicat', 'požičať', 'одолжить', 'verb'], ['pozicat_si', 'požičať si', 'взять взаймы', 'verb'],
-    ['splatit', 'splatiť', 'погасить', 'verb'], ['poistit', 'poistiť', 'застраховать', 'verb'],
+    ['uhradit', 'uhradiť', 'оплатить', 'verb'],
   ],
   'Глаголы: работа и организация': [
     ['absolvovat', 'absolvovať', 'проходить, завершать', 'verb'], ['akceptovat', 'akceptovať', 'принимать, соглашаться', 'verb'],
@@ -1302,6 +1320,11 @@ export function syncPresetData(userId: string): void {
   const newWords: Word[] = []
   const newSets: WordSet[] = []
   const newItems: WordSetItem[] = []
+  // Категория набора могла поменяться в SET_CATEGORIES (например, при
+  // разделении одной общей категории на несколько) без переименования
+  // самого набора — иначе уже созданный у пользователя набор так и остался
+  // бы навсегда привязан к старой категории.
+  const updatedSetsById = new Map<string, WordSet>()
 
   // Слово могли убрать из набора, не переименовывая/не удаляя сам набор
   // (например, при переносе слов между существующими наборами) — для таких
@@ -1326,6 +1349,13 @@ export function syncPresetData(userId: string): void {
       }
       setByName.set(setName, set)
       newSets.push(set)
+    } else {
+      const expectedCategory = SET_CATEGORIES[setName] ?? null
+      if (set.category !== expectedCategory) {
+        set = { ...set, category: expectedCategory, updatedAt: nowIso() }
+        setByName.set(setName, set)
+        updatedSetsById.set(set.id, set)
+      }
     }
     const expectedWordIds = new Set<string>()
     expectedWordIdsBySetId.set(set.id, expectedWordIds)
@@ -1373,8 +1403,11 @@ export function syncPresetData(userId: string): void {
   )
 
   if (newWords.length > 0) replaceWords([...words, ...newWords])
-  if (newSets.length > 0 || staleSetIds.size > 0) {
-    replaceWordSets([...sets.filter((s) => !staleSetIds.has(s.id)), ...newSets])
+  if (newSets.length > 0 || staleSetIds.size > 0 || updatedSetsById.size > 0) {
+    replaceWordSets([
+      ...sets.filter((s) => !staleSetIds.has(s.id)).map((s) => updatedSetsById.get(s.id) ?? s),
+      ...newSets,
+    ])
   }
   if (newItems.length > 0 || staleSetIds.size > 0 || staleItemIds.size > 0) {
     replaceWordSetItems([
