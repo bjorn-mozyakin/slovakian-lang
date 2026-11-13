@@ -7,6 +7,7 @@ import { useWordSets } from '../../hooks/useWordSets'
 import { useSelectedWordSets } from '../../hooks/useSelectedWordSets'
 import { getSprintScores } from '../../services/db'
 import { getNotLearnedPool, getWordsBySetIds } from '../../services/wordsService'
+import { wordsCountLabel } from '../../utils/pluralize'
 import { Button } from '../../components/ui/Button'
 import './ResultPage.scss'
 
@@ -23,11 +24,15 @@ export function ResultPage() {
   const { selectedIds } = useSelectedWordSets(sets)
   const result = location.state as RoundResult | undefined
 
-  const hasMoreWords = result
+  // Спринт — исключение: там всегда доступны все слова набора, без
+  // исключения по прогрессу (см. GamePage.tsx), поэтому для него просто
+  // общее число слов в выбранных наборах.
+  const remainingCount = result
     ? result.gameType === 'sprint'
-      ? getWordsBySetIds(userId, selectedIds).length > 0
-      : getNotLearnedPool(userId, selectedIds, result.gameType).length > 0
-    : false
+      ? getWordsBySetIds(userId, selectedIds).length
+      : getNotLearnedPool(userId, selectedIds, result.gameType).length
+    : 0
+  const hasMoreWords = remainingCount > 0
 
   useEffect(() => {
     if (!result) return
@@ -111,9 +116,12 @@ export function ResultPage() {
 
         <div className="result-page__actions">
           {hasMoreWords && (
-            <Button fullWidth onClick={() => navigate(`/game/${result.gameType}`, { replace: true })}>
-              Играть ещё раз <span className="result-page__key-hint">Enter</span>
-            </Button>
+            <>
+              <p className="result-page__remaining">Осталось {wordsCountLabel(remainingCount)} для этой игры</p>
+              <Button fullWidth onClick={() => navigate(`/game/${result.gameType}`, { replace: true })}>
+                Играть ещё раз <span className="result-page__key-hint">Enter</span>
+              </Button>
+            </>
           )}
           <Button fullWidth variant="secondary" onClick={() => navigate('/')}>
             К странице Тренировки <span className="result-page__key-hint">Esc</span>

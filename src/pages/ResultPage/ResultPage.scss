@@ -103,6 +103,12 @@
     margin-top: v.$space-4;
   }
 
+  &__remaining {
+    font-size: v.$font-size-sm;
+    color: v.$color-text-muted;
+    text-align: center;
+  }
+
   &__key-hint {
     opacity: 0.7;
     font-size: v.$font-size-sm;
