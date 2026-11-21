@@ -107,6 +107,7 @@ export function WordSetDetailPage() {
     <div className="word-set-detail-page">
       <PageHeader
         title={set.name}
+        onBack={() => navigate('/word-sets')}
         actions={
           <>
             <Button variant="ghost" onClick={openEditSet}>

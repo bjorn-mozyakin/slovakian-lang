@@ -4,6 +4,7 @@ import { useWordSets } from '../../hooks/useWordSets'
 import { insertWordSet, deleteWordSet } from '../../services/db'
 import { useWords } from '../../hooks/useWords'
 import { getWordsBySetIds } from '../../services/wordsService'
+import { readJson, writeJson, STORAGE_KEYS } from '../../services/localStorageKeys'
 import type { WordSet } from '../../entities/types'
 import { PageHeader } from '../../components/ui/PageHeader'
 import { Button } from '../../components/ui/Button'
@@ -28,8 +29,24 @@ export function WordSetsPage() {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<Tab>('recommended')
-  const [activeCategory, setActiveCategory] = useState<string>(ALL_CATEGORIES)
+  // Запоминаем в localStorage, а не только в состоянии компонента — чтобы при
+  // переходе в конкретный набор и возврате назад фильтр не сбрасывался.
+  const [activeTab, setActiveTabState] = useState<Tab>(() =>
+    readJson(STORAGE_KEYS.wordSetsActiveTab, 'recommended' as Tab),
+  )
+  const [activeCategory, setActiveCategoryState] = useState<string>(() =>
+    readJson(STORAGE_KEYS.wordSetsActiveCategory, ALL_CATEGORIES),
+  )
+
+  function setActiveTab(tab: Tab) {
+    setActiveTabState(tab)
+    writeJson(STORAGE_KEYS.wordSetsActiveTab, tab)
+  }
+
+  function setActiveCategory(category: string) {
+    setActiveCategoryState(category)
+    writeJson(STORAGE_KEYS.wordSetsActiveCategory, category)
+  }
   const [deletingSet, setDeletingSet] = useState<WordSet | null>(null)
 
   // "Рекомендованные" — preset-наборы, заданные по умолчанию; "Мои" —

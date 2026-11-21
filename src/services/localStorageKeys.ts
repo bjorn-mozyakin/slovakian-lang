@@ -7,6 +7,8 @@ export const STORAGE_KEYS = {
   seeded: 'slovak_trainer:seeded_v1',
   sprintScores: 'slovak_trainer:sprint_scores',
   autoplayPronunciation: 'slovak_trainer:autoplay_pronunciation',
+  wordSetsActiveTab: 'slovak_trainer:word_sets_active_tab',
+  wordSetsActiveCategory: 'slovak_trainer:word_sets_active_category',
 } as const
 
 export function readJson<T>(key: string, fallback: T): T {
