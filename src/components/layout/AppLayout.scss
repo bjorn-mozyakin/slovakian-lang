@@ -65,19 +65,26 @@
     align-items: center;
     justify-content: center;
     gap: 2px;
+    margin: v.$space-1 0;
+    border-radius: v.$radius-md;
     text-decoration: none;
     color: v.$color-text-muted;
     font-size: v.$font-size-sm;
+    transition: background-color 0.15s ease, color 0.15s ease;
 
     @include m.desktop {
       flex-direction: row;
       flex: none;
       gap: v.$space-2;
+      margin: 0;
+      padding: v.$space-2 v.$space-3;
       font-size: v.$font-size-base;
     }
 
     &--active {
       color: v.$color-primary;
+      background: v.$color-primary-light;
+      font-weight: 600;
     }
   }
 
