@@ -9,7 +9,7 @@ interface WordCardProps {
   onToggleStatus: (word: Word) => void
   onEdit: (word: Word) => void
   onDelete: (word: Word) => void
-  /** Категории наборов, в которые входит слово — показываются мелкими метками, если переданы. */
+  /** Метки "Категория → Набор" для каждого набора, в который входит слово — показываются мелкими метками, если переданы. */
   categories?: string[]
 }
 

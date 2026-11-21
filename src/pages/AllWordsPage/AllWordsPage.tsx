@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { useWords } from '../../hooks/useWords'
 import * as db from '../../services/db'
-import { getSetsForWord, getWordCategoriesMap } from '../../services/wordsService'
+import { getSetsForWord, getWordSetLabelsMap } from '../../services/wordsService'
 import { PageHeader } from '../../components/ui/PageHeader'
 import { Button } from '../../components/ui/Button'
 import { EmptyState } from '../../components/ui/EmptyState'
@@ -49,9 +49,10 @@ export function AllWordsPage() {
     [matchingQuery],
   )
 
-  // Одним проходом считаем категории для всех слов сразу — иначе на 2000+
-  // словах пришлось бы гонять поиск наборов по каждому слову отдельно.
-  const categoriesByWord = useMemo(() => getWordCategoriesMap(userId), [userId, words])
+  // Одним проходом считаем метки "Категория → Набор" для всех слов сразу —
+  // иначе на 2000+ словах пришлось бы гонять поиск наборов по каждому слову
+  // отдельно.
+  const setLabelsByWord = useMemo(() => getWordSetLabelsMap(userId), [userId, words])
 
   function handleToggleStatus(word: Word) {
     db.setWordsStatus([word.id], word.status === 'learned' ? 'not_learned' : 'learned')
@@ -130,7 +131,7 @@ export function AllWordsPage() {
             <WordCard
               key={word.id}
               word={word}
-              categories={categoriesByWord.get(word.id)}
+              categories={setLabelsByWord.get(word.id)}
               onToggleStatus={handleToggleStatus}
               onEdit={setEditingWord}
               onDelete={setDeletingWord}

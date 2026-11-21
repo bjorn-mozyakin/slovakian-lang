@@ -95,26 +95,30 @@ export function getCategoriesForWord(userId: string, wordId: string): string[] {
 }
 
 /**
- * Карта id слова → его категории, посчитанная одним проходом по всем
- * наборам/связям — для списков (например "Все слова"), где считать
- * категории по каждому слову отдельным проходом было бы медленно.
+ * Карта id слова → метки вида "Категория → Набор" (или просто "Набор", если
+ * у него нет категории) по каждому набору, в который входит слово — одна
+ * метка на набор, а не на категорию, чтобы слово из нескольких наборов
+ * одной категории показывало каждый набор отдельно. Считается одним
+ * проходом по всем наборам/связям — для списков вроде "Все слова", где
+ * считать это по каждому слову отдельным проходом было бы медленно.
  */
-export function getWordCategoriesMap(userId: string): Map<string, string[]> {
-  const setCategoryById = new Map(
+export function getWordSetLabelsMap(userId: string): Map<string, string[]> {
+  const setInfoById = new Map(
     db.getWordSets()
       .filter((s) => s.userId === userId)
-      .map((s) => [s.id, s.category] as const),
+      .map((s) => [s.id, { name: s.name, category: s.category }] as const),
   )
   const byWord = new Map<string, Set<string>>()
   for (const item of db.getWordSetItems()) {
-    const category = setCategoryById.get(item.wordSetId)
-    if (!category) continue
+    const info = setInfoById.get(item.wordSetId)
+    if (!info) continue
+    const label = info.category ? `${info.category} → ${info.name}` : info.name
     if (!byWord.has(item.wordId)) byWord.set(item.wordId, new Set())
-    byWord.get(item.wordId)!.add(category)
+    byWord.get(item.wordId)!.add(label)
   }
   const result = new Map<string, string[]>()
-  for (const [wordId, categories] of byWord) {
-    result.set(wordId, [...categories].sort((a, b) => a.localeCompare(b, 'ru')))
+  for (const [wordId, labels] of byWord) {
+    result.set(wordId, [...labels].sort((a, b) => a.localeCompare(b, 'ru')))
   }
   return result
 }
