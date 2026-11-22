@@ -4,6 +4,7 @@ import { SLOVAK_SPECIAL_CHARS } from '../../entities/types'
 import type { Tense, VerbPhrase } from '../../entities/verbs'
 import { PRONOUNS, TENSES, VERBS, buildPhrase } from '../../entities/verbs'
 import { shuffle, isAnswerCorrect } from '../../services/wordsService'
+import { insertAtCursor } from '../../utils/insertAtCursor'
 import { GameShell } from '../../components/layout/GameShell'
 import { Button } from '../../components/ui/Button'
 import './GrammarPage.scss'
@@ -84,8 +85,15 @@ function GrammarPlaySession({ direction, tenses }: { direction: Direction; tense
   }
 
   function insertChar(ch: string) {
-    setValue((v) => v + ch)
-    inputRef.current?.focus()
+    const input = inputRef.current
+    const { value: next, cursor } = insertAtCursor(input, value, ch)
+    setValue(next)
+    // Курсор можно восстановить только после того, как React отрисует новое
+    // value — иначе setSelectionRange сработает на ещё старом тексте поля.
+    requestAnimationFrame(() => {
+      input?.focus()
+      input?.setSelectionRange(cursor, cursor)
+    })
   }
 
   useEffect(() => {

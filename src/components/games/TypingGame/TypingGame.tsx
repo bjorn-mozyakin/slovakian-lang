@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { GameType, RoundResult, Word } from '../../../entities/types'
 import { SLOVAK_SPECIAL_CHARS } from '../../../entities/types'
 import { isAnswerCorrect } from '../../../services/wordsService'
+import { insertAtCursor } from '../../../utils/insertAtCursor'
 import { recordAnswer } from '../../../services/db'
 import { speakSlovak } from '../../../services/speech'
 import { useAutoplaySetting } from '../../../hooks/useAutoplaySetting'
@@ -57,8 +58,15 @@ export function TypingGame({ gameType, words, direction, onFinish }: TypingGameP
   }
 
   function insertChar(ch: string) {
-    setValue((v) => v + ch)
-    inputRef.current?.focus()
+    const input = inputRef.current
+    const { value: next, cursor } = insertAtCursor(input, value, ch)
+    setValue(next)
+    // Курсор можно восстановить только после того, как React отрисует новое
+    // value — иначе setSelectionRange сработает на ещё старом тексте поля.
+    requestAnimationFrame(() => {
+      input?.focus()
+      input?.setSelectionRange(cursor, cursor)
+    })
   }
 
   useEffect(() => {
